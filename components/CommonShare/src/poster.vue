@@ -114,7 +114,7 @@
 		&_container {
 			width: 100%;
 			height: 956rpx;
-			margin-top: 178rpx;
+			margin-top: 176rpx;
 		}
 
 		.swiper {
@@ -137,7 +137,7 @@
 		}
 
 		.poster_item image {
-			width: 95%;
+			width: 92%;
 			/* 海报图片宽度，可根据实际调整 */
 			height: 872rpx;
 		}
@@ -150,7 +150,7 @@
 			background: linear-gradient(180deg, #FF8B27 0%, #FF6B31 100%);
 			border-radius: 50rpx;
 			width: 80%;
-			margin-top: 30rpx;
+			margin-top: 20rpx;
 			margin-left: 76rpx;
 
 			.btn_img {
@@ -177,7 +177,7 @@
 			font-weight: 400;
 			font-size: 24rpx;
 			color: #FFFFFF;
-			margin-top: 32rpx;
+			margin-top: 52rpx;
 
 			.share_list {
 				flex: 1;
