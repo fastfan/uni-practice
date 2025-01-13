@@ -1,0 +1,101 @@
+view,
+input,
+textarea,
+block,
+navigator,
+swiper,
+swiper-item,
+form,
+scroll-view,
+picker,
+picker-view,
+checkbox-group,
+checkbox,
+radio {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: $u-bg-color;
+	font-size: 28rpx;
+	color: $u-text-main;
+}
+
+/* flex布局 */
+.flex_box {
+	display: -webkit-flex;
+	display: flex;
+	align-items: center;
+}
+
+.flex_row_between {
+	justify-content: space-between;
+}
+
+.flex_row_center {
+	justify-content: center;
+}
+
+.flex_row_around {
+	justify-content: space-around;
+}
+
+.flex_row_end {
+	justify-content: flex-end;
+}
+
+.flex_direction {
+	flex-direction: column;
+}
+
+.flex_col_top {
+	align-items: flex-start;
+}
+
+.flex_col_bottom {
+	align-items: flex-end;
+}
+
+.flex_wrap {
+	flex-wrap: wrap;
+}
+
+.flex_shrink {
+	flex-shrink: 0;
+}
+
+.overflow_hidden {
+	overflow: hidden;
+}
+
+.ft {
+	float: left;
+}
+
+.rt {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+// 空列表
+.empty_box {
+	padding: 100rpx 0 0;
+}
+
+.empty_btn {
+	height: 150rpx;
+}
+
+image,
+img {
+	vertical-align: bottom;
+}
+
+/* modal框溢出滚动 */
+.modal_scroll {
+	max-height: 720rpx;
+	overflow-y: scroll;
+}

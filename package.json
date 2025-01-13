@@ -1,0 +1,14 @@
+{
+	"name": "JI-FEN-UNI",
+	"version": "1.0.0",
+	"description": "51生活服务demo",
+	"main": "main.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "weifan",
+	"license": "MIT",
+	"dependencies": {
+		"axios": "^0.21.1"
+	}
+}

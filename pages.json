@@ -1,0 +1,122 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/index/index",
+			"style": {
+				"navigationStyle": "custom", // 隐藏系统导航栏
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/benefit/index/index",
+			"style": {
+				"navigationBarTitleText": "福利",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/find/index/index",
+			"style": {
+				"navigationBarTitleText": "发现",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/mine/index/index",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/shop/index/index",
+			"style": {
+				"navigationBarTitleText": "商城",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/login/agreement",
+			"style": {
+				"navigationBarTitleText": "用户隐私协议",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/driving/driving",
+			"style": {
+				"navigationBarTitleText": "司机认证"
+			}
+		},
+		{
+			"path": "pages/benefit/slide/slide",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}
+	],
+	"tabBar": {
+		"backgroundColor": "#FFFFFF",
+		"color": "#333333",
+		"selectedColor": "#FF242F",
+		"list": [{
+				"iconPath": "static/tab/tab1.png",
+				"selectedIconPath": "static/tab/tab1-active.png",
+				"pagePath": "pages/home/index/index",
+				"text": "首页"
+			},
+			{
+				"iconPath": "static/tab/tab4.png",
+				"selectedIconPath": "static/tab/tab4-active.png",
+				"pagePath": "pages/benefit/index/index",
+				"text": "福利"
+			},
+			{
+				"iconPath": "static/tab/tab3.png",
+				"selectedIconPath": "static/tab/tab3-active.png",
+				"pagePath": "pages/find/index/index",
+				"text": "发现"
+			},
+			{
+				"iconPath": "static/tab/tab2.png",
+				"selectedIconPath": "static/tab/tab2-active.png",
+				"pagePath": "pages/shop/index/index",
+				"text": "商城"
+			},
+			{
+				"iconPath": "static/tab/tab5.png",
+				"selectedIconPath": "static/tab/tab5-active.png",
+				"pagePath": "pages/mine/index/index",
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "51生活服务",
+		"navigationBarBackgroundColor": "#F2F2F2",
+		"backgroundColor": "#F2F2F2"
+	},
+	"uniIdRouter": {},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于小程序位置接口的效果展示"
+		}
+	}
+}
