@@ -14,7 +14,6 @@ appid：wx12d18753d44c5e41
 
 ## 依赖
 - uni-crazy-router：路由守卫
-- uni-read-pages: 页面配置扩展
 - uview-ui: uview-ui框架
 
 ## 项目结构 
