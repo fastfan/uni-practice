@@ -1,8 +1,8 @@
 <template>
 	<view class="user_center">
 		<u-navbar title="个人中心" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
-		<u-modal :show="show" :title="title" :content='content' showCancelButton="true" confirm-text="立即登录"
-			cancel-text="稍后登录" @cancel="cancel" @confirm="confirm"></u-modal>
+		<!-- 		<u-modal :show="show" :title="title" :content='content' showCancelButton="true" confirm-text="立即登录"
+			cancel-text="稍后登录" @cancel="cancel" @confirm="confirm"></u-modal> -->
 		<view class="user_center_top">
 			<view class="lt user_center_top_left">
 				<u-avatar :src="userInfo.headImgUrl" class="lt" :size="66"></u-avatar>
@@ -22,14 +22,23 @@
 				</view>
 			</view>
 		</view>
-		<u-button text="获取当前用户的司机信息" :plain="true" type="primary" @click="getDriverInfo">
-		</u-button>
+		<view class="user_center_mid">
+			<!-- <u--image src="/static/fenxiangzhuan@2x.png" width="100%" height="272rpx" @click="clickToShare"></u--image> -->
+			<view style="margin: 0 0 24rpx 0;">分享赚</view>
+			<CommonShare />
+		</view>
+		<!-- 	<u-button text="获取当前用户的司机信息" :plain="true" type="primary" @click="getDriverInfo">
+		</u-button> -->
 
 	</view>
 </template>
 
 <script>
+	import CommonShare from '@/components/CommonShare/src/index.vue'
 	export default {
+		components: {
+			CommonShare
+		},
 		data() {
 			return {
 				show: false,
@@ -37,8 +46,8 @@
 				content: '为了您更好的体验，请先前往登录！',
 				userInfo: {
 					headImgUrl: '/static/default_avatar.png',
-					nickname: '',
-					phoneNumber: '',
+					nickname: '路易威登',
+					phoneNumber: '15967145046',
 				},
 				driverInfo: {}
 			};
@@ -171,6 +180,12 @@
 					padding-top: 12rpx;
 				}
 			}
+		}
+
+		&_mid {
+			height: 284rpx;
+			background: #FFFFFF;
+			padding: 0 24rpx;
 		}
 	}
 </style>

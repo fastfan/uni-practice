@@ -33,7 +33,6 @@
 	import {
 		getTimestamp
 	} from "@/utils/utils.js"
-	const CryptoJS = require("crypto-js");
 	export default {
 		data() {
 			return {

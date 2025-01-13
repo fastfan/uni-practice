@@ -1,7 +1,6 @@
 /**
  * 基于uni的request适配器,传入该适配器可直接适应axios
  */
-const CryptoJS = require("crypto-js");
 
 function uniAdapter(config) {
 	const secretKey = "60ffacb3fe9744a3a9ee8b82d0d64d10"
