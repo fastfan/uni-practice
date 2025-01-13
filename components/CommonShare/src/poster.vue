@@ -7,6 +7,30 @@
 				<swiper-item v-for="(item, index) in posterList" :key="index" class="swiper_item_custom">
 					<view class="poster_item">
 						<image :src="item.imageUrl" mode="widthFix"></image>
+						<view class="poster_item_box" :class="item.class">
+							<view class="poster_item_box_top">
+								<view class="box_top_left">
+									<view class="box_top_left_l" :class="item.class">
+										<image src="/static/28.png" mode="widthFix"></image>
+									</view>
+									<view class="box_top_left_r">
+										<view class="text">大门牙胖仔</view>
+										<view class="text text2">189****1312</view>
+									</view>
+								</view>
+								<view class="box_top_right">
+									<image src="/static/share/img_jinbi@2x.png" mode="widthFix"></image>
+								</view>
+							</view>
+							<view class="poster_item_box_btm">
+								<view class="box_btm_left"></view>
+								<view class="box_btm_right">
+									<view class="box_btm_right_t"></view>
+									<view class="box_btm_right_m"></view>
+									<view class="box_btm_right_b"></view>
+								</view>
+							</view>
+						</view>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -20,7 +44,8 @@
 			</view>
 		</view>
 		<view class="poster_slider_share">
-			<view v-for="(item,index) in shareList" :key="index" class="share_list" @click.native.stop="clickShareBtn(item)">
+			<view v-for="(item,index) in shareList" :key="index" class="share_list"
+				@click.native.stop="clickShareBtn(item)">
 				<image :src="item.icon" mode="widthFix">
 				</image>
 				<view class="share_list_text">{{item.text}}</view>
@@ -42,19 +67,24 @@
 			return {
 				currentIndex: 0,
 				posterList: [{
-						imageUrl: '/static/share/img_haibao1@2x.png'
+						imageUrl: '/static/share/img_haibao1@2x.png',
+						class: 'red'
 					},
 					{
-						imageUrl: '/static/share/img_haibao2@2x.png'
+						imageUrl: '/static/share/img_haibao2@2x.png',
+						class: 'blue'
 					},
 					{
-						imageUrl: '/static/share/img_haibao3@2x.png'
+						imageUrl: '/static/share/img_haibao3@2x.png',
+						class: 'green'
 					},
 					{
-						imageUrl: '/static/share/img_haibao4@2x.png'
+						imageUrl: '/static/share/img_haibao4@2x.png',
+						class: 'purple'
 					},
 					{
-						imageUrl: '/static/share/img_haibao5@2x.png'
+						imageUrl: '/static/share/img_haibao5@2x.png',
+						class: 'orange'
 					},
 				],
 				shareList: [{
@@ -127,6 +157,118 @@
 			align-items: center;
 			transition: transform 0.3s ease;
 			/* 添加过渡效果，使滑动更平滑 */
+			position: relative;
+
+			&_box {
+				height: 410rpx;
+				border-radius: 8rpx;
+				width: 82%;
+				position: absolute;
+				top: 480rpx;
+
+				&_top {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					text-align: right;
+
+					.box_top_left {
+						flex: 1;
+						margin-top: 30rpx;
+
+						&_l {
+							border-radius: 50%;
+							border: 2rpx solid rgba(255, 157, 100, 1);
+							color: rgba(169, 73, 42, 1);
+							width: 88rpx;
+							height: 88rpx;
+							margin: 0 20rpx 0 18rpx;
+
+							image {
+								width: 84rpx;
+								height: 84rpx !important;
+								border-radius: 50%;
+							}
+
+							float: left;
+						}
+
+						.red {
+							border: 2rpx solid rgba(255, 157, 100, 1);
+							color: #A9492A;
+						}
+
+						.blue {
+							border: 2rpx solid rgba(101, 172, 255, 1);
+							color: #1E81F6;
+						}
+
+						.green {
+							border: 2rpx solid rgba(102, 230, 37, 1);
+							color: #0BA827;
+						}
+
+						.purple {
+							border: 2rpx solid rgba(228, 119, 177, 1);
+							color: #E54685;
+						}
+
+						.orange {
+							border: 2rpx solid rgba(255, 157, 100, 1);
+							color: #CC4502;
+						}
+
+						&_r {
+							float: left;
+							line-height: 45rpx;
+
+							.text {
+								font-weight: 500;
+								font-size: 26rpx;
+							}
+
+							.text2 {
+								font-size: 22rpx;
+							}
+						}
+					}
+
+					.box_top_right {
+						flex: 1;
+
+						image {
+							width: 170rpx;
+							height: 114rpx;
+							margin-top: 10rpx;
+							margin-right: 20rpx;
+						}
+					}
+				}
+			}
+
+			.red {
+				background: linear-gradient(180deg, #F9F5F5 0%, #FFE1CE 100%);
+			}
+
+			.blue {
+				background: rgba(255, 255, 255, 0.28);
+				backdrop-filter: blur(20rpx);
+			}
+
+			.green {
+				background: rgba(255, 255, 255, 0.47);
+				backdrop-filter: blur(20rpx);
+			}
+
+			.purple {
+				background: rgba(255, 255, 255, 0.51);
+				backdrop-filter: blur(20rpx);
+			}
+
+			.orange {
+				background: rgba(255, 255, 255, 0.58);
+				backdrop-filter: blur(20rpx);
+			}
 		}
 
 		.swiper_item_custom {

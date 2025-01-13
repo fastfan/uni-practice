@@ -25,7 +25,7 @@
 		<view class="user_center_mid">
 			<!-- <u--image src="/static/fenxiangzhuan@2x.png" width="100%" height="272rpx" @click="clickToShare"></u--image> -->
 			<view style="margin: 0 0 24rpx 0;">分享赚</view>
-			<CommonShare />
+			<common-share />
 		</view>
 		<!-- 	<u-button text="获取当前用户的司机信息" :plain="true" type="primary" @click="getDriverInfo">
 		</u-button> -->

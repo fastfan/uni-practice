@@ -9,7 +9,7 @@
 	"author": "weifan",
 	"license": "MIT",
 	"dependencies": {
-		"axios": "^0.21.1",
+		"axios": "^1.7.9",
 		"uni-crazy-router": "^1.1.3"
 	}
 }

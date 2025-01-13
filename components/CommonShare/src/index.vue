@@ -23,6 +23,7 @@
 <script>
 	import PosterVue from './poster.vue';
 	export default {
+		name: "CommonShare",
 		components: {
 			PosterVue
 		},

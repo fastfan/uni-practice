@@ -1,4 +1,2 @@
-import page from './src/index.vue'
-export {
-	page
-}
+import Comp from './src/index'
+export default Comp
