@@ -129,6 +129,19 @@
 		onLoad() {
 			// this.show = true
 			// console.log('load:::::::::::', this.$store.getters)
+		},
+		onShareAppMessage(res) {
+			if (res.from === 'button') { // 判断分享是否来自页面内分享按钮
+				console.log(res.target)
+			}
+			const {
+				title,
+				path
+			} = res.target.dataset.share
+			return {
+				title,
+				path
+			}
 		}
 	};
 </script>

@@ -2,8 +2,7 @@
 	<view class="HomeIndex">
 		<scroll-view scroll-y class="contentBox">
 			<view class="top_box">
-				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false"
-					:placeholder="true"></u-navbar>
+				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
 				<!-- <view class="top_box_title"></view>
 			    <u--text text="51积分" align="center" size="36rpx"></u--text> -->
 				<view class="top_box_ad">
@@ -33,8 +32,7 @@
 			<view class="top_banner flex_box flex_row_between">
 				<!-- <u--image src="/static/bnr_shangjiaruzhu.png" width="100%" height="132rpx"></u--image> -->
 				<view>
-					<u--image src="/static/bnr_shangjiaruzhul.png" width="340rpx" height="152rpx"
-						@click="goDriving"></u--image>
+					<u--image src="/static/bnr_shangjiaruzhul.png" width="340rpx" height="152rpx" @click="goDriving"></u--image>
 				</view>
 				<view>
 					<u--image src="/static/bnr_shangjiaruzhu.png" width="340rpx" height="152rpx"></u--image>
@@ -44,8 +42,7 @@
 				<view class="mid_box_paneltop">
 					<u-tabs class="mid_box_paneltop_tab" :list="list" lineColor="#F3483C"
 						:activeStyle="{color: '#F3483C',fontWeight: '500',fontSize: '30rpx'}"
-						:inactiveStyle="{color:'#333',fontWeight: '400',fontSize: '26rpx'}"
-						itemStyle="height: 112rpx;"></u-tabs>
+						:inactiveStyle="{color:'#333',fontWeight: '400',fontSize: '26rpx'}" itemStyle="height: 112rpx;"></u-tabs>
 				</view>
 				<view class="mid_box_panelmid">
 					<view class="mid_box_panelmid_item" v-for="(item,index) in imgList2" :key="idex">
@@ -74,8 +71,7 @@
 										<view>喜阿婆粥饼店</view>
 										<view class="text">
 											<!-- <u-icon name="star-fill"></u-icon> -->
-											<u--image src="/static/ic_xinji.png" width="24rpx"
-												height="24rpx"></u--image>
+											<u--image src="/static/ic_xinji.png" width="24rpx" height="24rpx"></u--image>
 											<view class="font">5.0 </view>
 											<view class="font2">人均¥60</view>
 										</view>
@@ -148,8 +144,7 @@
 						<view v-for="(item) in 2" class="item2" :key="item">
 							<image src="/static/img_datu.png" class="panel_img"></image>
 							<view :style="{padding: '0 20rpx'}">立白清新柠檬洗洁精1kg</view>
-							<view class="overflow_hidden"
-								style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+							<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
 								<view class="ft text2 flex_box">
 									<view class="">￥</view>
 									<view class="text3">
@@ -158,8 +153,7 @@
 								</view>
 								<view class="rt text4">24</view>
 							</view>
-							<view class="overflow_hidden"
-								style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+							<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
 								<view class="ft text5 flex_box">
 									已售25
 								</view>
@@ -201,23 +195,23 @@
 					src: "/static/bnr_rys.png",
 				}],
 				imgList2: [{
-					src: "/static/zaocan.png",
+					src: "/static/sort_zaocan.png",
 				}, {
-					src: "/static/xiaochi.png",
+					src: "/static/sort_xiaochi.png",
 				}, {
-					src: "/static/shaokao.png",
+					src: "/static/sort_shaokao.png",
 				}, {
-					src: "/static/yexiao.png",
+					src: "/static/sort_yexiao.png",
 				}, {
-					src: "/static/zhufenlei.png",
+					src: "/static/sort_zhufenlei.png",
 				}, {
-					src: "/static/tianpin.png",
+					src: "/static/sort_tianpin.png",
 				}, {
-					src: "/static/linshi.png",
+					src: "/static/sort_linshi.png",
 				}, {
-					src: "/static/shuiguo.png",
+					src: "/static/sort_shuiguo.png",
 				}, {
-					src: "/static/ruzhu.png",
+					src: "/static/sort_ruzhu.png",
 				}]
 			};
 		},

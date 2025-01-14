@@ -4,12 +4,25 @@
 		onLaunch: function() {
 			console.log('App Launch')
 			// auth()
+			//获取系统信息
+			uni.getSystemInfo({
+				success: res => {
+					this.globalData.winWidth = res.windowWidth;
+					this.globalData.winHeight = res.windowHeight;
+					this.globalData.winTabbarHeight = 50;
+				}
+			});
 		},
 		onShow: function() {
 			console.log('App Show')
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		globalData: {
+			winWidth: 0,
+			winHeight: 0,
+			winTabbarHeight: 0
 		}
 	}
 </script>

@@ -10,24 +10,33 @@
 						<view class="poster_item_box" :class="item.class">
 							<view class="poster_item_box_top">
 								<view class="box_top_left">
-									<view class="box_top_left_l" :class="item.class">
+									<view class="box_top_left_l" :style="{border:item.borderStyle}">
 										<image src="/static/28.png" mode="widthFix"></image>
 									</view>
-									<view class="box_top_left_r">
-										<view class="text">大门牙胖仔</view>
-										<view class="text text2">189****1312</view>
+									<view class="box_top_left_r" :style="{color:item.textColor}">
+										<view class="text">{{item.userName}}</view>
+										<view class="text text2">{{item.phone}}</view>
 									</view>
 								</view>
 								<view class="box_top_right">
-									<image src="/static/share/img_jinbi@2x.png" mode="widthFix"></image>
+									<image src="/static/share/img_jinbi.png" mode="widthFix"></image>
 								</view>
 							</view>
 							<view class="poster_item_box_btm">
-								<view class="box_btm_left"></view>
+								<view class="box_btm_left" :style="{background:'url(' + item.qrCodePic + ')'}">
+									<!-- <image :src="item.qrCodePic" mode="widthFix"></image> -->
+									<canvas class="canvas-hide" canvas-id="qrcode" />
+									<image class="scan" :class="isExpire?'expire': ''" :src="scanImage" mode=""></image>
+								</view>
 								<view class="box_btm_right">
-									<view class="box_btm_right_t"></view>
-									<view class="box_btm_right_m"></view>
-									<view class="box_btm_right_b"></view>
+									<view class="box_btm_right_t">
+										<image src="/static/share/img_shou@2x.png" mode="widthFix"></image>
+										<view class="right_t_text">扫码一起赚钱</view>
+									</view>
+									<view class="box_btm_right_b" :style="{color:item.textColor}">
+										<view>加入51积分</view>
+										<view>尊享赚钱项目</view>
+									</view>
 								</view>
 							</view>
 						</view>
@@ -35,17 +44,20 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<view class="poster_slider_btn">
+		<!-- <view class="qrCode_item">
+			<canvas class="canvas-hide" canvas-id="qrcode" :style="'width:'+ 90 + 'px;' + 'height:' + 90 + 'px;'" />
+			<image class="scan" :class="isExpire?'expire': ''" :src="scanImage" mode=""></image>
+		</view> -->
+		<view class="poster_slider_btn" @click.native.stop="clickShareBtn({type:'wechatMoment'})">
 			<view class="btn_img">
-				<image src="/static/share/ic_pengyousuan@2x.png" mode="widthFix"></image>
+				<image src="/static/share/ic_pengyousuan.png" mode="widthFix"></image>
 			</view>
-			<view class="btn_text" @click.native.stop="clickShareBtn({type:'wechatMoment'})">
+			<view class="btn_text">
 				分享至朋友圈
 			</view>
 		</view>
 		<view class="poster_slider_share">
-			<view v-for="(item,index) in shareList" :key="index" class="share_list"
-				@click.native.stop="clickShareBtn(item)">
+			<view v-for="(item,index) in shareList" :key="index" class="share_list" @click.native.stop="clickShareBtn(item)">
 				<image :src="item.icon" mode="widthFix">
 				</image>
 				<view class="share_list_text">{{item.text}}</view>
@@ -55,6 +67,7 @@
 </template>
 
 <script>
+	import uQRCode from '@/common/Sansnn-uQRCode/uqrcode.js'
 	export default {
 		props: {
 			isVisible: {
@@ -66,49 +79,81 @@
 		data() {
 			return {
 				currentIndex: 0,
+				winWidth: 176,
+				winHeight: 176,
+				scanImage: null,
+				qrData: {
+					qrCodeData: '9BFC4502C50814351A7633BF3B20FBD63256E88747374DFA19F925CB00E87411'
+				},
+				isExpire: false,
 				posterList: [{
-						imageUrl: '/static/share/img_haibao1@2x.png',
-						class: 'red'
+						imageUrl: '/static/share/img_haibao1.png',
+						class: 'red',
+						textColor: "#A9492A",
+						borderStyle: '2rpx solid rgba(255, 157, 100, 1)',
+						qrCodePic: '/static/share/img_kung1.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao2@2x.png',
-						class: 'blue'
+						imageUrl: '/static/share/img_haibao2.png',
+						class: 'blue',
+						textColor: "#1E81F6",
+						borderStyle: '2rpx solid rgba(101, 172, 255, 1)',
+						qrCodePic: '/static/share/img_kung2.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao3@2x.png',
-						class: 'green'
+						imageUrl: '/static/share/img_haibao3.png',
+						class: 'green',
+						textColor: "#0BA827",
+						borderStyle: '2rpx solid rgba(102, 230, 37, 1)',
+						qrCodePic: '/static/share/img_kung3.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao4@2x.png',
-						class: 'purple'
+						imageUrl: '/static/share/img_haibao4.png',
+						class: 'purple',
+						textColor: "#E54685",
+						borderStyle: '2rpx solid rgba(228, 119, 177, 1)',
+						qrCodePic: '/static/share/img_kung4.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao5@2x.png',
-						class: 'orange'
+						imageUrl: '/static/share/img_haibao5.png',
+						class: 'orange',
+						textColor: "#CC4502",
+						borderStyle: '2rpx solid rgba(255, 157, 100, 1)',
+						qrCodePic: '/static/share/img_kung5.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
 					},
 				],
 				shareList: [{
-						icon: '/static/share/icon_weixin@2x.png',
+						icon: '/static/share/icon_weixin.png',
 						text: '微信好友',
 						type: 'wechat'
 					},
 					// {
-					// 	icon: '/static/share/icon_qq@2x.png',
+					// 	icon: '/static/share/icon_qq.png',
 					// 	text: 'QQ好友',
 					// 	type:'QQFriend'
 					// },
 					// {
-					// 	icon: '/static/share/icon_qqkongjian@2x.png',
+					// 	icon: '/static/share/icon_qqkongjian.png',
 					// 	text: 'QQ空间',
 					// 	type:'QQZone'
 					// },
 					// {
-					// 	icon: '/static/share/icon_weibo@2x.png',
+					// 	icon: '/static/share/icon_weibo.png',
 					// 	text: '微博',
 					// 	type:'weibo'
 					// },
 					{
-						icon: '/static/share/icon_xiazai@2x.png',
+						icon: '/static/share/icon_xiazai.png',
 						text: '保存图片',
 						type: 'savePic'
 					},
@@ -126,7 +171,45 @@
 			clickShareBtn(e) {
 				console.log("e:::::::", e)
 				console.log('子元素被点击');
+				if (e.type === 'wechat') {
+					uni.share({
+						provider: "weixin",
+						scene: "WXSceneSession",
+						type: 0,
+						href: "http://uniapp.dcloud.io/",
+						title: "uni-app分享",
+						summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+						imageUrl: "https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png",
+						success: function(res) {
+							console.log("success:" + JSON.stringify(res));
+						},
+						fail: function(err) {
+							console.log("fail:" + JSON.stringify(err));
+						}
+					});
+				}
+			},
+			make() {
+				uQRCode.make({
+					canvasId: 'qrcode',
+					componentInstance: this,
+					text: this.qrData.qrCodeData,
+					size: this.winHeight / 2,
+					margin: 0,
+					backgroundColor: '#ffffff',
+					foregroundColor: '#000000',
+					fileType: 'jpg',
+					correctLevel: uQRCode.errorCorrectLevel.H
+				}).then(res => {
+					this.scanImage = res;
+				});
 			}
+		},
+		mounted() {
+
+		},
+		onLoad() {
+
 		}
 	}
 </script>
@@ -140,6 +223,36 @@
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5);
 		z-index: 999;
+
+		.canvas-hide {
+			/* 1 */
+			position: fixed;
+			right: 100vw;
+			bottom: 100vh;
+			/* 2 */
+			z-index: -9999;
+			/* 3 */
+			opacity: 0;
+			// width: 166rpx !important;
+			// height: 168rpx !important;
+			// padding: 0;
+			// position: absolute;
+			// top: 195rpx;
+			// left: 31rpx;
+		}
+
+		.qrCode_item {}
+
+		.scan {
+			padding: 6rpx;
+			position: absolute;
+			top: 190rpx;
+			left: 27rpx;
+		}
+
+		.expire {
+			opacity: 0.1;
+		}
 
 		&_container {
 			width: 100%;
@@ -174,7 +287,7 @@
 
 					.box_top_left {
 						flex: 1;
-						margin-top: 30rpx;
+						margin-top: 46rpx;
 
 						&_l {
 							border-radius: 50%;
@@ -182,7 +295,7 @@
 							color: rgba(169, 73, 42, 1);
 							width: 88rpx;
 							height: 88rpx;
-							margin: 0 20rpx 0 18rpx;
+							margin: 0 16rpx 0 24rpx;
 
 							image {
 								width: 84rpx;
@@ -191,31 +304,6 @@
 							}
 
 							float: left;
-						}
-
-						.red {
-							border: 2rpx solid rgba(255, 157, 100, 1);
-							color: #A9492A;
-						}
-
-						.blue {
-							border: 2rpx solid rgba(101, 172, 255, 1);
-							color: #1E81F6;
-						}
-
-						.green {
-							border: 2rpx solid rgba(102, 230, 37, 1);
-							color: #0BA827;
-						}
-
-						.purple {
-							border: 2rpx solid rgba(228, 119, 177, 1);
-							color: #E54685;
-						}
-
-						.orange {
-							border: 2rpx solid rgba(255, 157, 100, 1);
-							color: #CC4502;
 						}
 
 						&_r {
@@ -239,8 +327,50 @@
 						image {
 							width: 170rpx;
 							height: 114rpx;
-							margin-top: 10rpx;
-							margin-right: 20rpx;
+							margin: 20rpx 20rpx 0 0;
+						}
+					}
+				}
+
+				&_btm {
+					display: flex;
+					margin-top: 30rpx;
+
+					.box_btm_left {
+						image {
+							width: 162rpx;
+							height: 162rpx !important;
+							padding: 6rpx;
+						}
+
+						background-position: center;
+						width: 180rpx;
+						height: 180rpx;
+						margin: 24rpx;
+						background-repeat: no-repeat;
+						background-size: cover;
+					}
+
+					.box_btm_right {
+						text-align: center;
+
+						&_t {
+							display: flex;
+							margin: 46rpx 0 14rpx 0rpx;
+
+							image {
+								width: 64rpx;
+								height: 42rpx !important;
+							}
+
+							.right_t_text {
+								margin-top: 6rpx;
+							}
+						}
+
+						&_b {
+							font-weight: 500;
+							font-size: 32rpx;
 						}
 					}
 				}
@@ -313,7 +443,7 @@
 
 		&_share {
 			display: flex;
-			justify-content: center;
+			justify-content: space-evenly;
 			align-items: center;
 			text-align: center;
 			font-weight: 400;
@@ -322,7 +452,7 @@
 			margin-top: 52rpx;
 
 			.share_list {
-				flex: 1;
+				// flex: 1;
 
 				image {
 					width: 92rpx;

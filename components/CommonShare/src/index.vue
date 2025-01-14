@@ -9,11 +9,14 @@
 			</view>
 		</view>
 		<view class="common_share_box_mid">
-			<image class="mid_img" src="/static/share/banner_fenxiao@2x.png" mode="widthFix">
+			<image class="mid_img" src="/static/share/banner_fenxiao.png" mode="widthFix">
 			</image>
 		</view>
 		<view class="common_share_box_btm">
-			<button class="btm_btn btn" @click="shareToWX">分享给好友</button>
+			<button open-type="share" :data-share="{
+          title: 'uni-practice',
+          path: `/pages/mine/index/index`
+        }" class="btm_btn btn" @click="shareToWX">分享给好友</button>
 			<button class="btm_btn btn2" @click="creatPoster">生成专属海报</button>
 		</view>
 		<PosterVue ref="PosterVue" :isVisible="isVisible" @modelClose="closePoster" />
@@ -31,15 +34,15 @@
 			return {
 				isVisible: false,
 				itemList: [{
-					icon: "/static/share/ic_jifen@2x.png",
+					icon: "/static/share/ic_jifen.png",
 					text: "消费赚积分",
 					text2: "积分当钱花"
 				}, {
-					icon: "/static/share/ic_jiangli@2x.png",
+					icon: "/static/share/ic_jiangli.png",
 					text: "粉丝消费",
 					text2: "您得奖励"
 				}, {
-					icon: "/static/share/ic_shouyi@2x.png",
+					icon: "/static/share/ic_shouyi.png",
 					text: "粉丝邀请好友",
 					text2: "您享收益"
 				}]
@@ -47,19 +50,23 @@
 		},
 		methods: {
 			shareToWX() {
-				uni.showToast({
-					title: '分享到微信好友，功能开发中',
-					duration: 2000,
-					icon: 'none'
-				});
+				// uni.showToast({
+				// 	title: '分享到微信好友，功能开发中',
+				// 	duration: 2000,
+				// 	icon: 'none'
+				// });
+
+				// #ifdef MP-WEIXIN
+				// #endif
 			},
 			creatPoster() {
 				this.isVisible = true
+				this.$refs.PosterVue.make()
 			},
 			closePoster() {
 				this.isVisible = false
 			}
-		},
+		}
 	}
 </script>
 
