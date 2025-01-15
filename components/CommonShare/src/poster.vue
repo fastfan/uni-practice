@@ -5,7 +5,7 @@
 				:vertical="false" :current="currentIndex" @change="handleSwiperChange" :display-multiple-items="1"
 				previous-margin="60rpx" next-margin="60rpx">
 				<swiper-item v-for="(item, index) in posterList" :key="index" class="swiper_item_custom">
-					<view class="poster_item">
+					<view class="poster_item" :class="currentIndex===index?'poster_item_current':''">
 						<image :src="item.imageUrl" mode="widthFix"></image>
 						<view class="poster_item_box" :class="item.class">
 							<view class="poster_item_box_top">
@@ -30,7 +30,7 @@
 								</view>
 								<view class="box_btm_right">
 									<view class="box_btm_right_t">
-										<image src="/static/share/img_shou@2x.png" mode="widthFix"></image>
+										<image src="/static/share/img_shou.png" mode="widthFix"></image>
 										<view class="right_t_text">扫码一起赚钱</view>
 									</view>
 									<view class="box_btm_right_b" :style="{color:item.textColor}">
@@ -48,26 +48,35 @@
 			<canvas class="canvas-hide" canvas-id="qrcode" :style="'width:'+ 90 + 'px;' + 'height:' + 90 + 'px;'" />
 			<image class="scan" :class="isExpire?'expire': ''" :src="scanImage" mode=""></image>
 		</view> -->
-		<view class="poster_slider_btn" @click.native.stop="clickShareBtn({type:'wechatMoment'})">
+		<button class="poster_slider_btn" @click.native.stop="clickShareBtn({type:'wechatMoment'})">
 			<view class="btn_img">
 				<image src="/static/share/ic_pengyousuan.png" mode="widthFix"></image>
 			</view>
 			<view class="btn_text">
 				分享至朋友圈
 			</view>
-		</view>
+		</button>
 		<view class="poster_slider_share">
-			<view v-for="(item,index) in shareList" :key="index" class="share_list" @click.native.stop="clickShareBtn(item)">
-				<image :src="item.icon" mode="widthFix">
+			<button class="share_list" @click.native.stop="clickShareBtn(shareList[0])" open-type="share" :data-share="{
+				  title: '分享的标题',
+				  path: `/pages/mine/index/index`
+				}">
+				<image :src="shareList[0].icon" mode="widthFix">
 				</image>
-				<view class="share_list_text">{{item.text}}</view>
-			</view>
+				<view class="share_list_text">{{shareList[0].text}}</view>
+			</button>
+			<button class="share_list" @click.native.stop="clickShareBtn(shareList[1])">
+				<image :src="shareList[1].icon" mode="widthFix">
+				</image>
+				<view class="share_list_text">{{shareList[1].text}}</view>
+			</button>
 		</view>
 	</view>
 </template>
-
 <script>
 	import uQRCode from '@/common/Sansnn-uQRCode/uqrcode.js'
+	// const html2canvas = require('../../../common/html2canvas.min.js');
+	import html2canvas from "html2canvas"
 	export default {
 		props: {
 			isVisible: {
@@ -171,21 +180,89 @@
 			clickShareBtn(e) {
 				console.log("e:::::::", e)
 				console.log('子元素被点击');
-				if (e.type === 'wechat') {
-					uni.share({
-						provider: "weixin",
-						scene: "WXSceneSession",
-						type: 0,
-						href: "http://uniapp.dcloud.io/",
-						title: "uni-app分享",
-						summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-						imageUrl: "https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png",
-						success: function(res) {
-							console.log("success:" + JSON.stringify(res));
-						},
-						fail: function(err) {
-							console.log("fail:" + JSON.stringify(err));
-						}
+				if (e.type === 'savePic') {
+					console.log(html2canvas)
+					this.savePageAsImage()
+				}
+			},
+			async savePageAsImage() {
+				try {
+					// 获取要转换为图片的页面元素
+					// 获取要截图的元素
+					const element = uni.createSelectorQuery().in(this).select('.poster_slider');
+					const rect = await new Promise((resolve, reject) => {
+						element.boundingClientRect(resolve).exec();
+					});
+					console.log(rect)
+					const canvas = await html2canvas(rect, {
+						// 配置项可根据需要调整，如 width、height 等
+						useCORS: true,
+						logging: false
+					});
+					const imageData = canvas.toDataURL('image/png');
+					console.log('生成的图片数据:', imageData);
+
+					// 将图片数据转换为 Blob 对象
+					const blob = await (await fetch(imageData)).blob();
+					const file = new File([blob], 'page_image.png', {
+						type: 'image/png'
+					});
+
+					// 将 Blob 对象上传到服务器或使用本地存储，这里使用本地存储示例
+					const reader = new FileReader();
+					reader.onloadend = () => {
+						const base64Data = reader.result;
+						uni.downloadFile({
+							url: base64Data,
+							success: (res) => {
+								if (res.statusCode === 200) {
+									console.log('图片下载成功，临时路径:', res.tempFilePath);
+									// 保存图片到相册
+									wx.saveImageToPhotosAlbum({
+										filePath: res.tempFilePath,
+										success: () => {
+											console.log('图片保存成功');
+											uni.showToast({
+												title: '图片保存成功',
+												icon: 'success',
+												duration: 2000
+											});
+										},
+										fail: (err) => {
+											console.log('图片保存失败', err);
+											uni.showToast({
+												title: '图片保存失败',
+												icon: 'none',
+												duration: 2000
+											});
+										}
+									});
+								} else {
+									console.log('图片下载失败');
+									uni.showToast({
+										title: '图片下载失败',
+										icon: 'none',
+										duration: 2000
+									});
+								}
+							},
+							fail: (err) => {
+								console.log('图片下载失败', err);
+								uni.showToast({
+									title: '图片下载失败',
+									icon: 'none',
+									duration: 2000
+								});
+							}
+						});
+					};
+					reader.readAsDataURL(file);
+				} catch (error) {
+					console.error('保存页面为图片出错:', error);
+					uni.showToast({
+						title: '保存页面为图片出错',
+						icon: 'none',
+						duration: 2000
 					});
 				}
 			},
@@ -213,7 +290,6 @@
 		}
 	}
 </script>
-
 <style lang="scss" scoped>
 	.poster_slider {
 		position: fixed;
@@ -270,7 +346,6 @@
 			align-items: center;
 			transition: transform 0.3s ease;
 			/* 添加过渡效果，使滑动更平滑 */
-			position: relative;
 
 			&_box {
 				height: 410rpx;
@@ -430,6 +505,7 @@
 				image {
 					width: 48rpx;
 					height: 48rpx;
+					vertical-align: text-bottom;
 				}
 			}
 
@@ -449,7 +525,19 @@
 			font-weight: 400;
 			font-size: 24rpx;
 			color: #FFFFFF;
-			margin-top: 52rpx;
+			margin-top: 46rpx;
+
+			button {
+				color: #fff;
+				background: none !important;
+				border-color: transparent;
+				border: 0;
+				outline: none;
+			}
+
+			button::after {
+				border: none;
+			}
 
 			.share_list {
 				// flex: 1;
@@ -457,7 +545,7 @@
 				image {
 					width: 92rpx;
 					height: 92rpx;
-					margin-bottom: 8rpx;
+					// margin-bottom: 8rpx;
 				}
 			}
 		}

@@ -14,9 +14,9 @@
 		</view>
 		<view class="common_share_box_btm">
 			<button open-type="share" :data-share="{
-          title: 'uni-practice',
-          path: `/pages/mine/index/index`
-        }" class="btm_btn btn" @click="shareToWX">分享给好友</button>
+				  title: '分享的标题',
+				  path: `/pages/mine/index/index`
+				}" class="btm_btn btn">分享给好友</button>
 			<button class="btm_btn btn2" @click="creatPoster">生成专属海报</button>
 		</view>
 		<PosterVue ref="PosterVue" :isVisible="isVisible" @modelClose="closePoster" />
@@ -49,16 +49,6 @@
 			};
 		},
 		methods: {
-			shareToWX() {
-				// uni.showToast({
-				// 	title: '分享到微信好友，功能开发中',
-				// 	duration: 2000,
-				// 	icon: 'none'
-				// });
-
-				// #ifdef MP-WEIXIN
-				// #endif
-			},
 			creatPoster() {
 				this.isVisible = true
 				this.$refs.PosterVue.make()
