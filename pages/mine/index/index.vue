@@ -11,7 +11,7 @@
 				<view>{{ userInfo.nickname }}</view>
 				<view style="margin-top: 10rpx;">{{ userInfo.phoneNumber }}</view>
 			</view>
-			<view class="user_center_top_bot">
+			<!-- 	<view class="user_center_top_bot">
 				<view class="bot_text">
 					<view>{{ userInfo.integral || 0 }}</view>
 					<view>积分</view>
@@ -20,13 +20,17 @@
 					<view>1000</view>
 					<view>激励分</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="user_center_mid">
 			<!-- <u--image src="/static/fenxiangzhuan@2x.png" width="100%" height="272rpx" @click="clickToShare"></u--image> -->
-			<view style="margin: 0 0 24rpx 0;">分享赚</view>
-			<common-share />
+			<u-button type="primary" class="user_center_mid_text" :plain="true" text="我的邀请弹窗"
+				@click="isVisible=true"></u-button>
 		</view>
+		<view class="user_center_btm">
+			<my-share></my-share>
+		</view>
+		<my-invite ref="myInvite" :isVisible="isVisible" @close="closeEvent" @ensure="ensureEvent"></my-invite>
 		<!-- 	<u-button text="获取当前用户的司机信息" :plain="true" type="primary" @click="getDriverInfo">
 		</u-button> -->
 
@@ -34,15 +38,11 @@
 </template>
 
 <script>
-	import CommonShare from '@/components/CommonShare/src/index.vue'
-	import html2canvas from "html2canvas"
 	export default {
-		components: {
-			CommonShare
-		},
 		data() {
 			return {
 				show: false,
+				isVisible: false,
 				title: '提示',
 				content: '为了您更好的体验，请先前往登录！',
 				userInfo: {
@@ -54,6 +54,13 @@
 			};
 		},
 		methods: {
+			ensureEvent(e) {
+				console.log('e::::::::::点击了查看玩法', e)
+			},
+			closeEvent(e) {
+				console.log('e::::::::::点击了关闭', e)
+				this.isVisible = false
+			},
 			confirm() {
 				uni.$u.route({
 					url: '/pages/login/login',
@@ -83,87 +90,6 @@
 					uni.$u.toast(res.msg)
 				}
 				console.log('driverInfo:::::::::', this.driverInfo)
-			},
-			async savePageAsImage() {
-				try {
-					// 获取要转换为图片的页面元素
-					// 获取要截图的元素
-					const element = uni.createSelectorQuery().in(this).select('.user_center');
-					const rect = await new Promise((resolve, reject) => {
-						element.boundingClientRect(resolve).exec();
-					});
-					console.log(rect)
-					const canvas = await html2canvas(rect, {
-						// 配置项可根据需要调整，如 width、height 等
-						useCORS: true,
-						logging: false
-					});
-					const imageData = canvas.toDataURL('image/png');
-					console.log('生成的图片数据:', imageData);
-			
-					// 将图片数据转换为 Blob 对象
-					const blob = await (await fetch(imageData)).blob();
-					const file = new File([blob], 'page_image.png', {
-						type: 'image/png'
-					});
-			
-					// 将 Blob 对象上传到服务器或使用本地存储，这里使用本地存储示例
-					const reader = new FileReader();
-					reader.onloadend = () => {
-						const base64Data = reader.result;
-						uni.downloadFile({
-							url: base64Data,
-							success: (res) => {
-								if (res.statusCode === 200) {
-									console.log('图片下载成功，临时路径:', res.tempFilePath);
-									// 保存图片到相册
-									wx.saveImageToPhotosAlbum({
-										filePath: res.tempFilePath,
-										success: () => {
-											console.log('图片保存成功');
-											uni.showToast({
-												title: '图片保存成功',
-												icon: 'success',
-												duration: 2000
-											});
-										},
-										fail: (err) => {
-											console.log('图片保存失败', err);
-											uni.showToast({
-												title: '图片保存失败',
-												icon: 'none',
-												duration: 2000
-											});
-										}
-									});
-								} else {
-									console.log('图片下载失败');
-									uni.showToast({
-										title: '图片下载失败',
-										icon: 'none',
-										duration: 2000
-									});
-								}
-							},
-							fail: (err) => {
-								console.log('图片下载失败', err);
-								uni.showToast({
-									title: '图片下载失败',
-									icon: 'none',
-									duration: 2000
-								});
-							}
-						});
-					};
-					reader.readAsDataURL(file);
-				} catch (error) {
-					console.error('保存页面为图片出错:', error);
-					uni.showToast({
-						title: '保存页面为图片出错',
-						icon: 'none',
-						duration: 2000
-					});
-				}
 			},
 		},
 		computed: {
@@ -211,17 +137,17 @@
 		onLoad() {
 			// this.show = true
 			// console.log('load:::::::::::', this.$store.getters)
-			// 在微信小程序中，确保显示分享菜单
+			// // 在微信小程序中，确保显示分享菜单
 			// #ifdef MP-WEIXIN
 			wx.showShareMenu({
-			    withShareTicket: true, 
-			    menus: ['shareAppMessage', 'shareTimeline'] 
+				withShareTicket: true,
+				menus: ['ShareAppMessage', 'shareTimeline']
 			});
 			// #endif
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') { // 判断分享是否来自页面内分享按钮
-				console.log("res111:::::",res)
+				console.log("res111:::::", res)
 			}
 			const {
 				title,
@@ -233,15 +159,14 @@
 			}
 		},
 		onShareTimeline(res) {
-			console.log("res222:::::",res)
-		  let val='111';
-		  const params = encodeURIComponent(`type=3&val=${val}`);
-		  return {
-		    title: '啦啦啦',
-		    query: `params=${params}`
-		  }
-		}
-
+			console.log("res222:::::", res)
+			let val = '111';
+			const params = encodeURIComponent(`type=3&val=${val}`);
+			return {
+				title: '啦啦啦',
+				query: `params=${params}`
+			}
+		},
 	};
 </script>
 
@@ -249,7 +174,7 @@
 <style lang="scss" scoped>
 	.user_center {
 		&_top {
-			height: 490rpx;
+			height: 300rpx;
 			background: linear-gradient(90deg, #F82A24 0%, #F82A24 1%, #FE544B 100%);
 			padding: 100rpx 24rpx 0 24rpx;
 			margin-bottom: 24rpx;
@@ -295,9 +220,20 @@
 		}
 
 		&_mid {
-			height: 284rpx;
+			// height: 284rpx;
 			background: #FFFFFF;
 			padding: 0 24rpx;
+
+			&_text {
+				margin: 0 0 24rpx 0;
+			}
+		}
+
+		&_btm {
+			// height: 284rpx;
+			background: #FFFFFF;
+			padding: 0 24rpx;
+			margin-top: 24rpx;
 		}
 	}
 </style>

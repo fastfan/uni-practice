@@ -68,13 +68,6 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
-		},
-		{
-			"path" : "components/CommonShare/src/poster",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
 		}
 	],
 	"tabBar": {
@@ -119,6 +112,12 @@
 		"navigationBarTitleText": "51生活服务",
 		"navigationBarBackgroundColor": "#F2F2F2",
 		"backgroundColor": "#F2F2F2"
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"my-(.*)": "@/components/common/my-$1/my-$1.vue"
+		}
 	},
 	"uniIdRouter": {},
 	"permission": {
