@@ -67,13 +67,10 @@
 				<view class="share_list_text">{{shareList[1].text}}</view>
 			</button>
 		</view>
-		<xWxmlToCanvas ref="xWxmlToCanvas" :hide="true" :width="290" :height="458" :xStyle="style" :xWxml="wxml">
-		</xWxmlToCanvas>
 	</view>
 </template>
 <script>
 	import uQRCode from '@/common/Sansnn-uQRCode/uqrcode.js'
-	import xWxmlToCanvas from '@/components/x-wxml-to-canvas/x-wxml-to-canvas';
 	export default {
 		props: {
 			isVisible: {
@@ -82,13 +79,8 @@
 				default: false
 			}
 		},
-		components: {
-			xWxmlToCanvas
-		},
 		data() {
 			return {
-				wxml: null,
-				style: null,
 				currentIndex: 0,
 				winWidth: 176,
 				winHeight: 176,
@@ -184,199 +176,7 @@
 				console.log("e:::::::", e)
 				console.log('子元素被点击');
 				if (e.type === 'savePic') {
-					// this.savePageAsImage()
-					console.log("item::::::", this.posterList[this.currentIndex])
-					const mode = 'aspectFit';
-					// const imgSrc = 'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-xyzgy/7d75b690-6087-11eb-918d-3d24828c498c.jpeg';
-					const imgSrc = this.scanImage
-					const imgSrc2 = "/static/share/28.png"
-					const imgSrc3 = "/static/share/img_jinbi.png"
-					const imgSrc4 = "/static/share/img_shou.png"
-					const item = this.posterList[this.currentIndex]
-					this.wxml = `
-								<view class="poster_item" >
-														<image class="poster_item_imgs" src="${item.imageUrl}" mode="${mode}"></image>
-														<view  class="poster_item_box ${item.class}">
-															<view class="poster_item_box_top">
-																<view class="box_top_left">
-																	<view class="box_top_left_l" style="border:${item.borderStyle}">
-																		<image class="l_img" src="${imgSrc2}" mode="${mode}"></image>
-																	</view>
-																	<view class="box_top_left_r" style="color:${item.textColor}">
-																		<view class="r_text">${item.userName}</view>
-																		<view class="r_text r_text2">${item.phone}</view>
-																	</view>
-																</view>
-																<view class="box_top_right">
-																	<image class="right_img" src="${imgSrc3}" mode="${mode}"></image>
-																</view>
-															</view>
-															<view class="poster_item_box_btm">
-																<view class="box_btm_left" style="background:'url(' + ${item.qrCodePic} + ')'">
-																	<image class="btm_img"  src="${imgSrc}" mode=""></image>
-																</view>
-																<view class="box_btm_right">
-																	<view class="box_btm_right_t">
-																		<image class="t_img" src="${imgSrc4}" mode="${mode}"></image>
-																		<view class="right_t_text">扫码一起赚钱</view>
-																	</view>
-																	<view class="box_btm_right_b" style="color:${item.textColor}">
-																		<view>加入51积分</view>
-																		<view>尊享赚钱项目</view>
-																	</view>
-																</view>
-															</view>
-														</view>
-													</view>
-						`;
-					this.style = {
-						poster_item: {
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							transition: 'transform 0.3 s ease',
-							width: 290,
-							height: 458
-						},
-						poster_item_imgs: {
-							width: 290,
-							height: 458
-						},
-						poster_item_box: {
-							height: 255,
-							borderRadius: 4,
-							width: 237,
-							position: 'absolute',
-							top: 240
-						},
-						poster_item_box_top: {
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							textAlign: 'right',
-							width: 258,
-							height: 67
-						},
-						box_top_left: {
-							flex: 1,
-							marginTop: 23,
-							width: 129,
-							height: 44
-						},
-						box_top_left_l: {
-							borderRadius: '50%',
-							border: '2 rpx solid rgba(255, 157, 100, 1)',
-							color: 'rgba(169, 73, 42, 1)',
-							width: 88,
-							height: 88,
-							marginRight: 8,
-							marginLeft: 12,
-							float: 'left'
-						},
-						l_img: {
-							width: 44,
-							height: 44,
-							borderRadius: '50% '
-						},
-						box_top_left_r: {
-							float: 'left',
-							lineHeight: 23,
-							width: 66,
-							height: 44
-						},
-						r_text: {
-							fontWeight: 500,
-							fontSize: 13,
-							width: 66,
-							height: 22
-						},
-						r_text2: {
-							fontSize: 11,
-							width: 66,
-							height: 22
-						},
-						box_top_right: {
-							flex: 1,
-							width: 130,
-							height: 67
-						},
-						right_img: {
-							width: 85,
-							height: 57,
-							marginTop: 10,
-							marginRight: 10
-						},
-						poster_item_box_btm: {
-							display: 'flex',
-							marginTop: 15,
-							width: 258,
-							height: 113
-						},
-						box_btm_left: {
-							backgroundPosition: 'center',
-							width: 90,
-							height: 90,
-							margin: 12,
-							backgroundRepeat: 'no-repeat',
-							backgroundsize: 'cover'
-						},
-						left_img: {
-							width: 86,
-							height: 86,
-							padding: 3
-						},
-						box_btm_right: {
-							textAlign: 'center',
-							width: 116,
-							height: 114
-						},
-						box_btm_right_t: {
-							display: 'flex',
-							marginTop: 46,
-							marginRight: 14,
-							width: 116,
-							height: 21
-						},
-						t_img: {
-							width: 32,
-							height: 21
-						},
-						right_t_text: {
-							marginTop: 3,
-							width: 84,
-							height: 19
-						},
-						box_btm_right_b: {
-							fontWeight: 500,
-							fontSize: 16,
-							width: 116,
-							height: 114
-						},
-						red: {
-							background: 'linear-gradient(180 deg, #F9F5F5 0% , #FFE1CE 100% )'
-						},
-						blue: {
-							background: 'rgba(255, 255, 255, 0.28)',
-							backdropFilter: 'blur(20)'
-						},
-						green: {
-							background: 'rgba(255, 255, 255, 0.47)',
-							backdropFilter: 'blur(20)'
-						},
-						purple: {
-							background: 'rgba(255, 255, 255, 0.51)',
-							backdropFilter: 'blur(20)'
-						},
-						orange: {
-							background: 'rgba(255, 255, 255, 0.58)',
-							backdropFilter: 'blur(20)'
-						},
-					}
-					// await this.renderToCanvas()
-					// await this.canvasToTempFilePath()
-					setTimeout(async () => {
-						await this.getCanvasImage()
-					}, 300)
+
 
 				} else if (e.type === 'wechatMoment') {
 					uni.showToast({
@@ -386,28 +186,7 @@
 					});
 				}
 			},
-			renderToCanvas() {
-				this.$refs.xWxmlToCanvas.renderToCanvas();
-			},
-			canvasToTempFilePath() {
-				this.$refs.xWxmlToCanvas.canvasToTempFilePath().then(res => {
-					this.src = res;
-				});
-			},
-			getCanvasImage() {
-				this.$refs.xWxmlToCanvas.getCanvasImage().then(res => {
-					console.log("res::::", res)
-					this.src = res;
-					this.saveImageToPhotosAlbum()
-				});
-			},
-			saveImageToPhotosAlbum() {
-				if (!this.src) return uni.showToast({
-					title: '未获取路径',
-					icon: 'none'
-				})
-				this.$refs.xWxmlToCanvas.saveImageToPhotosAlbum(this.src)
-			},
+
 			async savePageAsImage() {
 				try {
 					// 获取要转换为图片的页面元素
@@ -586,6 +365,7 @@
 					.box_top_left {
 						flex: 1;
 						margin-top: 46rpx;
+						float: left;
 
 						&_l {
 							border-radius: 50%;
@@ -600,8 +380,6 @@
 								height: 84rpx !important;
 								border-radius: 50%;
 							}
-
-							float: left;
 						}
 
 						&_r {
