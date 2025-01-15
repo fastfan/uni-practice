@@ -1,0 +1,16 @@
+{
+  "name": "x-wxml-to-canvas",
+  "version": "1.0.4",
+  "description": "基于微信小程序 wxml-to-canvas 改版的 uni版本的 html-to-canvas",
+  "main": "libs/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "uni",
+    "uniapp",
+    "wxml-to-canvas"
+  ],
+  "author": "xyzgy",
+  "license": "ISC"
+}

@@ -12,16 +12,12 @@
 				}" class="btm_btn btn">分享给好友</button>
 			<button class="btm_btn btn2" @click="creatPoster">生成专属海报</button>
 		</view>
-		<PosterVue ref="PosterVue" :isVisible="isVisible" @modelClose="closePoster" />
+		<my-poster ref="myPoster" :isVisible="isVisible" @modelClose="closePoster"></my-poster>
 	</view>
 </template>
 
 <script>
-	import PosterVue from './poster.vue';
 	export default {
-		components: {
-			PosterVue
-		},
 		data() {
 			return {
 				isVisible: false,
@@ -43,7 +39,7 @@
 		methods: {
 			creatPoster() {
 				this.isVisible = true
-				this.$refs.PosterVue.make()
+				this.$refs.myPoster.make()
 			},
 			closePoster() {
 				this.isVisible = false
