@@ -11,7 +11,7 @@
 							<view class="poster_item_box_top">
 								<view class="box_top_left">
 									<view class="box_top_left_l" :style="{border:item.borderStyle}">
-										<image src="/static/share/28.png" mode="widthFix"></image>
+										<image src="/static/share/icon.png" mode="widthFix"></image>
 									</view>
 									<view class="box_top_left_r" :style="{color:item.textColor}">
 										<view class="text">{{item.userName}}</view>
@@ -67,10 +67,12 @@
 				<view class="share_list_text">{{shareList[1].text}}</view>
 			</button>
 		</view>
+		<poster-model ref="PosterModel" v-if="showPainter" :painterProps="posterList[currentIndex]"></poster-model>
 	</view>
 </template>
 <script>
 	import uQRCode from '@/common/Sansnn-uQRCode/uqrcode.js'
+	import PosterModel from "./poster.vue"
 	export default {
 		props: {
 			isVisible: {
@@ -79,8 +81,12 @@
 				default: false
 			}
 		},
+		components: {
+			PosterModel
+		},
 		data() {
 			return {
+				showPainter: false,
 				currentIndex: 0,
 				winWidth: 176,
 				winHeight: 176,
@@ -92,6 +98,7 @@
 				posterList: [{
 						imageUrl: '/static/share/img_haibao1.png',
 						class: 'red',
+						background: 'linear-gradient(180deg, #F9F5F5 0%, #FFE1CE 100%)',
 						textColor: "#A9492A",
 						borderStyle: '2rpx solid rgba(255, 157, 100, 1)',
 						qrCodePic: '/static/share/img_kung1.png',
@@ -101,6 +108,7 @@
 					{
 						imageUrl: '/static/share/img_haibao2.png',
 						class: 'blue',
+						background: 'rgba(255, 255, 255, 0.28)',
 						textColor: "#1E81F6",
 						borderStyle: '2rpx solid rgba(101, 172, 255, 1)',
 						qrCodePic: '/static/share/img_kung2.png',
@@ -110,6 +118,7 @@
 					{
 						imageUrl: '/static/share/img_haibao3.png',
 						class: 'green',
+						background: 'rgba(255, 255, 255, 0.47)',
 						textColor: "#0BA827",
 						borderStyle: '2rpx solid rgba(102, 230, 37, 1)',
 						qrCodePic: '/static/share/img_kung3.png',
@@ -119,6 +128,7 @@
 					{
 						imageUrl: '/static/share/img_haibao4.png',
 						class: 'purple',
+						background: 'rgba(255, 255, 255, 0.51)',
 						textColor: "#E54685",
 						borderStyle: '2rpx solid rgba(228, 119, 177, 1)',
 						qrCodePic: '/static/share/img_kung4.png',
@@ -128,6 +138,7 @@
 					{
 						imageUrl: '/static/share/img_haibao5.png',
 						class: 'orange',
+						background: 'rgba(255, 255, 255, 0.58)',
 						textColor: "#CC4502",
 						borderStyle: '2rpx solid rgba(255, 157, 100, 1)',
 						qrCodePic: '/static/share/img_kung5.png',
@@ -167,104 +178,27 @@
 		methods: {
 			handleSwiperChange(e) {
 				this.currentIndex = e.detail.current;
+				this.showPainter = false
 			},
 			handleClickOutside(event) {
 				console.log('父元素被点击');
 				this.$emit('modelClose')
+				this.showPainter = false
 			},
 			async clickShareBtn(e) {
 				console.log("e:::::::", e)
 				console.log('子元素被点击');
 				if (e.type === 'savePic') {
-
-
+					this.showPainter = true
+					this.$nextTick(() => {
+						console.log('PosterModel::::', this.$refs.PosterModel)
+						this.$refs.PosterModel.save()
+					})
 				} else if (e.type === 'wechatMoment') {
 					uni.showToast({
 						title: '请点击右上角三个点唤起菜单，找到分享到朋友圈并点击',
 						icon: 'none',
 						duration: 3000
-					});
-				}
-			},
-
-			async savePageAsImage() {
-				try {
-					// 获取要转换为图片的页面元素
-					// 获取要截图的元素
-					const element = uni.createSelectorQuery().in(this).select('.poster_slider');
-					const rect = await new Promise((resolve, reject) => {
-						element.boundingClientRect(resolve).exec();
-					});
-					console.log(rect)
-					const canvas = await html2canvas(rect, {
-						// 配置项可根据需要调整，如 width、height 等
-						useCORS: true,
-						logging: false
-					});
-					const imageData = canvas.toDataURL('image/png');
-					console.log('生成的图片数据:', imageData);
-
-					// 将图片数据转换为 Blob 对象
-					const blob = await (await fetch(imageData)).blob();
-					const file = new File([blob], 'page_image.png', {
-						type: 'image/png'
-					});
-
-					// 将 Blob 对象上传到服务器或使用本地存储，这里使用本地存储示例
-					const reader = new FileReader();
-					reader.onloadend = () => {
-						const base64Data = reader.result;
-						uni.downloadFile({
-							url: base64Data,
-							success: (res) => {
-								if (res.statusCode === 200) {
-									console.log('图片下载成功，临时路径:', res.tempFilePath);
-									// 保存图片到相册
-									wx.saveImageToPhotosAlbum({
-										filePath: res.tempFilePath,
-										success: () => {
-											console.log('图片保存成功');
-											uni.showToast({
-												title: '图片保存成功',
-												icon: 'success',
-												duration: 2000
-											});
-										},
-										fail: (err) => {
-											console.log('图片保存失败', err);
-											uni.showToast({
-												title: '图片保存失败',
-												icon: 'none',
-												duration: 2000
-											});
-										}
-									});
-								} else {
-									console.log('图片下载失败');
-									uni.showToast({
-										title: '图片下载失败',
-										icon: 'none',
-										duration: 2000
-									});
-								}
-							},
-							fail: (err) => {
-								console.log('图片下载失败', err);
-								uni.showToast({
-									title: '图片下载失败',
-									icon: 'none',
-									duration: 2000
-								});
-							}
-						});
-					};
-					reader.readAsDataURL(file);
-				} catch (error) {
-					console.error('保存页面为图片出错:', error);
-					uni.showToast({
-						title: '保存页面为图片出错',
-						icon: 'none',
-						duration: 2000
 					});
 				}
 			},
@@ -311,12 +245,6 @@
 			z-index: -9999;
 			/* 3 */
 			opacity: 0;
-			// width: 166rpx !important;
-			// height: 168rpx !important;
-			// padding: 0;
-			// position: absolute;
-			// top: 195rpx;
-			// left: 31rpx;
 		}
 
 		.qrCode_item {}
@@ -365,7 +293,7 @@
 					.box_top_left {
 						flex: 1;
 						margin-top: 46rpx;
-						float: left;
+						display: flex;
 
 						&_l {
 							border-radius: 50%;
@@ -383,7 +311,6 @@
 						}
 
 						&_r {
-							float: left;
 							line-height: 45rpx;
 
 							.text {

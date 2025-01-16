@@ -1,56 +1,68 @@
 <template>
 	<!-- <lime-painter /> -->
-	<l-painter css="width: 750rpx;height:2000rpx;" @fail="fail" @done="done" pathType="url" ref="poster" performance>
-		<l-painter-view css="margin-top:100rpx;display: flex;justify-content: center;align-items: center;">
-			<l-painter-image src="/static/share/img_haibao1.png"
-				css="width: 90%;height: 1132rpx;color:#fff;object-fit: cover;" />
-			<l-painter-view
-				css="height: 410rpx;border-radius: 8rpx;width: 82%;position: absolute;top: 660rpx;left:68rpx;background: linear-gradient(180deg, #F9F5F5 0%, #FFE1CE 100%);">
-				<l-painter-view css="display: flex;justify-content: center;align-items: center;text-align:right;">
-					<l-painter-view css="flex: 1;margin-top: 46rpx;display:flex;">
-						<l-painter-image src="/static/share/icon.png"
-							css="margin:0 20rpx 0 24rpx;width: 84rpx;height: 84rpx;border-radius: 50%;border: 2rpx solid rgba(255, 157, 100, 1);"></l-painter-image>
-						<l-painter-view css="color:#A9492A;float:left;">
-							<l-painter-text css="font-weight: 500;font-size: 26rpx;display:block;margin-bottom:10rpx;"
-								text="大门牙胖仔"></l-painter-text>
-							<l-painter-text css="font-weight: 500;font-size: 22rpx;"
-								text="189****1312"></l-painter-text>
-						</l-painter-view>
-					</l-painter-view>
-					<l-painter-view css="flex: 1;">
-						<l-painter-image src="/static/share/img_jinbi.png"
-							css="width: 170rpx;height: 114rpx;margin: 20rpx 40rpx 0 0;" />
-					</l-painter-view>
-				</l-painter-view>
-
-				<l-painter-view css="display: flex;margin-top: 20rpx;">
-					<l-painter-view
-						css="background-position: center;width: 180rpx;height: 180rpx;margin: 24rpx 88rpx 0 24rpx;background-repeat: no-repeat;">
-						<l-painter-qrcode css="width: 202rpx;height: 202rpx;padding: 6rpx;"
-							text="9BFC4502C50814351A7633BF3B20FBD63256E88747374DFA19F925CB00E87411"></l-painter-qrcode>
-					</l-painter-view>
-					<l-painter-view css="text-align: center;">
-						<l-painter-view css="display: flex;margin: 46rpx 0 14rpx 0rpx;">
-							<l-painter-image src="/static/share/img_shou.png" css="width: 64rpx;height: 42rpx;margin-right:10rpx;" />
-							<l-painter-text css="margin-top: 6rpx;display:block;" text="扫码一起赚钱"></l-painter-text>
-						</l-painter-view>
-						<l-painter-view css="font-weight: 500;font-size: 32rpx;margin-top:-90rpx;">
-							<l-painter-text css="font-weight: 500;font-size: 32rpx;display:block;margin-bottom:10rpx;" text="加入51积分"></l-painter-text>
-							<l-painter-text css="font-weight: 500;font-size: 32rpx;" text="尊享赚钱项目"></l-painter-text>
-						</l-painter-view>
-					</l-painter-view>
-				</l-painter-view>
-			</l-painter-view>
-		</l-painter-view>
-
-	</l-painter>
+	<poster-model :painterProps="posterList[currentIndex]"></poster-model>
 </template>
 
 <script>
+	import PosterModel from "@/components/common/my-poster/poster.vue"
 	export default {
+		components: {
+			PosterModel
+		},
 		data() {
 			return {
-
+				currentIndex: 0,
+				posterList: [{
+						imageUrl: '/static/share/img_haibao1.png',
+						class: 'red',
+						background: 'linear-gradient(180deg, #F9F5F5 0%, #FFE1CE 100%)',
+						textColor: "#A9492A",
+						borderStyle: '2rpx solid rgba(255, 157, 100, 1)',
+						qrCodePic: '/static/share/img_kung1.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
+					},
+					{
+						imageUrl: '/static/share/img_haibao2.png',
+						class: 'blue',
+						background: 'rgba(255, 255, 255, 0.28)',
+						textColor: "#1E81F6",
+						borderStyle: '2rpx solid rgba(101, 172, 255, 1)',
+						qrCodePic: '/static/share/img_kung2.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
+					},
+					{
+						imageUrl: '/static/share/img_haibao3.png',
+						class: 'green',
+						background: 'rgba(255, 255, 255, 0.47)',
+						textColor: "#0BA827",
+						borderStyle: '2rpx solid rgba(102, 230, 37, 1)',
+						qrCodePic: '/static/share/img_kung3.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
+					},
+					{
+						imageUrl: '/static/share/img_haibao4.png',
+						class: 'purple',
+						background: 'rgba(255, 255, 255, 0.51)',
+						textColor: "#E54685",
+						borderStyle: '2rpx solid rgba(228, 119, 177, 1)',
+						qrCodePic: '/static/share/img_kung4.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
+					},
+					{
+						imageUrl: '/static/share/img_haibao5.png',
+						class: 'orange',
+						background: 'rgba(255, 255, 255, 0.58)',
+						textColor: "#CC4502",
+						borderStyle: '2rpx solid rgba(255, 157, 100, 1)',
+						qrCodePic: '/static/share/img_kung5.png',
+						userName: '大门牙胖仔',
+						phone: '189****1312'
+					},
+				],
 			};
 		},
 		onShow() {
@@ -70,12 +82,49 @@
 					success: (res) => {
 						console.log(res.tempFilePath)
 						this.picture2 = res.tempFilePath
+						uni.showLoading({
+							title: "正在保存图片"
+						})
 						this.saveImage()
 					},
 					fail(e) {
 						console.log('???????????', e)
 					}
 				})
+			},
+			saveImage() {
+				// #ifndef H5
+				try {
+					uni.saveImageToPhotosAlbum({
+						filePath: this.picture,
+						success(res) {
+							uni.hideLoading()
+							uni.showToast({
+								title: '已保存到相册',
+								icon: 'success',
+								duration: 2000
+							});
+						},
+						fail(err) {
+							uni.hideLoading()
+							console.log('图片保存失败', err);
+							uni.showToast({
+								title: '图片保存失败',
+								icon: 'none',
+								duration: 2000
+							});
+						}
+					});
+				} catch (error) {
+					console.error('保存页面为图片出错:', error);
+					uni.showToast({
+						title: '保存页面为图片出错',
+						icon: 'none',
+						duration: 2000
+					});
+				}
+
+				// #endif
 			}
 		}
 	}
