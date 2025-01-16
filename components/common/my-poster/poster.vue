@@ -84,10 +84,14 @@
 					success: (res) => {
 						console.log(res.tempFilePath)
 						this.picture = res.tempFilePath
+						this.$store.dispatch('updateSharedData', res.tempFilePath)
 						uni.showLoading({
 							title: "正在保存图片"
 						})
 						this.saveImage()
+						// wx.showShareImageMenu({
+						// 	path: res.tempFilePath
+						// })
 					},
 					fail(e) {
 						console.log('???????????', e)

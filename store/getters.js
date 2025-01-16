@@ -12,6 +12,7 @@ const getters = {
 	judgeValue: state => state.base.judgeValue,
 	homeRefresh: state => state.base.homeRefresh,
 	loading: state => state.base.loading,
+	shareImgUrl: state => state.share.shareImgUrl,
 }
 
 export default getters

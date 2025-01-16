@@ -104,35 +104,35 @@
 		async onShow() {
 			console.log('this.accessToken:::::::::::', this.accessToken)
 			console.log('this.refreshToken:::::::::::', this.refreshToken)
-			if (this.refreshToken) {
-				console.log(1111111111)
-				this.show = false
-				const data = {
-					accessToken: this.accessToken,
-					appKey: '6285175579683467',
-					timestamp: new Date().getTime()
-				}
-				const res = await this.$mpApi.getUserInfo(data)
-				console.log('获取用户信息:::::::::', res)
-				if (res.code === 200) {
-					Object.keys(res.data).map((key, index) => {
-						this.userInfo[key] = res.data[key]
-					})
-					console.log('userInfo:::::::::', this.userInfo)
-				}
-				const data2 = {
-					accessToken: this.accessToken,
-					appKey: '6285175579683467',
-					timestamp: new Date().getTime()
-				}
-				const res2 = await this.$mpApi.getUserPoints(data2)
-				if (res2.code === 200) {
-					this.userInfo.integral = res2.data
-				}
-			} else {
-				console.log(222222222)
-				this.show = true
-			}
+			// if (this.refreshToken) {
+			// 	console.log(1111111111)
+			// 	this.show = false
+			// 	const data = {
+			// 		accessToken: this.accessToken,
+			// 		appKey: '6285175579683467',
+			// 		timestamp: new Date().getTime()
+			// 	}
+			// 	const res = await this.$mpApi.getUserInfo(data)
+			// 	console.log('获取用户信息:::::::::', res)
+			// 	if (res.code === 200) {
+			// 		Object.keys(res.data).map((key, index) => {
+			// 			this.userInfo[key] = res.data[key]
+			// 		})
+			// 		console.log('userInfo:::::::::', this.userInfo)
+			// 	}
+			// 	const data2 = {
+			// 		accessToken: this.accessToken,
+			// 		appKey: '6285175579683467',
+			// 		timestamp: new Date().getTime()
+			// 	}
+			// 	const res2 = await this.$mpApi.getUserPoints(data2)
+			// 	if (res2.code === 200) {
+			// 		this.userInfo.integral = res2.data
+			// 	}
+			// } else {
+			// 	console.log(222222222)
+			// 	this.show = true
+			// }
 		},
 		onLoad() {
 			// this.show = true
@@ -141,30 +141,36 @@
 			// #ifdef MP-WEIXIN
 			wx.showShareMenu({
 				withShareTicket: true,
-				menus: ['ShareAppMessage', 'shareTimeline']
+				menus: ['shareAppMessage', 'shareTimeline']
 			});
 			// #endif
 		},
 		onShareAppMessage(res) {
 			if (res.from === 'button') { // 判断分享是否来自页面内分享按钮
 				console.log("res111:::::", res)
+				const {
+					title,
+					path,
+					imageUrl
+				} = res.target.dataset.share
+				return {
+					title,
+					path,
+					imageUrl
+				}
 			}
-			const {
-				title,
-				path
-			} = res.target.dataset.share
 			return {
 				title,
-				path
+				path,
+				imageUrl: this.$store.getters.shareImgUrl
 			}
 		},
 		onShareTimeline(res) {
 			console.log("res222:::::", res)
-			let val = '111';
-			const params = encodeURIComponent(`type=3&val=${val}`);
 			return {
-				title: '啦啦啦',
-				query: `params=${params}`
+				title: '分享赚',
+				query: '/pages/home/index/index',
+				imageUrl: this.$store.getters.shareImgUrl
 			}
 		},
 	};

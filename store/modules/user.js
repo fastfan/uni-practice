@@ -15,13 +15,13 @@ const user = {
 		/**
 		 * 微信登录
 		 */
-		async Login({
-			commit
-		}, code) {
-			commit('SET_USER_INFO', {
-				code
-			})
-		}
+		// async Login({
+		// 	commit
+		// }, code) {
+		// 	commit('SET_USER_INFO', {
+		// 		code
+		// 	})
+		// }
 	}
 }
 

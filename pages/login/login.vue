@@ -122,18 +122,18 @@
 			}
 		},
 		onLoad: function() {
-			uni.login({
-				success: (res) => {
-					console.log("res:::::::::::", res)
-					if (res.errMsg == "login:ok") {
-						this.code = res.code;
-					} else {
-						uni.showToast({
-							title: '系统异常，请联系管理员!'
-						})
-					}
-				}
-			})
+			// uni.login({
+			// 	success: (res) => {
+			// 		console.log("res:::::::::::", res)
+			// 		if (res.errMsg == "login:ok") {
+			// 			this.code = res.code;
+			// 		} else {
+			// 			uni.showToast({
+			// 				title: '系统异常，请联系管理员!'
+			// 			})
+			// 		}
+			// 	}
+			// })
 		},
 	}
 </script>

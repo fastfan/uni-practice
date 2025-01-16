@@ -13,7 +13,7 @@
 					</view>
 				</view>
 				<view class="container_mid">
-					<image src="/static/share/28.png" class="img" mode=""></image>
+					<image src="/static/share/icon.png" class="img" mode=""></image>
 					<view class="text">你的好友{{inviter}}邀请您加入51积分</view>
 				</view>
 				<view class="container_list">

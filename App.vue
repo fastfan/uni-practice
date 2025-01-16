@@ -5,13 +5,13 @@
 			console.log('App Launch')
 			// auth()
 			//获取系统信息
-			uni.getSystemInfo({
-				success: res => {
-					this.globalData.winWidth = res.windowWidth;
-					this.globalData.winHeight = res.windowHeight;
-					this.globalData.winTabbarHeight = 50;
-				}
-			});
+			// uni.getSystemInfo({
+			// 	success: res => {
+			// 		this.globalData.winWidth = res.windowWidth;
+			// 		this.globalData.winHeight = res.windowHeight;
+			// 		this.globalData.winTabbarHeight = 50;
+			// 	}
+			// });
 		},
 		onShow: function() {
 			console.log('App Show')

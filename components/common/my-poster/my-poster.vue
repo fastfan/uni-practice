@@ -55,7 +55,8 @@
 		<view class="poster_slider_share">
 			<button class="share_list" @click.native.stop="clickShareBtn(shareList[0])" open-type="share" :data-share="{
 				  title: '分享的标题',
-				  path: `/pages/mine/index/index`
+				  path: `/pages/mine/index/index`,
+					imageUrl:`${$store.getters.imageUrl}`
 				}">
 				<image :src="shareList[0].icon" mode="widthFix">
 				</image>
@@ -196,7 +197,7 @@
 					})
 				} else if (e.type === 'wechatMoment') {
 					uni.showToast({
-						title: '请点击右上角三个点唤起菜单，找到分享到朋友圈并点击',
+						title: '点击右上角三个点，找到分享到朋友圈并点击',
 						icon: 'none',
 						duration: 3000
 					});

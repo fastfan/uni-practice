@@ -8,7 +8,8 @@
 		<view class="my-share_box_btm">
 			<button open-type="share" :data-share="{
 				  title: '分享的标题',
-				  path: `/pages/mine/index/index`
+				  path: `/pages/mine/index/index`,
+					imageUrl:`${$store.getters.imageUrl}`
 				}" class="btm_btn btn">分享给好友</button>
 			<button class="btm_btn btn2" @click="creatPoster">生成专属海报</button>
 		</view>
