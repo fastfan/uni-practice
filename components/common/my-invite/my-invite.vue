@@ -43,7 +43,7 @@
 				phone: "189****1312",
 				points: "700",
 				inviter: "姚遥遥",
-				avater: "/static/share/28.png",
+				avater: "/static/share/icon.png",
 				itemList: [{
 					icon: "/static/share/ic_jifen.png",
 					text: "消费赚积分",
