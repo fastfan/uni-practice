@@ -3,10 +3,10 @@
 		<view class="poster_slider_container">
 			<swiper class="swiper" :indicator-dots="false" :autoplay="false" :circular="true" :duration="300"
 				:vertical="false" :current="currentIndex" @change="handleSwiperChange" :display-multiple-items="1"
-				previous-margin="60rpx" next-margin="60rpx">
+				previous-margin="60rpx" next-margin="60rpx" :style="{marginTop: statusBarHeight + 44 + 'px'}">
 				<swiper-item v-for="(item, index) in posterList" :key="index" class="swiper_item_custom">
 					<view class="poster_item" :class="currentIndex===index?'poster_item_current':''">
-						<image :src="item.imageUrl" mode="widthFix"></image>
+						<image :src="item.imageUrl" mode=""></image>
 						<view class="poster_item_box" :class="item.class">
 							<view class="poster_item_box_top">
 								<view class="box_top_left">
@@ -24,9 +24,8 @@
 							</view>
 							<view class="poster_item_box_btm">
 								<view class="box_btm_left">
-									<image :src="item.qrCodePic" mode="widthFix"></image>
-									<canvas class="canvas-hide" canvas-id="qrcode" />
-									<image class="scan" :class="isExpire?'expire': ''" :src="scanImage" mode=""></image>
+									<image :src="item.qrCodePic" mode="aspectFit"></image>
+									<image class="scan" :class="isExpire?'expire': ''" :src="scanImage" mode="aspectFit"></image>
 								</view>
 								<view class="box_btm_right">
 									<view class="box_btm_right_t">
@@ -68,7 +67,9 @@
 				<view class="share_list_text">{{shareList[1].text}}</view>
 			</button>
 		</view>
-		<poster-model ref="PosterModel" v-if="showPainter" :painterProps="posterList[currentIndex]"></poster-model>
+		<poster-model ref="PosterModel" v-if="showPainter" :painterProps="posterList[currentIndex]"
+			style="position: fixed;left: -999rpx;"></poster-model>
+		<canvas class="canvas-hide" canvas-id="qrcode" />
 	</view>
 </template>
 <script>
@@ -89,8 +90,9 @@
 			return {
 				showPainter: false,
 				currentIndex: 0,
-				winWidth: 176,
-				winHeight: 176,
+				winWidth: getApp().globalData.winWidth,
+				winHeight: getApp().globalData.winHeight,
+				statusBarHeight: getApp().globalData.statusBarHeight,
 				scanImage: null,
 				qrData: {
 					qrCodeData: '9BFC4502C50814351A7633BF3B20FBD63256E88747374DFA19F925CB00E87411'
@@ -246,6 +248,8 @@
 			z-index: -9999;
 			/* 3 */
 			opacity: 0;
+			height: 100vh;
+			width: 100vw;
 		}
 
 		.qrCode_item {}
@@ -256,12 +260,12 @@
 
 		&_container {
 			width: 100%;
-			height: 956rpx;
-			margin-top: 176rpx;
+			// height: 956rpx;
+			// margin-top: 176rpx;
 		}
 
 		.swiper {
-			height: 956rpx;
+			height: 872rpx;
 		}
 
 		.poster_item {
@@ -272,11 +276,11 @@
 			/* 添加过渡效果，使滑动更平滑 */
 
 			&_box {
-				height: 410rpx;
+				height: 382rpx;
 				border-radius: 8rpx;
 				width: 82%;
 				position: absolute;
-				top: 480rpx;
+				bottom: 32rpx;
 
 				&_top {
 					display: flex;
@@ -340,11 +344,13 @@
 							// padding: 6rpx;
 							background: #fff;
 						}
-						margin: 24rpx;
+
+						margin: 0 24rpx;
+
 						.scan {
 							padding: 6rpx;
 							position: absolute;
-							top: 198rpx;
+							top: 175rpx;
 							left: 32rpx;
 							width: 163rpx;
 							height: 163rpx !important;
@@ -356,7 +362,7 @@
 
 						&_t {
 							display: flex;
-							margin: 46rpx 0 14rpx 0rpx;
+							margin: 28rpx 0 14rpx 0rpx;
 
 							image {
 								width: 64rpx;
@@ -422,7 +428,7 @@
 			background: linear-gradient(180deg, #FF8B27 0%, #FF6B31 100%);
 			border-radius: 50rpx;
 			width: 80%;
-			margin-top: 20rpx;
+			margin-top: 70rpx;
 			margin-left: 76rpx;
 
 			.btn_img {
