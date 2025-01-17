@@ -1,15 +1,15 @@
 <template>
 	<!-- <lime-painter /> -->
-	<!-- <view>1111111111111</view> -->
-	<PosterModel :painterProps="posterList[currentIndex]" />
+	<view>1111111111111</view>
+	<!-- <PosterModel :painterProps="posterList[currentIndex]" /> -->
 </template>
 
 <script>
 	import PosterModel from "@/components/common/my-poster/poster.vue"
 	export default {
-		components: {
-			PosterModel
-		},
+		// components: {
+		// 	PosterModel
+		// },
 		data() {
 			return {
 				currentIndex: 0,

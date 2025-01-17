@@ -1,9 +1,9 @@
 <template>
 	<!-- <lime-painter /> -->
-	<l-painter css="width: 650rpx;height:1092rpx;border-radius: 38rpx;background-color: transparent;" @fail="fail"
-		@done="done" pathType="url" ref="poster" performance>
+	<l-painter css="width: 650rpx;height:1092rpx;border-radius: 38rpx;background-color: transparent;opacity:0;"
+		@fail="fail" @done="done" pathType="url" ref="poster" performance>
 		<l-painter-view
-			css="display: flex;justify-content: center;align-items: center;background-color: transparent;border-radius: 38rpx;">
+			css="display: flex;justify-content: center;align-items: center;background-color: transparent;border-radius: 38rpx;opacity:0;">
 			<l-painter-image :src="painterProps.imageUrl" css="width: 100%;height: 1092rpx;color:#fff;" />
 			<l-painter-view
 				:css="{backGround: painterProps.background,height: '410rpx',borderRadius: '8rpx',width: '580rpx',position: 'absolute',top: '640rpx',left:'32rpx',backdropFilter: 'blur(20rpx)'}">

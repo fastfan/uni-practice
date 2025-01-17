@@ -3,7 +3,9 @@
 		<view class="my_invite_container">
 			<view class="container_bg">
 				<image src="/static/share/img_fxz.png" class="bg" mode="widthFix"></image>
-				<image src="/static/share/ic_guanbi.png" class="icon" mode="" @click="clickEvent('close')"></image>
+				<view class="icon_view" @click="clickEvent('close')">
+					<image src="/static/share/ic_guanbi.png" class="icon" mode=""></image>
+				</view>
 				<view class="mid_box">
 					<view class="container_img">
 						<image src="/static/share/taxt_fenx.png" class="img" mode=""></image>
@@ -126,12 +128,20 @@
 
 				}
 
+				.icon_view {
+					width: 104rpx;
+					height: 82rpx;
+					position: absolute;
+					right: 0;
+					top: 0;
+					padding: 20rpx 16rpx 0 0;
+					text-align: right;
+					z-index: 9;
+				}
+
 				.icon {
 					width: 52rpx;
 					height: 52rpx;
-					position: absolute;
-					right: 16rpx;
-					top: 20rpx;
 				}
 
 				.container_img {
