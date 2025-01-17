@@ -1,34 +1,36 @@
 <template>
-	<view v-if="isVisible" class="my_invite">
+	<u-popup :show="isVisible" :mode="mode" :closeable="false">
 		<view class="my_invite_container">
 			<view class="container_bg">
 				<image src="/static/share/img_fxz.png" class="bg" mode="widthFix"></image>
 				<image src="/static/share/ic_guanbi.png" class="icon" mode="" @click="clickEvent('close')"></image>
-				<view class="container_img">
-					<image src="/static/share/taxt_fenx.png" class="img" mode=""></image>
-				</view>
-				<view class="container_scroll">
-					<view class="scroll_box">
-						<image :src="avater" class="img" mode=""></image>
-						<view class="text"> {{phone}}累计获得{{points}}积分</view>
+				<view class="mid_box">
+					<view class="container_img">
+						<image src="/static/share/taxt_fenx.png" class="img" mode=""></image>
 					</view>
+					<view class="container_scroll">
+						<view class="scroll_box">
+							<image :src="avater" class="img" mode=""></image>
+							<view class="text"> {{phone}}累计获得{{points}}积分</view>
+						</view>
+					</view>
+					<view class="container_mid">
+						<image src="/static/share/icon.png" class="img" mode=""></image>
+						<view class="text">你的好友{{inviter}}邀请您加入51积分</view>
+					</view>
+					<view class="container_list">
+						<my-textlist :text-list="itemList"></my-textlist>
+					</view>
+					<view class="container_bottom">
+						<image class="img" src="/static/share/banner_fenxiao.png" mode="widthFix">
+						</image>
+					</view>
+					<view class="container_btn" @click="clickEvent('ensure')">查看玩法</view>
 				</view>
-				<view class="container_mid">
-					<image src="/static/share/icon.png" class="img" mode=""></image>
-					<view class="text">你的好友{{inviter}}邀请您加入51积分</view>
-				</view>
-				<view class="container_list">
-					<my-textlist :text-list="itemList"></my-textlist>
-				</view>
-				<view class="container_bottom">
-					<image class="img" src="/static/share/banner_fenxiao.png" mode="widthFix">
-					</image>
-				</view>
-				<view class="container_btn" @click="clickEvent('ensure')">查看玩法</view>
+
 			</view>
 		</view>
-	</view>
-	</view>
+	</u-popup>
 </template>
 
 <script>
@@ -37,6 +39,10 @@
 			isVisible: {
 				type: Boolean,
 				default: false
+			},
+			mode: {
+				type: String,
+				default: 'bottom'
 			}
 		},
 		data() {
@@ -78,35 +84,46 @@
 
 <style lang="scss" scoped>
 	.my_invite {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(0, 0, 0, 0.5);
-		z-index: 999;
+		// position: fixed;
+		// top: 0;
+		// left: 0;
+		// width: 100%;
+		// height: 100%;
+		// background-color: rgba(0, 0, 0, 0.5);
+		// z-index: 999;
 
 		&_container {
 			position: absolute;
 			bottom: 0;
 			width: 100%;
+			height: 1222rpx;
 
 			// height: 100%;
+			.mid_box {
+				position: absolute;
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				align-items: center;
+				height: 100%;
+			}
+
 			.container_bg {
 				position: relative;
 				// background-size: cover;
-				height: 1222rpx;
+				// height: 1222rpx;
 				// padding: 72rpx 0 0 0;
+				height: 100%;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 
 				.bg {
 					width: 100%;
-					height: 1294rpx;
+					// height: 1294rpx;
 					position: absolute;
-					z-index: -999;
-					
+					// z-index: -999;
+
 				}
 
 				.icon {
@@ -129,6 +146,8 @@
 
 				.container_scroll {
 					text-align: center;
+					display: flex;
+					justify-content: center;
 
 					.scroll_box {
 						width: 424rpx;

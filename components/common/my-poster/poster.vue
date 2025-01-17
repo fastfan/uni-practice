@@ -1,11 +1,12 @@
 <template>
 	<!-- <lime-painter /> -->
-	<l-painter css="width: 750rpx;height:1092rpx;background-color: transparent;" @fail="fail" @done="done" pathType="url"
-		ref="poster" performance>
-		<l-painter-view css="margin-top:100rpx;display: flex;justify-content: center;align-items: center;">
-			<l-painter-image :src="painterProps.imageUrl" css="width: 88%;height: 1092rpx;color:#fff;" />
+	<l-painter css="width: 650rpx;height:1092rpx;border-radius: 38rpx;background-color: transparent;" @fail="fail"
+		@done="done" pathType="url" ref="poster" performance>
+		<l-painter-view
+			css="display: flex;justify-content: center;align-items: center;background-color: transparent;border-radius: 38rpx;">
+			<l-painter-image :src="painterProps.imageUrl" css="width: 100%;height: 1092rpx;color:#fff;" />
 			<l-painter-view
-				:css="{backGround: painterProps.background,height: '410rpx',borderRadius: '8rpx',width: '80%',position: 'absolute',top: '640rpx',left:'72rpx',backdropFilter: 'blur(20rpx)'}">
+				:css="{backGround: painterProps.background,height: '410rpx',borderRadius: '8rpx',width: '580rpx',position: 'absolute',top: '640rpx',left:'32rpx',backdropFilter: 'blur(20rpx)'}">
 				<l-painter-view css="display: flex;justify-content: center;align-items: center;text-align:right;">
 					<l-painter-view css="flex: 1;margin-top: 46rpx;display:flex;">
 						<l-painter-image src="/static/share/icon.png"
@@ -159,4 +160,9 @@
 
 <style lang="scss" scoped>
 
+</style>
+<style>
+	.lime-painter__canvas {
+		border-radius: 20rpx;
+	}
 </style>
