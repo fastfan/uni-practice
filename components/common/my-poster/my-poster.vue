@@ -23,8 +23,8 @@
 								</view>
 							</view>
 							<view class="poster_item_box_btm">
-								<view class="box_btm_left" :style="{background:'url(' + item.qrCodePic + ')'}">
-									<!-- <image :src="item.qrCodePic" mode="widthFix"></image> -->
+								<view class="box_btm_left">
+									<image :src="item.qrCodePic" mode="widthFix"></image>
 									<canvas class="canvas-hide" canvas-id="qrcode" />
 									<image class="scan" :class="isExpire?'expire': ''" :src="scanImage" mode=""></image>
 								</view>
@@ -250,13 +250,6 @@
 
 		.qrCode_item {}
 
-		.scan {
-			padding: 6rpx;
-			position: absolute;
-			top: 190rpx;
-			left: 27rpx;
-		}
-
 		.expire {
 			opacity: 0.1;
 		}
@@ -342,17 +335,20 @@
 
 					.box_btm_left {
 						image {
-							width: 162rpx;
-							height: 162rpx !important;
-							padding: 6rpx;
+							width: 192rpx;
+							height: 192rpx !important;
+							// padding: 6rpx;
+							background: #fff;
 						}
-
-						background-position: center;
-						width: 180rpx;
-						height: 180rpx;
 						margin: 24rpx;
-						background-repeat: no-repeat;
-						background-size: cover;
+						.scan {
+							padding: 6rpx;
+							position: absolute;
+							top: 198rpx;
+							left: 32rpx;
+							width: 163rpx;
+							height: 163rpx !important;
+						}
 					}
 
 					.box_btm_right {

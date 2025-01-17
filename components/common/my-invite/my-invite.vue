@@ -1,7 +1,8 @@
 <template>
 	<view v-if="isVisible" class="my_invite">
 		<view class="my_invite_container">
-			<view class="container_bg" style="background: url('/static/share/img_yaoqbg.png')">
+			<view class="container_bg">
+				<image src="/static/share/img_fxz.png" class="bg" mode="widthFix"></image>
 				<image src="/static/share/ic_guanbi.png" class="icon" mode="" @click="clickEvent('close')"></image>
 				<view class="container_img">
 					<image src="/static/share/taxt_fenx.png" class="img" mode=""></image>
@@ -93,12 +94,20 @@
 			// height: 100%;
 			.container_bg {
 				position: relative;
-				background-size: cover;
+				// background-size: cover;
 				height: 1222rpx;
-				padding: 72rpx 0 0 0;
+				// padding: 72rpx 0 0 0;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
+
+				.bg {
+					width: 100%;
+					height: 1294rpx;
+					position: absolute;
+					z-index: -999;
+					
+				}
 
 				.icon {
 					width: 52rpx;
@@ -111,7 +120,7 @@
 				.container_img {
 					height: 84rpx;
 					text-align: center;
-					margin: 0 0 30rpx 0;
+					margin: 72rpx 0 30rpx 0;
 
 					.img {
 						height: 84rpx;
