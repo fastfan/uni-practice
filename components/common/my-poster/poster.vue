@@ -1,6 +1,7 @@
 <template>
 	<!-- <lime-painter /> -->
-	<l-painter css="width: 750rpx;height:1300rpx;" @fail="fail" @done="done" pathType="url" ref="poster" performance>
+	<l-painter css="width: 750rpx;height:1092rpx;background-color: transparent;" @fail="fail" @done="done" pathType="url"
+		ref="poster" performance>
 		<l-painter-view css="margin-top:100rpx;display: flex;justify-content: center;align-items: center;">
 			<l-painter-image :src="painterProps.imageUrl" css="width: 88%;height: 1092rpx;color:#fff;" />
 			<l-painter-view
