@@ -3,10 +3,10 @@
 		<view class="poster_slider_container">
 			<swiper class="swiper" :indicator-dots="false" :autoplay="false" :circular="true" :duration="300"
 				:vertical="false" :current="currentIndex" @change="handleSwiperChange" :display-multiple-items="1"
-				previous-margin="60rpx" next-margin="60rpx" :style="{marginTop: statusBarHeight + 44 + 'px'}">
+				previous-margin="60rpx" next-margin="60rpx" :style="{marginTop: statusBarHeight + 44 + 'px',height:midHeight}">
 				<swiper-item v-for="(item, index) in posterList" :key="index" class="swiper_item_custom">
 					<view class="poster_item" :class="currentIndex===index?'poster_item_current':''">
-						<image :src="item.imageUrl" mode=""></image>
+						<image :src="item.imageUrl" mode="" :style="{height:midHeight}"></image>
 						<view class="poster_item_box" :class="item.class">
 							<view class="poster_item_box_top">
 								<view class="box_top_left">
@@ -177,6 +177,16 @@
 				],
 				src: ''
 			};
+		},
+		computed: {
+			midHeight() {
+				const {
+					winHeight,
+					statusBarHeight
+				} = getApp().globalData
+				console.log(getApp())
+				return (winHeight) * 0.58 * 2 + 'rpx'
+			}
 		},
 		methods: {
 			handleSwiperChange(e) {
