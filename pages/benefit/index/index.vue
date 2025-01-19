@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import Slide from '../slide/slide.vue'
+	import Slide from '../slide/slide3.vue'
 	export default {
 		components: {
 			Slide

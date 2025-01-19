@@ -11,43 +11,26 @@
 		 
 		4. 视频 id 切记是字符串类型 
 		 -->
-		<view class="status_bar">
-			<!-- 状态栏占位 -->
-		</view>
+		<!-- <view class="status_bar"> -->
+		<!-- 状态栏占位 -->
+		<!-- </view> -->
 		<!-- 导航栏 -->
 		<view class="tabs-container">
-			<view v-for="(tab, index) in tabList" :key="index" @tap="tabsOn(index)" :class="{ active: tabsId === index }"
-				class="tab">{{ tab.title }}
+			<view v-for="(tab, index) in tabList" :key="index" @tap="tabsOn(index)"
+				:class="{ active: tabsId === index }" class="tab">{{ tab.title }}
 				<view class="line" v-if="tabsId === index"></view>
 			</view>
 		</view>
 		<!-- 视频 -->
 		<view>
-			<swiper @change="slideOn" :current="tabsId" style="flex-grow: 1;height:calc(100vh - 50rpx);">
+			<swiper @change="slideOn" :current="tabsId" style="flex-grow: 1;height:calc(100vh);">
 				<swiper-item v-for="(tab, indexs) in contentList" :key="indexs">
 					<view v-if="indexs!=3" class="slide_one">{{ tab.content }}
 					</view>
 					<view v-if="indexs === tabsId">
-						<!-- <swiper class="swiper" @change="changefun" @animationfinish="animationfinishfun"
-							:current="current" :circular="false" :vertical="true">
-							<block v-if="PayVideo">
-								<swiper-item v-for="(item,indexes) in PayVideo" :key="item.id">
-									<view class="swiper-item uni-bg-black">
-										<video v-if="indexes == current" class="video" :id="'id'+indexes"
-											:src="item.part_url" :custom-cache="false" :controls="true"
-											:show-progress="true" :initial-time="0" :show-loading="true"
-											:show-mute-btn="true" :loop="true" :autoplay="true" :muted="false"
-											:play-strategy="2" :object-fit="'contain'" :direction="90"
-											:enable-progress-gesture="false" :show-center-play-btn="false"
-											vslide-gesture-in-fullscreen :play-btn-position="'center'"
-											:show-play-btn="true" :mobilenet-hint-type="1">
-										</video>
-									</view>
-								</swiper-item>
-							</block>
-						</swiper> -->
 						<!-- #ifdef MP -->
-						<swiper :style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
+						<swiper
+							:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
 							:vertical="true" @animationfinish="animationfinish" @change="change" :current="current"
 							:indicator-dots="false" @touchstart="mpTouchstart" @touchend="mpTouchend">
 							<swiper-item v-for="(list,index) in dataList" :key="index">
@@ -61,17 +44,21 @@
 										5.show-loading：这里默认去掉播放转圈的标志
 										v-if="Math.abs(k-index)<=1"
 										 -->
-										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="false"
-											:http-cache="true" :page-gesture="false" :show-fullscreen-btn="false" :show-loading="false"
-											:show-center-play-btn="false" :enable-progress-gesture="false" :src="list.src" @ended="ended"
-											@click="tapVideoHover(list.state,$event)" @timeupdate="timeupdate($event,index)"
+										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay"
+											:controls="false" :http-cache="true" :page-gesture="false"
+											:show-fullscreen-btn="false" :show-loading="false"
+											:show-center-play-btn="false" :enable-progress-gesture="false"
+											:object-fit="'contain'" 
+											:src="list.src" @ended="ended" @click="tapVideoHover(list.state,$event)"
+											@timeupdate="timeupdate($event,index)"
 											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000; z-index: -1;'"
 											:poster="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"></video>
 										<!-- 
 										1.这里是封面（方案二）：这里的封面可以自定义。
 										2.也在代码中做了批注，两种方案可以共存，不会相互影响。
 										-->
-										<image v-if="!list.playIng" :src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
+										<image v-if="!list.playIng"
+											:src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
 											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; position: absolute;'"
 											mode="aspectFit">
 										</image>
@@ -79,18 +66,22 @@
 									<!-- 播放状态：pause 的时候就会暂停 -->
 									<view class="videoHover" @click="tapVideoHover(list.state,$event)"
 										:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px;'">
-										<image v-if="list.state=='pause'" class="playState" src="@/static/img/index/play.png"></image>
+										<image v-if="list.state=='pause'" class="playState"
+											src="@/static/img/index/play.png"></image>
 									</view>
 									<view class="userInfo">
 										<!-- 1.头像 -->
-										<image @click="tozuozhe" class="userAvatar" :src="list.href" mode="aspectFill"></image>
+										<image @click="tozuozhe" class="userAvatar" :src="list.href" mode="aspectFill">
+										</image>
 										<!-- 2.点赞 -->
 										<view @click="cLike(list.like);"
 											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image v-if="list.like" src="@/static/img/index/xin.png"
-												style="width: 40px; height: 40px; position: absolute; right: 6px;"></image>
+												style="width: 40px; height: 40px; position: absolute; right: 6px;">
+											</image>
 											<image v-if="!list.like" src="@/static/img/index/xin-2.png"
-												style="width: 40px; height: 40px; position: absolute; right: 6px;"></image>
+												style="width: 40px; height: 40px; position: absolute; right: 6px;">
+											</image>
 											<text
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; margin-top: 40px; font-weight: bold;"
 												:class="{'likeNumActive':list.like}">{{list.like_n}}</text>
@@ -99,14 +90,17 @@
 										<view class="comment" @click="toComment(index)"
 											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image src="@/static/img/index/liaotian-2.png"
-												style="width: 35px; height: 35px; position: absolute; right: 7px;"></image>
+												style="width: 35px; height: 35px; position: absolute; right: 7px;">
+											</image>
 											<text
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; font-weight: bold; text-align: center; margin-top: 40px;">{{list.sms_n}}</text>
 										</view>
 										<!-- 4.分享 -->
-										<view @click="share" style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
+										<view @click="share"
+											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image src="@/static/img/index/share-fill.png"
-												style="width: 40px; height: 40px; position: absolute; right: 5px;"></image>
+												style="width: 40px; height: 40px; position: absolute; right: 5px;">
+											</image>
 											<text
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; font-weight: bold; margin-top: 40px;">分享</text>
 										</view>
@@ -119,13 +113,14 @@
 											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.msg}}-{{k+1}}</text><!-- k={{k}} -->
 									</view>
 									<!-- 进度条 -->
-									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend"
+									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove"
+										@touchend="touchend"
 										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'">
 										<!-- 不拖动情况下 -->
 										<view>
 											<!-- 1.底部背景进度条 -->
 											<view
-												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
+												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-top: 18px;position:absolute; height: 5px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
 											</view>
 											<!-- 2.播放的进度条 -->
 											<view v-if="!isTouch"
@@ -142,7 +137,8 @@
 						</swiper>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
-						<swiper :style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
+						<swiper
+							:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
 							:vertical="true" @animationfinish="animationfinish" @change="change" :current="current"
 							:indicator-dots="false" :duration="duration">
 							<swiper-item v-for="(list,index) in dataList" :key="index">
@@ -156,17 +152,20 @@
 										5.show-loading：这里默认去掉播放转圈的标志
 										v-if="Math.abs(k-index)<=1"
 										 -->
-										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="false"
-											:http-cache="true" :page-gesture="false" :show-fullscreen-btn="false" :show-loading="false"
-											:show-center-play-btn="false" :enable-progress-gesture="false" :src="list.src" @ended="ended"
-											@click="tapVideoHover(list.state,$event)" @timeupdate="timeupdate($event,index)"
+										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay"
+											:controls="false" :http-cache="true" :page-gesture="false"
+											:show-fullscreen-btn="false" :show-loading="false"
+											:show-center-play-btn="false" :enable-progress-gesture="false"
+											:src="list.src" @ended="ended" @click="tapVideoHover(list.state,$event)"
+											@timeupdate="timeupdate($event,index)"
 											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000; z-index: -1;'"
 											:poster="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"></video>
 										<!-- 
 										1.这里是封面（方案二）：这里的封面可以自定义。
 										2.也在代码中做了批注，两种方案可以共存，不会相互影响。
 										-->
-										<image v-if="!list.playIng" :src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
+										<image v-if="!list.playIng"
+											:src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
 											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; position: absolute;'"
 											mode="aspectFit">
 										</image>
@@ -174,18 +173,22 @@
 									<!-- 播放状态：pause 的时候就会暂停 -->
 									<view class="videoHover" @click="tapVideoHover(list.state,$event)"
 										:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px;'">
-										<image v-if="list.state=='pause'" class="playState" src="@/static/img/index/play.png"></image>
+										<image v-if="list.state=='pause'" class="playState"
+											src="@/static/img/index/play.png"></image>
 									</view>
 									<view class="userInfo">
 										<!-- 1.头像 -->
-										<image @click="tozuozhe" class="userAvatar" :src="list.href" mode="aspectFill"></image>
+										<image @click="tozuozhe" class="userAvatar" :src="list.href" mode="aspectFill">
+										</image>
 										<!-- 2.点赞 -->
 										<view @click="cLike(list.like);"
 											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image v-if="list.like" src="@/static/img/index/xin.png"
-												style="width: 40px; height: 40px; position: absolute; right: 6px;"></image>
+												style="width: 40px; height: 40px; position: absolute; right: 6px;">
+											</image>
 											<image v-if="!list.like" src="@/static/img/index/xin-2.png"
-												style="width: 40px; height: 40px; position: absolute; right: 6px;"></image>
+												style="width: 40px; height: 40px; position: absolute; right: 6px;">
+											</image>
 											<text
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; margin-top: 40px; font-weight: bold;"
 												:class="{'likeNumActive':list.like}">{{list.like_n}}</text>
@@ -194,19 +197,23 @@
 										<view class="comment" @click="toComment(index)"
 											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image src="@/static/img/index/liaotian-2.png"
-												style="width: 35px; height: 35px; position: absolute; right: 7px;"></image>
+												style="width: 35px; height: 35px; position: absolute; right: 7px;">
+											</image>
 											<text
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; font-weight: bold; text-align: center; margin-top: 40px;">{{list.sms_n}}</text>
 										</view>
 										<!-- 4.分享 -->
-										<view @click="share" style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
+										<view @click="share"
+											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image src="@/static/img/index/share-fill.png"
-												style="width: 40px; height: 40px; position: absolute; right: 5px;"></image>
+												style="width: 40px; height: 40px; position: absolute; right: 5px;">
+											</image>
 											<text
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; font-weight: bold; margin-top: 40px;">分享</text>
 										</view>
 										<view @click="dealVoice" style="margin-top: 17px;">
-											<view style="width: 48px; height: 48px; border-radius: 50px; position: absolute; right: 2.5px;">
+											<view
+												style="width: 48px; height: 48px; border-radius: 50px; position: absolute; right: 2.5px;">
 												<image
 													:style="'width: 48px; height: 48px; border-radius: 50px; transform: rotate('+ rotates +'deg);'"
 													src="@/static/img/index/bfq.png" mode="aspectFill"></image>
@@ -224,7 +231,8 @@
 											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.msg}}-{{k+1}}</text><!-- k={{k}} -->
 									</view>
 									<!-- 进度条 -->
-									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend"
+									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove"
+										@touchend="touchend"
 										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'">
 										<!-- 不拖动情况下 -->
 										<view>
@@ -249,46 +257,6 @@
 					</view>
 				</swiper-item>
 			</swiper>
-		</view>
-
-		<!-- 侧边栏 -->
-
-		<view class="toolbar mb1r" v-if="tabsId===3">
-			<!-- <view class="avatar-ctn mb2r">
-				<img class="avatar" src="/static/28.png" alt="" />
-				<transition name="fade">
-					<view class="options">
-						<img class="no" src="/static/add-light.png" alt="" />
-						<img class="yes" src="/static/ok-red.png" alt="" />
-					</view>
-				</transition>
-			</view>
-			<view class="love mb2r">
-				<view>
-					<u-icon name="heart" color="#fff" size="40"></u-icon>
-				</view>
-				<span>{{ formatNumbers(64) }}</span>
-			</view>
-			<view class="message mb2r">
-				<u-icon name="chat" color="#fff" size="40"></u-icon>
-				<span>{{ formatNumbers(1250) }}</span>
-			</view>
-			<view class="message mb2r">
-				<u-icon name="star" color="#fff" size="40"></u-icon>
-				<span>{{ formatNumbers(6450000) }}</span>
-			</view>
-			<view class="share mb2r">
-				<u-icon name="share" color="#fff" size="40"></u-icon>
-				<span>{{ formatNumbers(999999) }}</span>
-			</view> -->
-		</view>
-
-		<!-- 作者加视频简介 -->
-		<view class="desbar" v-if="tabsId===3">
-			<!-- 	<view class="text">@路易十三</view>
-			<view class="text2">
-				#玫瑰豌豆黄 据《中国历代御膳大观》记载，豌豆糕在清初传入北京，经改良制作改名叫豌豆黄，成燕京著名小吃，于是有了“从来食物属燕京，豌豆黄儿久著名，红枣都嵌金居里，十文一块买黄琼”之说。#寻找古籍守护人
-				#全民晒书 </view> -->
 		</view>
 	</view>
 
@@ -440,8 +408,10 @@
 							WeixinJSBridge.invoke('getNetworkType', {}, e => {
 								setTimeout(() => {
 									audo.play()
-									uni.createVideoContext(this.dataList[k]._id + '' + k, this).seek(0)
-									uni.createVideoContext(this.dataList[k]._id + '' + k, this).play()
+									uni.createVideoContext(this.dataList[k]._id + '' + k, this)
+										.seek(0)
+									uni.createVideoContext(this.dataList[k]._id + '' + k, this)
+										.play()
 									setTimeout(() => {
 										this.dataList[k].playIng = true
 									}, 850)
@@ -460,18 +430,13 @@
 				console.log('预加载第' + (p + 1) + '个视频：' + this.dataList[p]._id + '' + p)
 			}
 		},
-		// mounted() {
-		// 	this.videoList = RECORDS
-		// 	console.log('this.videoList::::::::', this.videoList)
-		// 	this.getVideoInfo()
-		// }
 		mounted() {
 			this.platform = uni.getSystemInfoSync().platform
 			this.model = uni.getSystemInfoSync().model
 			var model = this.model
 			if (this.platform == 'ios' && (model !== 'iPhone6' || model !== 'iPhone6s' || model !== 'iPhone7' || model !==
 					'iPhone8')) {
-				this.deleteHeight = 0 //有 tabbar的 修改这里可以改变视频高度
+				this.deleteHeight = 50 //有 tabbar的 修改这里可以改变视频高度
 			}
 			this.windowWidth = uni.getSystemInfoSync().windowWidth
 			this.windowHeight = uni.getSystemInfoSync().windowHeight
@@ -520,91 +485,32 @@
 				this.tabsId = e.detail.current;
 				// let videoContext = uni.createVideoContext('id' + this.current)
 				// videoContext.pause() //停止播放
-				this.dataList[this.k].state = 'pause';
-				uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
+				if (this.tabsId === 3) {
+					console.log('this.k:::::', this.k)
+					this.dataList[this.k].state = 'play';
+					this.dataList[this.k].isplay = false
+					this.dataList[this.k].playIng = true
+					setTimeout(() => {
+						uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
+					}, 500)
+					// #ifdef H5
+					audo.play()
+					// #endif
+				} else {
+					// #ifdef MP
+					this.dataList[this.k].state = 'pause';
+					this.dataList[this.k].isplay = true
+					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
+					this.dataList[this.k].playIng = false
+					// #endif
+					// #ifdef H5
+					audo.pause()
+					// #endif
+				}
 			},
 			tabsOn(index) {
 				this.tabsId = index;
 			},
-			// getVideoInfo() {
-			// 	const data = {
-			// 		id: 1
-			// 	}
-			// 	this.videoData = data;
-			// 	this.id = data.id
-			// 	// uni.setNavigationBarTitle({
-			// 	// 	title: this.videoData.title
-			// 	// })
-			// 	// this.description = this.videoData.desc
-			// 	this.PayVideo = this.videoList //上下滑动总数据
-			// 	this.current = this.PayVideo.findIndex((item) => {
-			// 		return Number(item.id) === data.id
-			// 	})
-			// 	// this.duration = res.data.data.videoTime
-			// 	// 自动播放当前视频
-			// 	this.$nextTick(function() {
-			// 		let videoContext = uni.createVideoContext('id' + this.current)
-			// 		console.log("index----", videoContext)
-			// 	})
-			// 	// let data = {
-			// 	// 	id
-			// 	// }
-			// 	// this.yrApi.request('Zuopin/getVideoById', 'POST', data).then(res => {
-			// 	// 	if (res.data.code == 0) {
-			// 	// 		this.videoData = res.data.data;
-			// 	// 		this.id = res.data.data.id
-			// 	// 		// uni.setNavigationBarTitle({
-			// 	// 		// 	title: this.videoData.title
-			// 	// 		// })
-			// 	// 		this.description = this.videoData.desc
-			// 	// 		this.PayVideo = this.videoList //上下滑动总数据
-			// 	// 		this.current = this.PayVideo.findIndex((item) => {
-			// 	// 			return item.id === res.data.data.id
-			// 	// 		})
-			// 	// 		this.duration = res.data.data.videoTime
-			// 	// 		// 自动播放当前视频
-			// 	// 		this.$nextTick(function() {
-			// 	// 			let videoContext = uni.createVideoContext('id' + this.current)
-			// 	// 			console.log("index----", videoContext)
-			// 	// 			setTimeout(() => {
-			// 	// 				videoContext.play()
-			// 	// 			}, 500)
-			// 	// 		})
-			// 	// 	} else {
-			// 	// 		uni.showToast({
-			// 	// 			title: res.msg,
-			// 	// 			icon: 'none'
-			// 	// 		})
-			// 	// 		// setTimeout(()=>{
-			// 	// 		// 	uni.redirectTo({
-			// 	// 		// 		url:'/pages/index/index?index=2'
-			// 	// 		// 	})
-			// 	// 		// },1500)
-			// 	// 	}
-			// 	// })
-			// },
-			// // current改变时会触发change 事件
-			// changefun(e) {
-			// 	let current = e.detail.current
-			// 	// uni.setNavigationBarTitle({
-			// 	// 	title: this.PayVideo[current].title
-			// 	// })
-			// 	// if (this.PayVideo[current].desc) {
-			// 	// 	this.description = this.PayVideo[current].desc
-			// 	// }
-			// 	// this.duration = this.PayVideo[current].videoTime
-			// 	let videoContext = uni.createVideoContext('id' + this.current)
-			// 	videoContext.pause() //停止播放
-			// },
-			// // 动画结束时触发
-			// animationfinishfun(e) {
-			// 	let current = e.detail.current
-			// 	let videoContext = uni.createVideoContext('id' + this.current)
-			// 	videoContext.pause() //停止播放非当前视频
-			// 	videoContext = uni.createVideoContext('id' + current)
-			// 	videoContext.play() //开始播放当前视频
-			// 	this.current = current //保存当前下标 播放下一个视频时停止上一个视频 防止声音重复
-			// },
 			fullscreenchange(e, v) {
 				console.log("e::::::::::", e)
 			},
@@ -695,7 +601,8 @@
 			touchend(e) {
 				// #ifdef H5
 				if (this.isClick) {
-					let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth * 0.10)));
+					let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth *
+						0.10)));
 					let timeSubmit = parseInt(this.timeduration * per)
 					audo.seek(timeSubmit)
 					audo.play()
@@ -708,7 +615,8 @@
 				}
 				// #endif
 				// #ifdef MP
-				let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth * 0.10)));
+				let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth *
+					0.10)));
 				let timeSubmit = parseInt(this.timeduration * per)
 				audo.seek(timeSubmit)
 				audo.play()
@@ -799,6 +707,17 @@
 						for (let i = 0; i < msg.length; i++) {
 							this.dataList.push(msg[i])
 						}
+						this.dataList[0].src =
+							"https://vip.ffzy-play8.com/20241210/265221_d3896b6e/index.m3u8"
+						this.dataList[1].src = "https://play.modujx11.com/20250107/FVHsvWf7/index.m3u8"
+						this.dataList[2].src =
+							"https://svip.high20-playback.com/20240114/12950_27f71026/index.m3u8"
+						this.dataList[3].src =
+							"https://m3u.nikanba.live/share/7194cd6a0d2943f88fff96545b7ecdc1.m3u8"
+						this.dataList[4].src =
+							"https://vip.ffzy-play8.com/20241210/265221_d3896b6e/index.m3u8"
+						this.dataList[5].src =
+							"https://svip.high23-playback.com/20250106/113356_258300ff/index.m3u8"
 						// 3.播放当前视频
 						setTimeout(() => {
 							this.isShow = true;
@@ -813,13 +732,16 @@
 							this.dataList[this.k].playIng = true
 							setTimeout(() => {
 								// #ifdef H5
-								uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).seek(0)
-								uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
+								uni.createVideoContext(this.dataList[this.k]._id + '' +
+									this.k, this).seek(0)
+								uni.createVideoContext(this.dataList[this.k]._id + '' +
+									this.k, this).pause()
 								this.dataList[this.k].state = 'pause';
 								audo.src = this.dataList[this.k].src;
 								// #endif
 								// #ifdef MP
-								uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
+								uni.createVideoContext(this.dataList[this.k]._id + '' +
+									this.k, this).play()
 								// #endif
 							}, 500)
 						}, 200)
@@ -1033,8 +955,7 @@
 			width: 80%;
 		}
 	}
-</style>
-<style>
+
 	.container {
 		background-color: #000000;
 	}
@@ -1047,9 +968,10 @@
 
 	.videoHover {
 		position: absolute;
-		top: 0;
-		left: 0;
-		flex: 1;
+		top: 50%;
+		left: 50%;
+		display: flex;
+		transform: translate(-50%, -50%);
 		background-color: rgba(0, 0, 0, 0.1);
 		justify-content: center;
 		align-items: center;
@@ -1135,4 +1057,7 @@
 	.root {
 		background-color: #000000;
 	}
+</style>
+<style scoped>
+
 </style>
