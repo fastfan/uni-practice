@@ -43,7 +43,7 @@
 										5.show-loading：这里默认去掉播放转圈的标志
 										v-if="Math.abs(k-index)<=1"
 										 -->
-										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="true"
+										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="false"
 											:http-cache="true" :page-gesture="false" :show-fullscreen-btn="false" :show-loading="false"
 											:show-play-btn="false" :show-center-play-btn="false" :enable-progress-gesture="false"
 											:object-fit="'contain'" :src="list.src" @ended="ended" @click="tapVideoHover(list.state,$event)"
@@ -105,30 +105,29 @@
 											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.msg}}-{{k+1}}</text><!-- k={{k}} -->
 									</view>
 									<!-- 进度条 -->
-									<!-- 			<view v-if="k === index" @touchstart.native.stop="touchstart" @touchmove.native.stop="touchmove"
+									<view v-if="k === index" @touchstart.native.stop="touchstart" @touchmove.native.stop="touchmove"
 										@touchend.native.stop="touchend"
-										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'"> -->
-									<!-- 不拖动情况下 -->
-									<!-- <view> -->
-									<!-- 1.底部背景进度条 -->
-									<!-- 		<view
-												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px;position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
-											</view> -->
-									<!-- 2.播放的进度条 -->
-									<!-- 		<view v-if="!isTouch"
-												:style="'width: '+ ((windowWidth - (windowWidth*0.10)) * progressBarPercent) +'px; position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #e6e4e7; '">
+										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 0;'">
+										<!-- 不拖动情况下 -->
+										<view>
+											<!-- 1.底部背景进度条 -->
+											<view
+												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px;position: absolute; margin-top: 36px; height: 2px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
+											</view>
+											<!-- 2.播放的进度条 -->
+											<view v-if="!isTouch"
+												:style="'width: '+ ((windowWidth - (windowWidth*0.10)) * progressBarPercent) +'px; position: absolute; margin-top: 36px; height: 2px; border-radius: 10px; background-color: #e6e4e7; '">
 												<view class="slider_squre"
-													:style="'left: ' + ((windowWidth - 10 - (windowWidth*0.10)) * progressBarPercent) +'px'">
+													:style="'left: ' + ((windowWidth - 5 - (windowWidth*0.10)) * progressBarPercent) +'px'">
 												</view>
-											</view> -->
-									<!--  -->
-									<!-- 	<view v-if="isTouch"
-												:style="'width: '+ (videoStartPositon + addPositon) +'px; position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #e6e4e7; '">
-												<view class="slider_squre" :style="'left: ' + (videoStartPositon + addPositon - 10) +'px'">
+											</view>
+											<view v-if="isTouch"
+												:style="'width: '+ (videoStartPositon + addPositon) +'px; position: absolute; margin-top: 36px; height: 10px; border-radius: 10px; background-color: #e6e4e7; '">
+												<view class="slider_squre2" :style="'left: ' + (videoStartPositon + addPositon - 5) +'px'">
 												</view>
 											</view>
 										</view>
-									</view> -->
+									</view>
 								</view>
 							</swiper-item>
 						</swiper>
@@ -973,6 +972,15 @@
 	}
 
 	.slider_squre {
+		width: 12rpx;
+		height: 12rpx;
+		background: #ccc;
+		position: relative;
+		border-radius: 50%;
+		top: -6rpx;
+	}
+
+	.slider_squre2 {
 		width: 20rpx;
 		height: 20rpx;
 		background: #ccc;
