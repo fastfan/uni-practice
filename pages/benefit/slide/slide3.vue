@@ -726,7 +726,7 @@
 						this.dataList[6].src =
 							"https://svip.high23-playback.com/20250106/113356_258300ff/index.m3u8"
 						this.dataList[7].src =
-							"https://m3u.nikanba.live/share/291f30aa840040c88f00194230a7da46.m3u8"
+							"https://play.modujx11.com/20250107/FVHsvWf7/index.m3u8"
 						// 3.播放当前视频
 						setTimeout(() => {
 							this.isShow = true;
