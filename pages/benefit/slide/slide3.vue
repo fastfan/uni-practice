@@ -16,8 +16,8 @@
 		<!-- </view> -->
 		<!-- 导航栏 -->
 		<view class="tabs-container">
-			<view v-for="(tab, index) in tabList" :key="index" @tap="tabsOn(index)"
-				:class="{ active: tabsId === index }" class="tab">{{ tab.title }}
+			<view v-for="(tab, index) in tabList" :key="index" @tap="tabsOn(index)" :class="{ active: tabsId === index }"
+				class="tab">{{ tab.title }}
 				<view class="line" v-if="tabsId === index"></view>
 			</view>
 		</view>
@@ -29,8 +29,7 @@
 					</view>
 					<view v-if="indexs === tabsId">
 						<!-- #ifdef MP -->
-						<swiper
-							:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
+						<swiper :style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
 							:vertical="true" @animationfinish="animationfinish" @change="change" :current="current"
 							:indicator-dots="false" @touchstart="mpTouchstart" @touchend="mpTouchend">
 							<swiper-item v-for="(list,index) in dataList" :key="index">
@@ -44,30 +43,24 @@
 										5.show-loading：这里默认去掉播放转圈的标志
 										v-if="Math.abs(k-index)<=1"
 										 -->
-										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay"
-											:controls="false" :http-cache="true" :page-gesture="false"
-											:show-fullscreen-btn="false" :show-loading="false"
-											:show-center-play-btn="false" :enable-progress-gesture="false"
-											:object-fit="'contain'" 
-											:src="list.src" @ended="ended" @click="tapVideoHover(list.state,$event)"
+										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="true"
+											:http-cache="true" :page-gesture="false" :show-fullscreen-btn="false" :show-loading="false"
+											:show-play-btn="false" :show-center-play-btn="false" :enable-progress-gesture="false"
+											:object-fit="'contain'" :src="list.src" @ended="ended" @click="tapVideoHover(list.state,$event)"
 											@timeupdate="timeupdate($event,index)"
-											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000; z-index: -1;'"
-											:poster="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"></video>
+											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"></video>
 										<!-- 
 										1.这里是封面（方案二）：这里的封面可以自定义。
 										2.也在代码中做了批注，两种方案可以共存，不会相互影响。
 										-->
-										<image v-if="!list.playIng"
-											:src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
+										<image v-if="!list.playIng" :src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
 											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; position: absolute;'"
 											mode="aspectFit">
 										</image>
 									</view>
 									<!-- 播放状态：pause 的时候就会暂停 -->
-									<view class="videoHover" @click="tapVideoHover(list.state,$event)"
-										:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px;'">
-										<image v-if="list.state=='pause'" class="playState"
-											src="@/static/img/index/play.png"></image>
+									<view class="videoHover" @click="tapVideoHover(list.state,$event)">
+										<image v-if="list.state=='pause'" class="playState" src="@/static/img/index/play.png"></image>
 									</view>
 									<view class="userInfo">
 										<!-- 1.头像 -->
@@ -96,8 +89,7 @@
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; font-weight: bold; text-align: center; margin-top: 40px;">{{list.sms_n}}</text>
 										</view>
 										<!-- 4.分享 -->
-										<view @click="share"
-											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
+										<view @click="share" style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image src="@/static/img/index/share-fill.png"
 												style="width: 40px; height: 40px; position: absolute; right: 5px;">
 											</image>
@@ -113,32 +105,36 @@
 											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.msg}}-{{k+1}}</text><!-- k={{k}} -->
 									</view>
 									<!-- 进度条 -->
-									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove"
-										@touchend="touchend"
-										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'">
-										<!-- 不拖动情况下 -->
-										<view>
-											<!-- 1.底部背景进度条 -->
-											<view
-												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-top: 18px;position:absolute; height: 5px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
-											</view>
-											<!-- 2.播放的进度条 -->
-											<view v-if="!isTouch"
+									<!-- 			<view v-if="k === index" @touchstart.native.stop="touchstart" @touchmove.native.stop="touchmove"
+										@touchend.native.stop="touchend"
+										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'"> -->
+									<!-- 不拖动情况下 -->
+									<!-- <view> -->
+									<!-- 1.底部背景进度条 -->
+									<!-- 		<view
+												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px;position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
+											</view> -->
+									<!-- 2.播放的进度条 -->
+									<!-- 		<view v-if="!isTouch"
 												:style="'width: '+ ((windowWidth - (windowWidth*0.10)) * progressBarPercent) +'px; position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #e6e4e7; '">
-											</view>
-											<!--  -->
-											<view v-if="isTouch"
+												<view class="slider_squre"
+													:style="'left: ' + ((windowWidth - 10 - (windowWidth*0.10)) * progressBarPercent) +'px'">
+												</view>
+											</view> -->
+									<!--  -->
+									<!-- 	<view v-if="isTouch"
 												:style="'width: '+ (videoStartPositon + addPositon) +'px; position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #e6e4e7; '">
+												<view class="slider_squre" :style="'left: ' + (videoStartPositon + addPositon - 10) +'px'">
+												</view>
 											</view>
 										</view>
-									</view>
+									</view> -->
 								</view>
 							</swiper-item>
 						</swiper>
 						<!-- #endif -->
 						<!-- #ifdef H5 -->
-						<swiper
-							:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
+						<swiper :style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
 							:vertical="true" @animationfinish="animationfinish" @change="change" :current="current"
 							:indicator-dots="false" :duration="duration">
 							<swiper-item v-for="(list,index) in dataList" :key="index">
@@ -152,20 +148,16 @@
 										5.show-loading：这里默认去掉播放转圈的标志
 										v-if="Math.abs(k-index)<=1"
 										 -->
-										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay"
-											:controls="false" :http-cache="true" :page-gesture="false"
-											:show-fullscreen-btn="false" :show-loading="false"
-											:show-center-play-btn="false" :enable-progress-gesture="false"
-											:src="list.src" @ended="ended" @click="tapVideoHover(list.state,$event)"
-											@timeupdate="timeupdate($event,index)"
-											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000; z-index: -1;'"
-											:poster="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"></video>
+										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="false"
+											:http-cache="true" :page-gesture="false" :show-fullscreen-btn="false" :show-loading="false"
+											:show-center-play-btn="false" :enable-progress-gesture="false" :src="list.src" @ended="ended"
+											@click="tapVideoHover(list.state,$event)" @timeupdate="timeupdate($event,index)"
+											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"></video>
 										<!-- 
 										1.这里是封面（方案二）：这里的封面可以自定义。
 										2.也在代码中做了批注，两种方案可以共存，不会相互影响。
 										-->
-										<image v-if="!list.playIng"
-											:src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
+										<image v-if="!list.playIng" :src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
 											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; position: absolute;'"
 											mode="aspectFit">
 										</image>
@@ -173,8 +165,7 @@
 									<!-- 播放状态：pause 的时候就会暂停 -->
 									<view class="videoHover" @click="tapVideoHover(list.state,$event)"
 										:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px;'">
-										<image v-if="list.state=='pause'" class="playState"
-											src="@/static/img/index/play.png"></image>
+										<image v-if="list.state=='pause'" class="playState" src="@/static/img/index/play.png"></image>
 									</view>
 									<view class="userInfo">
 										<!-- 1.头像 -->
@@ -203,8 +194,7 @@
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; font-weight: bold; text-align: center; margin-top: 40px;">{{list.sms_n}}</text>
 										</view>
 										<!-- 4.分享 -->
-										<view @click="share"
-											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
+										<view @click="share" style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
 											<image src="@/static/img/index/share-fill.png"
 												style="width: 40px; height: 40px; position: absolute; right: 5px;">
 											</image>
@@ -212,8 +202,7 @@
 												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; font-weight: bold; margin-top: 40px;">分享</text>
 										</view>
 										<view @click="dealVoice" style="margin-top: 17px;">
-											<view
-												style="width: 48px; height: 48px; border-radius: 50px; position: absolute; right: 2.5px;">
+											<view style="width: 48px; height: 48px; border-radius: 50px; position: absolute; right: 2.5px;">
 												<image
 													:style="'width: 48px; height: 48px; border-radius: 50px; transform: rotate('+ rotates +'deg);'"
 													src="@/static/img/index/bfq.png" mode="aspectFill"></image>
@@ -231,8 +220,7 @@
 											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.msg}}-{{k+1}}</text><!-- k={{k}} -->
 									</view>
 									<!-- 进度条 -->
-									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove"
-										@touchend="touchend"
+									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend"
 										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'">
 										<!-- 不拖动情况下 -->
 										<view>
@@ -353,7 +341,7 @@
 		},
 		watch: {
 			async k(k, old_k) {
-				// console.log(k, old_k)
+				console.log(k, old_k)
 				this.progressBarPercent = 0;
 				// #ifndef MP
 				this.clearToTime();
@@ -436,7 +424,7 @@
 			var model = this.model
 			if (this.platform == 'ios' && (model !== 'iPhone6' || model !== 'iPhone6s' || model !== 'iPhone7' || model !==
 					'iPhone8')) {
-				this.deleteHeight = 50 //有 tabbar的 修改这里可以改变视频高度
+				this.deleteHeight = 0 //有 tabbar的 修改这里可以改变视频高度
 			}
 			this.windowWidth = uni.getSystemInfoSync().windowWidth
 			this.windowHeight = uni.getSystemInfoSync().windowHeight
@@ -499,7 +487,7 @@
 				} else {
 					// #ifdef MP
 					this.dataList[this.k].state = 'pause';
-					this.dataList[this.k].isplay = true
+					this.dataList[this.k].isplay = false
 					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
 					this.dataList[this.k].playIng = false
 					// #endif
@@ -514,10 +502,10 @@
 			fullscreenchange(e, v) {
 				console.log("e::::::::::", e)
 			},
-			mpTouchend() {
+			mpTouchend(e) {
 				this.mptime = (new Date() / 1000) - this.mpstartTime;
 			},
-			mpTouchstart() {
+			mpTouchstart(e) {
 				this.mpstartTime = (new Date() / 1000);
 			},
 			dealVoice() {
@@ -558,9 +546,19 @@
 				// 1.播放当前视频结束时触发，自动切换下一个视频
 				// this.current = this.k+1
 			},
+			handleVideoTouchStart(event) {
+				// 阻止事件冒泡，防止触发外层 swiper 的滑动事件
+				event.stopPropagation();
+			},
+			handleVideoTouchMove(event) {
+				// 阻止事件冒泡，防止触发外层 swiper 的滑动事件
+				event.stopPropagation();
+			},
 			// ---- 进度条相关 --- start
 			touchstart(e) {
-				// console.log(e);
+				console.log(e);
+				// 阻止事件冒泡，防止触发 swiper 的滑动事件
+				e.stopPropagation();
 				this.isTouch = true;
 				// #ifdef H5
 				if (this.isClick) {
@@ -577,6 +575,8 @@
 			},
 			touchmove(e) {
 				// console.log(e);
+				// 阻止事件冒泡，防止触发 swiper 的滑动事件
+				e.stopPropagation();
 				// #ifdef H5
 				if (this.isClick) {
 					let num = e.changedTouches[0].clientX - this.touchStartPosition;
@@ -599,6 +599,8 @@
 				// #endif
 			},
 			touchend(e) {
+				// 阻止事件冒泡，防止触发 swiper 的滑动事件
+				e.stopPropagation();
 				// #ifdef H5
 				if (this.isClick) {
 					let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth *
@@ -622,6 +624,7 @@
 				audo.play()
 				uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).seek(timeSubmit)
 				uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
+				this.dataList[this.k].state = 'play'
 				setTimeout(() => {
 					this.isTouch = false;
 				}, 500)
@@ -694,6 +697,7 @@
 			get() {
 				// 1.这里引入后端请求数据
 				// var msg = userList
+				console.log(111111111)
 				uni.request({
 					url: 'https://bdb24c6d-8c19-4f80-8e7e-c9c9f037f131.bspapp.com/video',
 					method: 'POST',
@@ -701,6 +705,7 @@
 						info: 'get_video'
 					},
 					success: (res) => {
+						console.log(2222222222, res)
 						this.isShow = false;
 						var msg = res.data.data
 						// 2.这里把视频添加到视频列表
@@ -715,9 +720,13 @@
 						this.dataList[3].src =
 							"https://m3u.nikanba.live/share/7194cd6a0d2943f88fff96545b7ecdc1.m3u8"
 						this.dataList[4].src =
-							"https://vip.ffzy-play8.com/20241210/265221_d3896b6e/index.m3u8"
-						this.dataList[5].src =
 							"https://svip.high23-playback.com/20250106/113356_258300ff/index.m3u8"
+						this.dataList[5].src =
+							"https://vip.ffzy-video.com/20250108/9961_f2876df2/index.m3u8"
+						this.dataList[6].src =
+							"https://svip.high23-playback.com/20250106/113356_258300ff/index.m3u8"
+						this.dataList[7].src =
+							"https://m3u.nikanba.live/share/291f30aa840040c88f00194230a7da46.m3u8"
 						// 3.播放当前视频
 						setTimeout(() => {
 							this.isShow = true;
@@ -746,6 +755,9 @@
 							}, 500)
 						}, 200)
 						this.videoID = this.dataList[this.k]._id
+					},
+					fail(err) {
+						console.log(3333333333, err)
 					}
 				})
 			},
@@ -960,6 +972,15 @@
 		background-color: #000000;
 	}
 
+	.slider_squre {
+		width: 20rpx;
+		height: 20rpx;
+		background: #ccc;
+		position: relative;
+		border-radius: 50%;
+		top: -6rpx;
+	}
+
 	.item {
 		/* width : 750rpx; */
 		background-color: #000000;
@@ -972,10 +993,11 @@
 		left: 50%;
 		display: flex;
 		transform: translate(-50%, -50%);
-		background-color: rgba(0, 0, 0, 0.1);
+		// background-color: rgba(0, 0, 0, 0.1);
 		justify-content: center;
 		align-items: center;
-
+		width: 160rpx;
+		height: 160rpx;
 		/* border-style: dashed;
 		border-color: #DD524D;
 		border-width: 1px; */
@@ -984,7 +1006,7 @@
 	.playState {
 		width: 160rpx;
 		height: 160rpx;
-		opacity: 0.2;
+		opacity: 0.3;
 	}
 
 	.userInfo {
