@@ -140,29 +140,34 @@
 					</view>
 				</view>
 				<view class="content_mid" :style="{padding: '0 0 0 20rpx'}">
-					<view class="content_mid_item">
-						<view v-for="(item) in 2" class="item2" :key="item">
-							<image src="/static/img_datu.png" class="panel_img"></image>
-							<view :style="{padding: '0 20rpx'}">立白清新柠檬洗洁精1kg</view>
-							<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
-								<view class="ft text2 flex_box">
-									<view class="">￥</view>
-									<view class="text3">
-										20
+					<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: 100vh;">
+						<view class="content_mid_item">
+							<view v-for="(item,index) in dataList" class="item2" :key="index">
+								<image :src="item.img" class="panel_img" mode="widthFix"></image>
+								<view v-if="!item.type">
+									<view :style="{padding: '0 20rpx'}">{{item.title}}</view>
+									<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+										<view class="ft text2 flex_box">
+											<view class="">￥</view>
+											<view class="text3">
+												20
+											</view>
+										</view>
+										<view class="rt text4">24</view>
 									</view>
-								</view>
-								<view class="rt text4">24</view>
-							</view>
-							<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
-								<view class="ft text5 flex_box">
-									已售25
-								</view>
-								<view class="rt">
-									<u--image src="/static/ic_gouwuche.png" width="32rpx" height="30rpx"></u--image>
+									<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+										<view class="ft text5 flex_box">
+											已售25
+										</view>
+										<view class="rt">
+											<u--image src="/static/ic_gouwuche.png" width="32rpx" height="30rpx"></u--image>
+										</view>
+									</view>
 								</view>
 							</view>
 						</view>
-					</view>
+						<u-loadmore :status="loadStatus" />
+					</scroll-view>
 				</view>
 			</view>
 		</scroll-view>
@@ -174,6 +179,73 @@
 	export default {
 		data() {
 			return {
+				loadStatus: 'loadmore',
+				dataList: [{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5cfe59b33fee45f694e95d8fccba8d02.png',
+						title: '我是标题1',
+						desc: '描述描述描述描述描述描述描述描述1',
+						price: 20,
+					},
+					{
+						img: '/static/img_datu.png',
+						title: '我是标题2',
+						desc: '描述描述描述描述描述描述描述描述2',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/13d1d5023182457b8563864c6a79eb74.png',
+						title: '我是标题2',
+						desc: '描述描述描述描述描述描述描述描述2',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5d13c771d19747368394d3f0847454d3.png',
+						title: '我是标题3',
+						desc: '描述描述描述描述描述描述描述描述3',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/0915b6e7b90b45529fffda925982f9bc.png',
+						title: '我是标题4',
+						desc: '描述描述描述描述描述描述描述描述4',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/51f911a141b347c6a9b44c3decc175cf.png',
+						title: '我是标题5',
+						desc: '描述描述描述描述描述描述描述描述5',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a1308cf7e6eb400d9868fd4828b792a2.jpeg',
+						title: '我是标题6',
+						desc: '描述描述描述描述描述描述描述描述6',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/7910754789dd4bfe881009a79775af02.jpg',
+						title: '我是标题7',
+						desc: '描述描述描述描述描述描述描述描述7',
+						price: 20
+					}, {
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a7816477276746e8a6cbf36e3a338497.jpg',
+						title: '我是标题8',
+						desc: '描述描述描述描述描述描述描述描述58',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/3efb217c176047db9c7f236efdca4e80.jpg',
+						title: '我是标题9',
+						desc: '描述描述描述描述描述描述描述描述9',
+						price: 20
+					},
+					{
+						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a6898b34438f41629c52021fd7bbd614.jpg',
+						title: '我是标题10',
+						desc: '描述描述描述描述描述描述描述描述10',
+						price: 20
+					}
+				],
 				bgColor: "#FEC0BC",
 				list: [{
 					name: '美食餐饮',
@@ -221,7 +293,54 @@
 					url: '/pages/driving/driving',
 					type: 'to'
 				})
+			},
+
+			insertItem() {
+				const length = Math.ceil(this.dataList.length / 2)
+				this.dataList.splice(length, 0, {
+					img: '/static/ruzhu_banner.png',
+					title: '',
+					desc: '',
+					price: '',
+					type: 'insert'
+				})
+			},
+			loadData() {
+				setTimeout(() => {
+					const newData = [];
+					for (let i = 0; i < 10; i++) {
+						newData.push({
+							img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a6898b34438f41629c52021fd7bbd614.jpg',
+							title: '我是标题10',
+							desc: '描述描述描述描述描述描述描述描述10',
+							price: 20
+						});
+					}
+					// 将新数据添加到列表中
+					this.dataList = [...this.dataList, ...newData]
+					this.dataList.forEach((item, index) => {
+						if (item.type && item.type === 'insert') {
+							this.dataList.splice(index, 1)
+							this.insertItem()
+						}
+					})
+				}, 1000)
+			},
+			onScrollToLower() {
+				// 滚动到底部时，加载下一页数据
+				// this.loadStatus = 'loading';
+				setTimeout(() => {
+					if (this.dataList.length > 50) {
+						this.loadStatus = 'nomore';
+					} else {
+						this.loadStatus = 'loading';
+						this.loadData();
+					}
+				}, 1000)
 			}
+		},
+		mounted() {
+			this.insertItem()
 		}
 	}
 </script>
@@ -613,6 +732,37 @@
 					margin: 36rpx 0 0 0;
 				}
 			}
+
+			.content_mid {
+				&_item {
+					flex-wrap: wrap;
+					flex-direction: column;
+					justify-content: space-between;
+					// column-count: 2;
+					// column-gap: 10rpx;
+					// column-width: 336rpx;
+
+					.item2 {
+						flex-basis: calc(50% - 20rpx);
+						/* 考虑元素之间的间隔 */
+						box-sizing: border-box;
+						border-radius: 15rpx;
+						overflow: hidden;
+						background-color: #fff;
+						break-inside: avoid;
+						/*避免在元素内部插入分页符*/
+						box-sizing: border-box;
+						margin-bottom: 20rpx;
+						box-shadow: 0px 0px 28rpx 1rpx rgba(78, 101, 153, 0.14);
+
+						.panel_img {
+							width: 100%;
+							margin: 0;
+						}
+					}
+				}
+			}
+
 		}
 	}
 </style>
