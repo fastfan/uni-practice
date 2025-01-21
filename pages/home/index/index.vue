@@ -763,9 +763,10 @@
 						box-sizing: border-box;
 						margin-bottom: 20rpx;
 						box-shadow: 0px 0px 28rpx 1rpx rgba(78, 101, 153, 0.14);
-height: auto;
+						height: auto;
+
 						&:nth-child(3n) {
-							margin-right: 24rpx;
+							margin-right: 18rpx;
 						}
 
 						.panel_img {
