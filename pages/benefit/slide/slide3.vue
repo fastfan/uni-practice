@@ -1,16 +1,5 @@
 <template>
 	<view class="slide_item">
-		<!--
-		注意：这是 H5、微信小程序界面，请勿和 new_index.nvue、index.nvue 混用
-		 
-		1. new_index.nvue、index.nvue这两个是App页面
-		 
-		2. 另外：data.js 是上一版本留下的假数据，这一版改成了 URL 请求了（如不需要可以删除，也可作为后端请求参考）
-		 
-		3. 请各位大神多多留手，我已经把请求内存开到最大了
-		 
-		4. 视频 id 切记是字符串类型 
-		 -->
 		<!-- <view class="status_bar"> -->
 		<!-- 状态栏占位 -->
 		<!-- </view> -->
@@ -132,115 +121,6 @@
 							</swiper-item>
 						</swiper>
 						<!-- #endif -->
-						<!-- #ifdef H5 -->
-						<swiper :style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"
-							:vertical="true" @animationfinish="animationfinish" @change="change" :current="current"
-							:indicator-dots="false" :duration="duration">
-							<swiper-item v-for="(list,index) in dataList" :key="index">
-								<view v-if="Math.abs(k-index)<=1">
-									<view>
-										<!-- 
-										1.v-if：用于控制视频在节点的渲染数
-										2.muted的默认值是 false，代表默认是禁音视频的
-										3.http-cache默认开启视频缓存
-										4.poster（封面（方案一））：这里的封面默认处理存储在阿里云的视频
-										5.show-loading：这里默认去掉播放转圈的标志
-										v-if="Math.abs(k-index)<=1"
-										 -->
-										<video v-if="isShow" :id="list._id+''+index" :loop="true" :muted="list.isplay" :controls="false"
-											:http-cache="true" :page-gesture="false" :show-fullscreen-btn="false" :show-loading="false"
-											:show-center-play-btn="false" :enable-progress-gesture="false" :src="list.src" @ended="ended"
-											@click="tapVideoHover(list.state,$event)" @timeupdate="timeupdate($event,index)"
-											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; background-color: #000000;'"></video>
-										<!-- 
-										1.这里是封面（方案二）：这里的封面可以自定义。
-										2.也在代码中做了批注，两种方案可以共存，不会相互影响。
-										-->
-										<image v-if="!list.playIng" :src="list.src+'?x-oss-process=video/snapshot,t_100,f_jpg'"
-											:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px; position: absolute;'"
-											mode="aspectFit">
-										</image>
-									</view>
-									<!-- 播放状态：pause 的时候就会暂停 -->
-									<view class="videoHover" @click="tapVideoHover(list.state,$event)"
-										:style="'width: '+ windowWidth +'px; height: '+ windowHeight +'px;'">
-										<image v-if="list.state=='pause'" class="playState" src="@/static/img/index/play.png"></image>
-									</view>
-									<view class="userInfo">
-										<!-- 1.头像 -->
-										<image @click="tozuozhe" class="userAvatar" :src="list.href" mode="aspectFill">
-										</image>
-										<!-- 2.点赞 -->
-										<view @click="cLike(list.like);"
-											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
-											<image v-if="list.like" src="@/static/img/index/xin.png"
-												style="width: 40px; height: 40px; position: absolute; right: 6px;">
-											</image>
-											<image v-if="!list.like" src="@/static/img/index/xin-2.png"
-												style="width: 40px; height: 40px; position: absolute; right: 6px;">
-											</image>
-											<text
-												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; margin-top: 40px; font-weight: bold;"
-												:class="{'likeNumActive':list.like}">{{list.like_n}}</text>
-										</view>
-										<!-- 3.评论 -->
-										<view class="comment" @click="toComment(index)"
-											style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
-											<image src="@/static/img/index/liaotian-2.png"
-												style="width: 35px; height: 35px; position: absolute; right: 7px;">
-											</image>
-											<text
-												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; font-weight: bold; text-align: center; margin-top: 40px;">{{list.sms_n}}</text>
-										</view>
-										<!-- 4.分享 -->
-										<view @click="share" style="opacity: 0.9; margin-top: 17px;display: flex;justify-content: center;">
-											<image src="@/static/img/index/share-fill.png"
-												style="width: 40px; height: 40px; position: absolute; right: 5px;">
-											</image>
-											<text
-												style="color: #FFFFFF; margin-top: 5px; font-size: 14px; text-align: center; font-weight: bold; margin-top: 40px;">分享</text>
-										</view>
-										<view @click="dealVoice" style="margin-top: 17px;">
-											<view style="width: 48px; height: 48px; border-radius: 50px; position: absolute; right: 2.5px;">
-												<image
-													:style="'width: 48px; height: 48px; border-radius: 50px; transform: rotate('+ rotates +'deg);'"
-													src="@/static/img/index/bfq.png" mode="aspectFill"></image>
-												<image v-if="showPlay"
-													:style="'width: 30px; height: 30px; margin-top: 9px; margin-left: 9px; position: absolute; border-radius: 50px; transform: rotate('+ rotates +'deg);'"
-													:src="list.href" mode="aspectFill"></image>
-											</view>
-										</view>
-									</view>
-									<!-- 最底下的文字部分 -->
-									<view class="content">
-										<text class="userName"
-											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.title}}</text><!-- i={{i}} -->
-										<text class="words"
-											:style="'width: '+ (windowWidth - 90) +'px;'">{{list.msg}}-{{k+1}}</text><!-- k={{k}} -->
-									</view>
-									<!-- 进度条 -->
-									<view v-if="k === index" @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend"
-										:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-left: '+ (windowWidth * 0.05) +'px; height: 40px; position: absolute; bottom: 10px;'">
-										<!-- 不拖动情况下 -->
-										<view>
-											<!-- 1.底部背景进度条 -->
-											<view
-												:style="'width: '+ (windowWidth - (windowWidth*0.10)) +'px; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #999999; opacity: 0.6;'">
-											</view>
-											<!-- 2.播放的进度条 -->
-											<view v-if="!isTouch"
-												:style="'width: '+ ((windowWidth - (windowWidth*0.10)) * progressBarPercent) +'px; position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #e6e4e7; '">
-											</view>
-											<!--  -->
-											<view v-if="isTouch"
-												:style="'width: '+ (videoStartPositon + addPositon) +'px; position: absolute; margin-top: 18px; height: 5px; border-radius: 10px; background-color: #e6e4e7; '">
-											</view>
-										</view>
-									</view>
-								</view>
-							</swiper-item>
-						</swiper>
-						<!-- #endif -->
 					</view>
 				</swiper-item>
 			</swiper>
@@ -292,14 +172,6 @@
 					}
 				],
 				tabsId: 3,
-				// PayVideo: [],
-				// videoData: {},
-				// videoList: [],
-				// description: '',
-				// current: 0,
-				// index_: 0,
-				// videoContext: '',
-				// duration: '', //总视频时长
 				windowWidth: 0,
 				windowHeight: 0,
 				platform: "",
@@ -317,10 +189,7 @@
 				},
 				videoID: "",
 				isShow: false,
-				showPlay: false, //转轮显示控制
-				rotates: 0, //转轮旋转角度
-				rotateTime: "", //转轮递归事件控制
-				xrotats: "",
+				isShow2: false,
 
 				mpcleartime: "",
 				isClick: false,
@@ -350,7 +219,7 @@
 				this.dataList[old_k].isplay = true
 				this.dataList[old_k].state = 'pause'
 				console.log('预留第' + (old_k + 1) + '个视频：' + this.dataList[old_k]._id + '' + old_k)
-				// 2.0版本已经去掉了下面这一句，视频不用暂停，只需要把声音禁止就行
+				//视频不用暂停，只需要把声音禁止就行
 				uni.createVideoContext(this.dataList[old_k]._id + '' + old_k, this)
 					.stop() //如果视频暂停，那么旧视频停止，这里的this.dataList[old_k]._id + '' + old_k，后面加 old_k 是为了每一个视频的 id 值不同，这样就可以大程度的避免串音问题
 				console.log('已经暂停 --> 第' + (old_k + 1) + '个视频～') //提示
@@ -377,42 +246,6 @@
 					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
 				}
 				// #endif
-				// #ifdef H5
-				this.dataList[k].isplay = true
-				audo.src = this.dataList[k].src
-				if (this.isClick) {
-					setTimeout(() => {
-						if (typeof WeixinJSBridge == "undefined") {
-							setTimeout(() => {
-								audo.play()
-								uni.createVideoContext(this.dataList[k]._id + '' + k, this).seek(0)
-								uni.createVideoContext(this.dataList[k]._id + '' + k, this).play()
-								setTimeout(() => {
-									this.dataList[k].playIng = true
-								}, 650)
-							}, 500)
-						} else {
-							WeixinJSBridge.invoke('getNetworkType', {}, e => {
-								setTimeout(() => {
-									audo.play()
-									uni.createVideoContext(this.dataList[k]._id + '' + k, this)
-										.seek(0)
-									uni.createVideoContext(this.dataList[k]._id + '' + k, this)
-										.play()
-									setTimeout(() => {
-										this.dataList[k].playIng = true
-									}, 850)
-								}, 200)
-							})
-						}
-					}, 200)
-				} else {
-					audo.pause()
-					this.dataList[k].state = 'pause'
-					uni.createVideoContext(this.dataList[k]._id + '' + k, this).seek(0)
-					uni.createVideoContext(this.dataList[k]._id + '' + k, this).pause()
-				}
-				// #endif
 				var p = k + 1;
 				console.log('预加载第' + (p + 1) + '个视频：' + this.dataList[p]._id + '' + p)
 			}
@@ -425,14 +258,14 @@
 					'iPhone8')) {
 				this.deleteHeight = 0 //有 tabbar的 修改这里可以改变视频高度
 			}
+			setTimeout(() => {
+				this.isShow2 = true;
+			}, 400)
 			this.windowWidth = uni.getSystemInfoSync().windowWidth
 			this.windowHeight = uni.getSystemInfoSync().windowHeight
 			this.boxStyle.width = this.windowWidth + 'px' //给宽度加px
 			this.boxStyle.height = this.windowHeight - this.deleteHeight; //有 tabbar的 修改这里可以改变视频高度
 			this.get() //刚进入页面加载数据
-			// #ifndef MP
-			this.rotateX();
-			// #endif
 		},
 		onShow() {
 			console.log('回到前台');
@@ -441,26 +274,12 @@
 				this.dataList[this.k].state = 'play';
 				uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
 				// #endif
-				// #ifdef H5
-				if (this.isClick) {
-					this.dataList[this.k].state = 'play';
-					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
-					audo.play()
-				}
-				// #endif
 			}
 		},
 		onHide() {
 			// #ifdef MP
 			this.dataList[this.k].state = 'pause';
 			uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
-			// #endif
-			// #ifdef H5
-			if (this.isClick) {
-				this.dataList[this.k].state = 'pause';
-				uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
-				audo.pause()
-			}
 			// #endif
 			console.log('到后台');
 		},
@@ -480,18 +299,12 @@
 					setTimeout(() => {
 						uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
 					}, 500)
-					// #ifdef H5
-					audo.play()
-					// #endif
 				} else {
 					// #ifdef MP
 					this.dataList[this.k].state = 'pause';
 					this.dataList[this.k].isplay = false
 					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause()
 					this.dataList[this.k].playIng = false
-					// #endif
-					// #ifdef H5
-					audo.pause()
 					// #endif
 				}
 			},
@@ -529,14 +342,6 @@
 					clearTimeout(this.xrotats);
 				}
 			},
-			rotateX() {
-				// clearTimeout(this.rotateTime);
-				this.rotateTime = setTimeout(() => {
-					this.rotateX();
-					this.showPlay = true;
-					this.rotates += 1;
-				}, 30)
-			},
 			closeScrollview() {
 				// 点击评论里面的叉叉，就会关闭评论
 				this.$refs.pinglun.close();
@@ -545,27 +350,12 @@
 				// 1.播放当前视频结束时触发，自动切换下一个视频
 				// this.current = this.k+1
 			},
-			handleVideoTouchStart(event) {
-				// 阻止事件冒泡，防止触发外层 swiper 的滑动事件
-				event.stopPropagation();
-			},
-			handleVideoTouchMove(event) {
-				// 阻止事件冒泡，防止触发外层 swiper 的滑动事件
-				event.stopPropagation();
-			},
 			// ---- 进度条相关 --- start
 			touchstart(e) {
 				console.log(e);
 				// 阻止事件冒泡，防止触发 swiper 的滑动事件
 				e.stopPropagation();
 				this.isTouch = true;
-				// #ifdef H5
-				if (this.isClick) {
-					this.addPositon = 0;
-					this.videoStartPositon = (this.windowWidth - (this.windowWidth * 0.10)) * this.progressBarPercent;
-					this.touchStartPosition = e.changedTouches[0].clientX;
-				}
-				// #endif
 				// #ifdef MP
 				this.addPositon = 0;
 				this.videoStartPositon = (this.windowWidth - (this.windowWidth * 0.10)) * this.progressBarPercent;
@@ -576,17 +366,6 @@
 				// console.log(e);
 				// 阻止事件冒泡，防止触发 swiper 的滑动事件
 				e.stopPropagation();
-				// #ifdef H5
-				if (this.isClick) {
-					let num = e.changedTouches[0].clientX - this.touchStartPosition;
-					if ((this.videoStartPositon + num) <= (this.windowWidth - (this.windowWidth * 0.10))) {
-						this.addPositon = e.changedTouches[0].clientX - this.touchStartPosition;
-					} else {
-						this.addPositon = 0;
-						this.videoStartPositon = (this.windowWidth - (this.windowWidth * 0.10));
-					}
-				}
-				// #endif
 				// #ifdef MP
 				let num = e.changedTouches[0].clientX - this.touchStartPosition;
 				if ((this.videoStartPositon + num) <= (this.windowWidth - (this.windowWidth * 0.10))) {
@@ -600,21 +379,6 @@
 			touchend(e) {
 				// 阻止事件冒泡，防止触发 swiper 的滑动事件
 				e.stopPropagation();
-				// #ifdef H5
-				if (this.isClick) {
-					let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth *
-						0.10)));
-					let timeSubmit = parseInt(this.timeduration * per)
-					audo.seek(timeSubmit)
-					audo.play()
-					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).seek(timeSubmit)
-					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).play()
-					this.dataList[this.k].state = 'play'
-					setTimeout(() => {
-						this.isTouch = false;
-					}, 500)
-				}
-				// #endif
 				// #ifdef MP
 				let per = Number((this.videoStartPositon + this.addPositon) / (this.windowWidth - (this.windowWidth *
 					0.10)));
@@ -653,17 +417,11 @@
 					// #ifdef MP
 					this.dataList[this.k].isplay = false
 					// #endif
-					// #ifdef H5
-					audo.play()
-					// #endif
 				}
 				if (this.dataList[this.k].state == 'pause') {
 					uni.createVideoContext(this.dataList[this.k]._id + '' + this.k, this).pause(); //暂停以后继续播放
 					// #ifdef MP
 					this.dataList[this.k].isplay = true
-					// #endif
-					// #ifdef H5
-					audo.pause()
 					// #endif
 				}
 			},
@@ -729,9 +487,6 @@
 						// 3.播放当前视频
 						setTimeout(() => {
 							this.isShow = true;
-							// #ifdef H5
-							this.dataList[this.k].isplay = true
-							// #endif
 							// #ifdef MP
 							// 如果是小程序端
 							this.dataList[this.k].isplay = false
@@ -739,14 +494,6 @@
 							// #endif
 							this.dataList[this.k].playIng = true
 							setTimeout(() => {
-								// #ifdef H5
-								uni.createVideoContext(this.dataList[this.k]._id + '' +
-									this.k, this).seek(0)
-								uni.createVideoContext(this.dataList[this.k]._id + '' +
-									this.k, this).pause()
-								this.dataList[this.k].state = 'pause';
-								audo.src = this.dataList[this.k].src;
-								// #endif
 								// #ifdef MP
 								uni.createVideoContext(this.dataList[this.k]._id + '' +
 									this.k, this).play()
@@ -775,8 +522,7 @@
 					- 一定要记得看 index.vue 里面
 					 uni.setStorageSync("user",this.peopleList[i]);
 					 这个东西，用于存储当前用户信息。在 插件里面会使用到这个东西，
-					 记得写一下。
-					 
+					 记得写一下。			 
 				（4）打开评论
 				*/
 				uni.showToast({
@@ -787,7 +533,6 @@
 				})
 				uni.setStorageSync("videoID", this.dataList[index]._id);
 				this.videoID = this.dataList[index]._id;
-				this.$refs.pinglun.open('bottom')
 			},
 			cLike(sss) {
 				this.dataList[this.k].like = !this.dataList[this.k].like
