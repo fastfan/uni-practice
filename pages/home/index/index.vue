@@ -2,7 +2,8 @@
 	<view class="HomeIndex">
 		<scroll-view scroll-y class="contentBox">
 			<view class="top_box">
-				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
+				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false"
+					:placeholder="true"></u-navbar>
 				<!-- <view class="top_box_title"></view>
 			    <u--text text="51积分" align="center" size="36rpx"></u--text> -->
 				<view class="top_box_ad">
@@ -32,7 +33,8 @@
 			<view class="top_banner flex_box flex_row_between">
 				<!-- <u--image src="/static/bnr_shangjiaruzhu.png" width="100%" height="132rpx"></u--image> -->
 				<view>
-					<u--image src="/static/bnr_shangjiaruzhul.png" width="340rpx" height="152rpx" @click="goDriving"></u--image>
+					<u--image src="/static/bnr_shangjiaruzhul.png" width="340rpx" height="152rpx"
+						@click="goDriving"></u--image>
 				</view>
 				<view>
 					<u--image src="/static/bnr_shangjiaruzhu.png" width="340rpx" height="152rpx"></u--image>
@@ -42,7 +44,8 @@
 				<view class="mid_box_paneltop">
 					<u-tabs class="mid_box_paneltop_tab" :list="list" lineColor="#F3483C"
 						:activeStyle="{color: '#F3483C',fontWeight: '500',fontSize: '30rpx'}"
-						:inactiveStyle="{color:'#333',fontWeight: '400',fontSize: '26rpx'}" itemStyle="height: 112rpx;"></u-tabs>
+						:inactiveStyle="{color:'#333',fontWeight: '400',fontSize: '26rpx'}"
+						itemStyle="height: 112rpx;"></u-tabs>
 				</view>
 				<view class="mid_box_panelmid">
 					<view class="mid_box_panelmid_item" v-for="(item,index) in imgList2" :key="idex">
@@ -71,7 +74,8 @@
 										<view>喜阿婆粥饼店</view>
 										<view class="text">
 											<!-- <u-icon name="star-fill"></u-icon> -->
-											<u--image src="/static/ic_xinji.png" width="24rpx" height="24rpx"></u--image>
+											<u--image src="/static/ic_xinji.png" width="24rpx"
+												height="24rpx"></u--image>
 											<view class="font">5.0 </view>
 											<view class="font2">人均¥60</view>
 										</view>
@@ -116,7 +120,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="bottom_box bottom_box2">
+			<view class="bottom_box bottom_box2" style="margin-bottom: 0;">
 				<view class="bottom_box_paneltop bottom_box2_paneltop overflow_hidden">
 					<view class="bottom_box_paneltop_left">
 						<image src="/static/ic_shangcheng.png" class="panel_img"></image>
@@ -140,13 +144,14 @@
 					</view>
 				</view>
 				<view class="content_mid" :style="{padding: '0 0 0 20rpx'}">
-					<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: 100vh;">
+					<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: calc(100vh - 60rpx);">
 						<view class="content_mid_item">
 							<view v-for="(item,index) in dataList" class="item2" :key="index">
 								<image :src="item.img" class="panel_img" mode="widthFix"></image>
 								<view v-if="!item.type">
 									<view :style="{padding: '0 20rpx'}">{{item.title}}</view>
-									<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+									<view class="overflow_hidden"
+										style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
 										<view class="ft text2 flex_box">
 											<view class="">￥</view>
 											<view class="text3">
@@ -155,12 +160,14 @@
 										</view>
 										<view class="rt text4">24</view>
 									</view>
-									<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+									<view class="overflow_hidden"
+										style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
 										<view class="ft text5 flex_box">
 											已售25
 										</view>
 										<view class="rt">
-											<u--image src="/static/ic_gouwuche.png" width="32rpx" height="30rpx"></u--image>
+											<u--image src="/static/ic_gouwuche.png" width="32rpx"
+												height="30rpx"></u--image>
 										</view>
 									</view>
 								</view>
@@ -735,15 +742,17 @@
 
 			.content_mid {
 				&_item {
-					flex-wrap: wrap;
-					flex-direction: column;
-					justify-content: space-between;
-					// column-count: 2;
-					// column-gap: 10rpx;
+					// flex-wrap: wrap;
+					// flex-direction: column;
+					// justify-content: space-between;
+					column-count: 2;
+					column-gap: 10rpx;
 					// column-width: 336rpx;
+					display: block;
 
 					.item2 {
-						flex-basis: calc(50% - 20rpx);
+						// flex: none;
+						// flex-basis: calc(50% - 20rpx);
 						/* 考虑元素之间的间隔 */
 						box-sizing: border-box;
 						border-radius: 15rpx;
@@ -754,6 +763,10 @@
 						box-sizing: border-box;
 						margin-bottom: 20rpx;
 						box-shadow: 0px 0px 28rpx 1rpx rgba(78, 101, 153, 0.14);
+height: auto;
+						&:nth-child(3n) {
+							margin-right: 24rpx;
+						}
 
 						.panel_img {
 							width: 100%;
