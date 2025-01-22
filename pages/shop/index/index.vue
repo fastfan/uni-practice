@@ -1,7 +1,16 @@
 <template>
 	<view class="shop-center">
 		<u-navbar title="商城" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
-		<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: 100vh;">
+		<u-sticky><my-dropdown :menuList="menuList" active-color="#FA520D">
+				<my-dropdown-item v-model="synthesisValue" dropdownKey="synthesis" :options="columnOptions"
+					@change="handlerColumnChange"></my-dropdown-item>
+				<my-dropdown-item v-model="priceValue" dropdownKey="price" :options="priceOptions" type="column"
+					:backgroundColor="'#FFDECE'" @change="handlerTypeChange"></my-dropdown-item>
+				<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="column"
+					:backgroundColor="'#FFDECE'" @change="handlerTypeChange"></my-dropdown-item>
+			</my-dropdown></u-sticky>
+
+		<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: calc(100vh - 270rpx);">
 			<!-- 瀑布流布局列表 -->
 			<view class="pubuBox">
 				<view class="pubuItem">
@@ -28,6 +37,82 @@
 	export default {
 		data() {
 			return {
+				menuList: [{
+					title: '区域',
+					dropdownKey: 'synthesis'
+				}, {
+					title: '行业分类',
+					dropdownKey: 'price'
+				}, {
+					title: '距离',
+					dropdownKey: 'sales'
+				}],
+				synthesisValue: '',
+				columnOptions: [{
+						label: '金凤区',
+						value: '1',
+					},
+					{
+						label: '兴庆区',
+						value: '2'
+					},
+					{
+						label: '西夏区',
+						value: '3'
+					},
+					{
+						label: '灵武区',
+						value: '4'
+					},
+					{
+						label: '贺兰县',
+						value: '5'
+					}
+				],
+				priceValue: '',
+				priceOptions: [{
+					title: '',
+					key: 'type',
+					default: '',
+					list: [{
+						text: '早餐早点',
+						value: '1'
+					}, {
+						text: '麻辣烧烤',
+						value: '2'
+					}, {
+						text: '火锅',
+						value: '3'
+					}, {
+						text: '甜品饮料',
+						value: '4'
+					}, {
+						text: '水果蔬菜',
+						value: '5'
+					}]
+				}],
+				salesValue: '',
+				salesOptions: [{
+					title: '',
+					key: 'type',
+					default: '',
+					list: [{
+						text: '1km内',
+						value: 1
+					}, {
+						text: '2km内',
+						value: 2
+					}, {
+						text: '3km内',
+						value: 3
+					}, {
+						text: '5km内',
+						value: 5
+					}, {
+						text: '7km内',
+						value: 7
+					}]
+				}],
 				loadStatus: 'loadmore',
 				dataList: [{
 						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5cfe59b33fee45f694e95d8fccba8d02.png',
@@ -98,6 +183,14 @@
 			}
 		},
 		methods: {
+			handlerColumnChange(e) {
+				console.log(111, e);
+				this.$set(this.menuList[0], 'title', e.label)
+			},
+			handlerTypeChange(e) {
+				console.log(e);
+				if (e.cancel) return;
+			},
 			insertItem() {
 				const length = Math.ceil(this.dataList.length / 2)
 				this.dataList.splice(length, 0, {
@@ -148,7 +241,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.shop-center {
 		background: #F8F9FA;
 	}
@@ -157,6 +250,7 @@
 	page {
 		background-color: #eee;
 		height: 100%;
+		overflow: hidden;
 	}
 
 	.pubuBox {
