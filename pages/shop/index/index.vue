@@ -1,4 +1,5 @@
 <template>
+	<!-- <mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback"> -->
 	<view class="shop-center">
 		<u-navbar title="商城" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
 		<my-dropdown :menuList="menuList" active-color="#FA520D">
@@ -9,32 +10,40 @@
 			<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="radioBlock"
 				@change="handlerTypeChange"></my-dropdown-item>
 		</my-dropdown>
-
-		<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: calc(100vh - 270rpx);">
+		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback">
 			<!-- 瀑布流布局列表 -->
 			<view class="pubuBox">
 				<view class="pubuItem">
 					<view class="item-masonry" v-for="(item, index) in dataList" :key="index">
-						<image :src="item.img" mode="widthFix"></image>
+						<image :src="item.goodImg" mode="widthFix"></image>
 						<view class="listtitle" v-if="!item.type"> <!-- 这是没有高度的父盒子（下半部分） -->
-							<view class="listtitle1">{{ item.title }}</view>
+							<view class="listtitle1">{{ item.goodName }}</view>
 							<view class="listtitle2">
-								{{ item.price }}
+								{{ item.goodPrice }}
 							</view>
 							<view class="listtitle3">
-								{{ item.desc }}
+								{{ item.goodSold }}
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<u-loadmore :status="loadStatus" />
-		</scroll-view>
+		</mescroll-body>
 	</view>
+	<!-- </mescroll-body> -->
 </template>
 
 <script>
+	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
+	import MescrollBody from "@/components/mescroll-uni/mescroll-body.vue";
+	import {
+		apiGoods
+	} from "@/api/mock/mock.js"
 	export default {
+		mixins: [MescrollMixin],
+		components: {
+			MescrollBody
+		},
 		data() {
 			return {
 				menuList: [{
@@ -116,73 +125,7 @@
 						value: 7
 					}]
 				}],
-				loadStatus: 'loadmore',
-				dataList: [{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5cfe59b33fee45f694e95d8fccba8d02.png',
-						title: '我是标题1',
-						desc: '描述描述描述描述描述描述描述描述1',
-						price: 20
-					},
-					{
-						img: '/static/img_datu.png',
-						title: '我是标题2',
-						desc: '描述描述描述描述描述描述描述描述2',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/13d1d5023182457b8563864c6a79eb74.png',
-						title: '我是标题2',
-						desc: '描述描述描述描述描述描述描述描述2',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5d13c771d19747368394d3f0847454d3.png',
-						title: '我是标题3',
-						desc: '描述描述描述描述描述描述描述描述3',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/0915b6e7b90b45529fffda925982f9bc.png',
-						title: '我是标题4',
-						desc: '描述描述描述描述描述描述描述描述4',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/51f911a141b347c6a9b44c3decc175cf.png',
-						title: '我是标题5',
-						desc: '描述描述描述描述描述描述描述描述5',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a1308cf7e6eb400d9868fd4828b792a2.jpeg',
-						title: '我是标题6',
-						desc: '描述描述描述描述描述描述描述描述6',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/7910754789dd4bfe881009a79775af02.jpg',
-						title: '我是标题7',
-						desc: '描述描述描述描述描述描述描述描述7',
-						price: 20
-					}, {
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a7816477276746e8a6cbf36e3a338497.jpg',
-						title: '我是标题8',
-						desc: '描述描述描述描述描述描述描述描述58',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/3efb217c176047db9c7f236efdca4e80.jpg',
-						title: '我是标题9',
-						desc: '描述描述描述描述描述描述描述描述9',
-						price: 20
-					},
-					{
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a6898b34438f41629c52021fd7bbd614.jpg',
-						title: '我是标题10',
-						desc: '描述描述描述描述描述描述描述描述10',
-						price: 20
-					}
-				]
+				dataList: []
 			}
 		},
 		methods: {
@@ -197,49 +140,67 @@
 			insertItem() {
 				const length = Math.ceil(this.dataList.length / 2)
 				this.dataList.splice(length, 0, {
-					img: '/static/ruzhu_banner.png',
-					title: '',
-					desc: '',
-					price: '',
+					id: '',
+					goodImg: "/static/ruzhu_banner.png",
+					goodName: '',
+					goodPrice: '',
+					goodSold: '',
 					type: 'insert'
 				})
 			},
-			loadData() {
-				setTimeout(() => {
-					const newData = [];
-					for (let i = 0; i < 10; i++) {
-						newData.push({
-							img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a6898b34438f41629c52021fd7bbd614.jpg',
-							title: '我是标题10',
-							desc: '描述描述描述描述描述描述描述描述10',
-							price: 20
-						});
-					}
-					// 将新数据添加到列表中
-					this.dataList = [...this.dataList, ...newData]
+			/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
+			upCallback(page) {
+				// 此处可以继续请求其他接口
+				// if(page.num == 1){
+				// 	// 请求其他接口...
+				// }
+
+				// 如果希望先请求其他接口,再触发upCallback,可参考以下写法
+				// if(!this.isInitxx){
+				// 	apiGetxx().then(res=>{
+				// 		this.isInitxx = true
+				// 		this.mescroll.resetUpScroll() // 重新触发upCallback
+				// 	}).catch(()=>{
+				// 		this.mescroll.endErr()
+				// 	})
+				// 	return // 此处return,先获取xx
+				// }
+
+				//联网加载数据
+				apiGoods(page.num, page.size).then(res => {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//this.mescroll.endByPage(res.list.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//this.mescroll.endBySize(res.list.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//this.mescroll.endSuccess(res.list.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据
+					this.mescroll.endSuccess(res.list.length);
+
+					//设置列表数据
+					if (page.num == 1) this.dataList = []; //如果是第一页需手动制空列表
+					this.dataList = this.dataList.concat(res.list); //追加新数据
+					this.insertItem()
 					this.dataList.forEach((item, index) => {
 						if (item.type && item.type === 'insert') {
 							this.dataList.splice(index, 1)
 							this.insertItem()
 						}
 					})
-				}, 1000)
-			},
-			onScrollToLower() {
-				// 滚动到底部时，加载下一页数据
-				// this.loadStatus = 'loading';
-				setTimeout(() => {
-					if (this.dataList.length > 50) {
-						this.loadStatus = 'nomore';
-					} else {
-						this.loadStatus = 'loading';
-						this.loadData();
-					}
-				}, 1000)
+				}).catch(() => {
+					//联网失败, 结束加载
+					this.mescroll.endErr();
+				})
 			}
 		},
 		mounted() {
-			this.insertItem()
+
 		}
 	}
 </script>
@@ -253,7 +214,7 @@
 	page {
 		background-color: #eee;
 		height: 100%;
-		overflow: hidden;
+		// overflow: hidden;
 	}
 
 	.pubuBox {

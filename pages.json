@@ -39,8 +39,7 @@
 		{
 			"path": "pages/shop/index/index",
 			"style": {
-				"navigationBarTitleText": "商城",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "商城"
 			}
 		},
 		{
