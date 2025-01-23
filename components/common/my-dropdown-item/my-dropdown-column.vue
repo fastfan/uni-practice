@@ -15,11 +15,11 @@
 			<view class="my-dropdown-button-view" style="margin-top: 38rpx; border-top: 1px solid #ccc;">
 				<button class="my-dropdown-button-item" @click.stop.prevent="handlerCancel"><text
 						class="my-dropdown-button-text"
-						:style="{color: cancelColor,backgroundColor:cancelBgColor}">取消</text></button>
+						:style="{color: inactiveBtnColor,backgroundColor:inactiveBtnBgColor}">取消</text></button>
 				<!-- <text class="my-dropdown-button-border-left"></text> -->
 				<button class="my-dropdown-button-item" @click.stop.prevent="handlerConfirm"><text
 						class="my-dropdown-button-text"
-						:style="{color: confirmColor,backgroundColor:confirmBgColor}">确定</text></button>
+						:style="{color: activeBtnColor,backgroundColor:activeBtnBgColor}">确定</text></button>
 			</view>
 
 		</view>
@@ -36,19 +36,43 @@
 					return []
 				}
 			},
-			cancelColor: {
+			// 激活时的颜色
+			activeColor: {
+				type: String,
+				default: '#FA520D'
+			},
+			// 未激活时的颜色
+			inactiveColor: {
+				type: String,
+				default: '#666666'
+			},
+			// 激活的背景颜色
+			activeBgColor: {
 				type: String,
 				default: '#FD5100'
 			},
-			confirmColor: {
+			// 未激活的背景颜色
+			inactiveBgColor: {
 				type: String,
 				default: '#ffffff'
 			},
-			cancelBgColor: {
+			// 按钮激活时的颜色
+			activeBtnColor: {
+				type: String,
+				default: '#ffffff'
+			},
+			// 按钮未激活时的颜色
+			inactiveBtnColor: {
+				type: String,
+				default: '#FD5100'
+			},
+			// 按钮未激活时背景颜色
+			inactiveBtnBgColor: {
 				type: String,
 				default: '#FFDECE'
 			},
-			confirmBgColor: {
+			// 按钮未激活时背景颜色
+			activeBtnBgColor: {
 				type: String,
 				default: '#FD5100'
 			},

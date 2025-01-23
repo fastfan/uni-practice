@@ -2,12 +2,12 @@
 	<view :class="['my-dropdown-item', 'my_dropdown-item']" @touchmove.stop.prevent="() => {}"
 		:style="{'height': activeItemHeight+'rpx'}" v-if="active">
 		<template v-if="!custom">
-			<template v-if="type == 'column'">
+			<template v-if="type === 'radioBlock'">
 				<MyDropdownColumn :options="options" @success="onCateSuccess" />
 			</template>
-			<template v-else>
+			<template v-if="type==='radioList'">
 				<scroll-view :scroll-y="true" class="my_dropdown-item_scroll" :style="getScrollStyle">
-					<view v-for="(item, index) in options" :key="index" @click.stop.prevent="cellClick(item)"
+					<view v-for="(item, index) in options[0].list" :key="index" @click.stop.prevent="cellClick(item)"
 						class="my_dropdown-item_scroll_cell"
 						:style="{'height': `${itemHeight}rpx`, 'line-height': `${itemHeight}rpx`}">
 						<text class="my_cell_title" v-if="item.label"
@@ -32,6 +32,10 @@
 	 * @property {Boolean} disabled 是否禁用此选项卡（默认false）
 	 * @property {String | Number} duration 选项卡展开和收起的过渡时间，单位ms（默认300）
 	 * @property {String | Number} height 弹窗下拉内容的高度(内容超出将会滚动)（默认auto）
+	 * @property {String } activeColor 激活时的颜色
+	 * @property {String } inactiveColor 未激活时的颜色
+	 * @property {String } activeBgColor 确定按钮的背景颜色
+	 * @property {String } inactiveBgColor 取消确定按钮的背景色
 	 * @example <my-dropdown-item></my-dropdown-item>
 	 */
 	export default {
@@ -40,7 +44,7 @@
 			MyDropdownColumn
 		},
 		props: {
-			// 当前选中项的value值
+			// 当前选中项的key值
 			dropdownKey: {
 				type: String,
 				default: ''
@@ -62,7 +66,23 @@
 				type: Boolean,
 				default: false
 			},
-			backgroundColor: {
+			// 激活时的颜色
+			activeColor: {
+				type: String,
+				default: '#FA520D'
+			},
+			// 未激活时的颜色
+			inactiveColor: {
+				type: String,
+				default: '#666666'
+			},
+			// 激活的背景颜色
+			activeBgColor: {
+				type: String,
+				default: '#FD5100'
+			},
+			// 未激活的背景颜色
+			inactiveBgColor: {
 				type: String,
 				default: '#ffffff'
 			},
@@ -91,8 +111,6 @@
 				// #ifndef MP
 				parent: null,
 				// #endif
-				activeColor: '#FA520D', // 激活时左边文字和右边对勾图标的颜色
-				inactiveColor: '#666666', // 未激活时左边文字和右边对勾图标的颜色
 			}
 		},
 		computed: {

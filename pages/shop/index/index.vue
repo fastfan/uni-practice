@@ -1,14 +1,14 @@
 <template>
 	<view class="shop-center">
 		<u-navbar title="商城" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
-		<u-sticky><my-dropdown :menuList="menuList" active-color="#FA520D">
-				<my-dropdown-item v-model="synthesisValue" dropdownKey="synthesis" :options="columnOptions"
-					@change="handlerColumnChange"></my-dropdown-item>
-				<my-dropdown-item v-model="priceValue" dropdownKey="price" :options="priceOptions" type="column"
-					:backgroundColor="'#FFDECE'" @change="handlerTypeChange"></my-dropdown-item>
-				<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="column"
-					:backgroundColor="'#FFDECE'" @change="handlerTypeChange"></my-dropdown-item>
-			</my-dropdown></u-sticky>
+		<my-dropdown :menuList="menuList" active-color="#FA520D">
+			<my-dropdown-item v-model="synthesisValue" dropdownKey="synthesis" :options="columnOptions" type="radioList"
+				@change="handlerColumnChange"></my-dropdown-item>
+			<my-dropdown-item v-model="priceValue" dropdownKey="price" :options="priceOptions" type="radioBlock"
+				@change="handlerTypeChange"></my-dropdown-item>
+			<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="radioBlock"
+				@change="handlerTypeChange"></my-dropdown-item>
+		</my-dropdown>
 
 		<scroll-view scroll-y="true" @scrolltolower="onScrollToLower" style="height: calc(100vh - 270rpx);">
 			<!-- 瀑布流布局列表 -->
@@ -49,26 +49,29 @@
 				}],
 				synthesisValue: '',
 				columnOptions: [{
-						label: '金凤区',
-						value: '1',
-					},
-					{
-						label: '兴庆区',
-						value: '2'
-					},
-					{
-						label: '西夏区',
-						value: '3'
-					},
-					{
-						label: '灵武区',
-						value: '4'
-					},
-					{
-						label: '贺兰县',
-						value: '5'
-					}
-				],
+					key: 'type',
+					list: [{
+							label: '金凤区',
+							value: '1',
+						},
+						{
+							label: '兴庆区',
+							value: '2'
+						},
+						{
+							label: '西夏区',
+							value: '3'
+						},
+						{
+							label: '灵武区',
+							value: '4'
+						},
+						{
+							label: '贺兰县',
+							value: '5'
+						}
+					]
+				}],
 				priceValue: '',
 				priceOptions: [{
 					title: '',

@@ -13,7 +13,7 @@
 							<text class="my_dropdown__menu__item__text" v-if="item.title"
 								:style="{ color: item.disabled ? '#c0c4cc' : (index === current || highlightIndex == index) ? activeColor : inactiveColor, fontSize: `${titleSize}rpx` }">{{item.title}}</text>
 							<view class="my_dropdown__menu__item__arrow"
-								:style="{'transform': index === current ? 'scale(0.8) rotate(180deg)' : 'scale(1) rotate(0deg)'}">
+								:style="{'transform': index === current ? 'scale(1) rotate(180deg)' : 'scale(1) rotate(0deg)'}">
 								<u-icon :name="menuIcon" :size="menuIconSize"
 									:color="index === current || highlightIndex == index ? activeColor : '#c0c4cc'" />
 							</view>
@@ -161,7 +161,7 @@
 			}
 		},
 		created() {
-			// #ifdef MP
+			// #ifdef MP-WEIXIN
 			// 供子组件调用，不能在data中声明变量，否则在微信小程序会造成循环引用而报错
 			this.childList = [];
 			// #endif
@@ -257,7 +257,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	@mixin vue-flex($direction: row) {
 		/* #ifndef APP-NVUE */
 		display: flex;
