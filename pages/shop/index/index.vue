@@ -37,6 +37,9 @@
 	import MescrollMixin from "@/components/mescroll-uni/mescroll-mixins.js";
 	import MescrollBody from "@/components/mescroll-uni/mescroll-body.vue";
 	import {
+		masonry
+	} from '@dcloudio/uni-ui'
+	import {
 		apiGoods
 	} from "@/api/mock/mock.js"
 	export default {
@@ -138,15 +141,8 @@
 				if (e.cancel) return;
 			},
 			insertItem() {
-				const length = Math.ceil(this.dataList.length / 2)
-				this.dataList.splice(length, 0, {
-					id: '',
-					goodImg: "/static/ruzhu_banner.png",
-					goodName: '',
-					goodPrice: '',
-					goodSold: '',
-					type: 'insert'
-				})
+				// const length = Math.ceil(this.dataList.length / 2)
+
 			},
 			/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
 			upCallback(page) {
@@ -168,6 +164,7 @@
 
 				//联网加载数据
 				apiGoods(page.num, page.size).then(res => {
+					console.log(page)
 					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
 					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
 
@@ -184,15 +181,37 @@
 					this.mescroll.endSuccess(res.list.length);
 
 					//设置列表数据
-					if (page.num == 1) this.dataList = []; //如果是第一页需手动制空列表
+					if (page.num == 1) {
+						this.dataList = [] //如果是第一页需手动制空列表
+					}
+
 					this.dataList = this.dataList.concat(res.list); //追加新数据
-					this.insertItem()
-					this.dataList.forEach((item, index) => {
-						if (item.type && item.type === 'insert') {
-							this.dataList.splice(index, 1)
-							this.insertItem()
-						}
-					})
+					if (page.num == 1) {
+						this.dataList.splice(6, 0, {
+							id: '',
+							goodImg: "/static/ruzhu_banner.png",
+							goodName: '',
+							goodPrice: '',
+							goodSold: '',
+							type: 'insert'
+						})
+
+					} else {
+						this.dataList.forEach((item, index) => {
+							if (item.type && item.type === 'insert') {
+								this.dataList.splice(index, 1)
+								const length = Math.ceil(this.dataList.length / 2)
+								this.dataList.splice(Math.ceil(length + 1), 0, {
+									id: '',
+									goodImg: "/static/ruzhu_banner.png",
+									goodName: '',
+									goodPrice: '',
+									goodSold: '',
+									type: 'insert'
+								})
+							}
+						})
+					}
 				}).catch(() => {
 					//联网失败, 结束加载
 					this.mescroll.endErr();
@@ -224,6 +243,8 @@
 	.pubuItem {
 		column-count: 2;
 		column-gap: 20rpx;
+		// display: flex;
+		// flex-wrap: wrap;
 	}
 
 	.item-masonry {
@@ -235,7 +256,13 @@
 		/*避免在元素内部插入分页符*/
 		box-sizing: border-box;
 		margin-bottom: 20rpx;
+		// margin-right: 20rpx;
+		// width: calc(50% - 10rpx);
 		box-shadow: 0px 0px 28rpx 1rpx rgba(78, 101, 153, 0.14);
+
+		// &:nth-child(2n) {
+		// 	margin-right: 0;
+		// }
 	}
 
 	.item-masonry image {

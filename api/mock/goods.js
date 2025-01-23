@@ -1,7 +1,7 @@
 const goods = [{
 	"id": "1",
 	"goodImg": "https://minio.ruikedz.com/51plat-test/test/pms/product/5cfe59b33fee45f694e95d8fccba8d02.png",
-	"goodName": "【1】  六罐装荷兰美素佳儿金装2段900g",
+	"goodName": "【1】  六罐装荷兰",
 	"goodPrice": 1149.00,
 	"goodSold": 648
 }, {
