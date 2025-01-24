@@ -187,7 +187,8 @@
 
 					this.dataList = this.dataList.concat(res.list); //追加新数据
 					if (page.num == 1) {
-						this.dataList.splice(6, 0, {
+						const length = Math.ceil(this.dataList.length / 2)
+						this.dataList.splice(Math.ceil(length + 1), 0, {
 							id: '',
 							goodImg: "/static/ruzhu_banner.png",
 							goodName: '',
