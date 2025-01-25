@@ -6,7 +6,7 @@ const goods = [{
 	"goodSold": 648
 }, {
 	"id": "2",
-	"goodImg": "/static/img_datu.png",
+	"goodImg": "/static/img_datu.min.png",
 	"goodName": "【2】  韩国Amore爱茉莉红吕洗发水套装修复受损发质",
 	"goodPrice": 89.00,
 	"goodSold": 128

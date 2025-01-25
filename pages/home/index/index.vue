@@ -2,12 +2,11 @@
 	<view class="HomeIndex">
 		<scroll-view scroll-y class="contentBox">
 			<view class="top_box">
-				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false"
-					:placeholder="true"></u-navbar>
+				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
 				<!-- <view class="top_box_title"></view>
 			    <u--text text="51积分" align="center" size="36rpx"></u--text> -->
 				<view class="top_box_ad">
-					<u--image src="/static/banner.png" radius="6" width="100%" height="250rpx"></u--image>
+					<u--image src="/static/banner.min.png" radius="6" width="100%" height="250rpx"></u--image>
 				</view>
 				<view class="top_box_top flex_box">
 					<view class="top_box_top_left">
@@ -26,26 +25,25 @@
 						<u--image :src="item.src" width="340rpx" height="190rpx"></u--image>
 					</view>
 					<view class="top_box_mid_circle">
-						<u--image src="/static/zhuqianba.png" width="220rpx" height="220rpx"></u--image>
+						<u--image src="/static/zhuqianba.min.png" width="220rpx" height="220rpx"></u--image>
 					</view>
 				</view>
 			</view>
 			<view class="top_banner flex_box flex_row_between">
 				<!-- <u--image src="/static/bnr_shangjiaruzhu.png" width="100%" height="132rpx"></u--image> -->
 				<view>
-					<u--image src="/static/bnr_shangjiaruzhul.png" width="340rpx" height="152rpx"
+					<u--image src="/static/bnr_shangjiaruzhul.min.png" width="340rpx" height="152rpx"
 						@click="goDriving"></u--image>
 				</view>
 				<view>
-					<u--image src="/static/bnr_shangjiaruzhu.png" width="340rpx" height="152rpx"></u--image>
+					<u--image src="/static/bnr_shangjiaruzhu.min.png" width="340rpx" height="152rpx"></u--image>
 				</view>
 			</view>
 			<view class="mid_box">
 				<view class="mid_box_paneltop">
 					<u-tabs class="mid_box_paneltop_tab" :list="list" lineColor="#F3483C"
 						:activeStyle="{color: '#F3483C',fontWeight: '500',fontSize: '30rpx'}"
-						:inactiveStyle="{color:'#333',fontWeight: '400',fontSize: '26rpx'}"
-						itemStyle="height: 112rpx;"></u-tabs>
+						:inactiveStyle="{color:'#333',fontWeight: '400',fontSize: '26rpx'}" itemStyle="height: 112rpx;"></u-tabs>
 				</view>
 				<view class="mid_box_panelmid">
 					<view class="mid_box_panelmid_item" v-for="(item,index) in imgList2" :key="idex">
@@ -69,13 +67,12 @@
 						<view class="content_top">
 							<view class="content_top_lt">
 								<view style="display: flex;">
-									<image src="/static/img_shanpin.png" class="panel_img"></image>
+									<image src="/static/img_shanpin.min.png" class="panel_img"></image>
 									<view>
 										<view>喜阿婆粥饼店</view>
 										<view class="text">
 											<!-- <u-icon name="star-fill"></u-icon> -->
-											<u--image src="/static/ic_xinji.png" width="24rpx"
-												height="24rpx"></u--image>
+											<u--image src="/static/ic_xinji.png" width="24rpx" height="24rpx"></u--image>
 											<view class="font">5.0 </view>
 											<view class="font2">人均¥60</view>
 										</view>
@@ -94,7 +91,7 @@
 						<view class="content_mid">
 							<view class="content_mid_item">
 								<view v-for="(item) in 3" class="item" :key="item">
-									<image src="/static/img_shanpin.png" class="panel_img"></image>
+									<image src="/static/img_shanpin.min.png" class="panel_img"></image>
 									<view>八宝粥</view>
 									<view class="flex_box">
 										<view class="text">返积分</view>
@@ -150,8 +147,7 @@
 								<image :src="item.img" class="panel_img" mode="widthFix"></image>
 								<view v-if="!item.type">
 									<view :style="{padding: '0 20rpx'}">{{item.title}}</view>
-									<view class="overflow_hidden"
-										style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+									<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
 										<view class="ft text2 flex_box">
 											<view class="">￥</view>
 											<view class="text3">
@@ -160,14 +156,12 @@
 										</view>
 										<view class="rt text4">24</view>
 									</view>
-									<view class="overflow_hidden"
-										style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
+									<view class="overflow_hidden" style="line-height: 34rpx;padding: 0 14rpx;margin-top: 14rpx;">
 										<view class="ft text5 flex_box">
 											已售25
 										</view>
 										<view class="rt">
-											<u--image src="/static/ic_gouwuche.png" width="32rpx"
-												height="30rpx"></u--image>
+											<u--image src="/static/ic_gouwuche.png" width="32rpx" height="30rpx"></u--image>
 										</view>
 									</view>
 								</view>
@@ -194,7 +188,7 @@
 						price: 20,
 					},
 					{
-						img: '/static/img_datu.png',
+						img: '/static/img_datu.min.png',
 						title: '我是标题2',
 						desc: '描述描述描述描述描述描述描述描述2',
 						price: 20
@@ -265,32 +259,32 @@
 					// disabled: true
 				}],
 				imgList: [{
-					src: "/static/bnr_lvyou.png",
+					src: "/static/bnr_lvyou.min.png",
 				}, {
-					src: "/static/bnr_fenxz.png",
+					src: "/static/bnr_fenxz.min.png",
 				}, {
-					src: "/static/bnr_mlwd.png",
+					src: "/static/bnr_mlwd.min.png",
 				}, {
-					src: "/static/bnr_rys.png",
+					src: "/static/bnr_rys.min.png",
 				}],
 				imgList2: [{
-					src: "/static/sort_zaocan.png",
+					src: "/static/sort_zaocan.min.png",
 				}, {
-					src: "/static/sort_xiaochi.png",
+					src: "/static/sort_xiaochi.min.png",
 				}, {
-					src: "/static/sort_shaokao.png",
+					src: "/static/sort_shaokao.min.png",
 				}, {
-					src: "/static/sort_yexiao.png",
+					src: "/static/sort_yexiao.min.png",
 				}, {
-					src: "/static/sort_zhufenlei.png",
+					src: "/static/sort_zhufenlei.min.png",
 				}, {
-					src: "/static/sort_tianpin.png",
+					src: "/static/sort_tianpin.min.png",
 				}, {
-					src: "/static/sort_linshi.png",
+					src: "/static/sort_linshi.min.png",
 				}, {
-					src: "/static/sort_shuiguo.png",
+					src: "/static/sort_shuiguo.min.png",
 				}, {
-					src: "/static/sort_ruzhu.png",
+					src: "/static/sort_ruzhu.min.png",
 				}]
 			};
 		},
@@ -305,7 +299,7 @@
 			insertItem() {
 				const length = Math.ceil(this.dataList.length / 2)
 				this.dataList.splice(length, 0, {
-					img: '/static/ruzhu_banner.png',
+					img: '/static/ruzhu_banner.min.png',
 					title: '',
 					desc: '',
 					price: '',

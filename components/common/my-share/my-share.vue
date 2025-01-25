@@ -2,7 +2,7 @@
 	<view class="my-share_box">
 		<my-textlist :text-list="itemList"></my-textlist>
 		<view class="my-share_box_mid">
-			<image class="mid_img" src="/static/share/banner_fenxiao.png" mode="widthFix">
+			<image class="mid_img" src="/static/share/banner_fenxiao.min.png" mode="widthFix">
 			</image>
 		</view>
 		<view class="my-share_box_btm">

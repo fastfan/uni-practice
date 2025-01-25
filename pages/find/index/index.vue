@@ -14,7 +14,7 @@
 			return {
 				currentIndex: 0,
 				posterList: [{
-						imageUrl: '/static/share/img_haibao1.png',
+						imageUrl: '/static/share/img_haibao1.min.png',
 						class: 'red',
 						background: 'linear-gradient(180deg, #F9F5F5 0%, #FFE1CE 100%)',
 						textColor: "#A9492A",
@@ -24,7 +24,7 @@
 						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao2.png',
+						imageUrl: '/static/share/img_haibao2.min.png',
 						class: 'blue',
 						background: 'rgba(255, 255, 255, 0.28)',
 						textColor: "#1E81F6",
@@ -34,7 +34,7 @@
 						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao3.png',
+						imageUrl: '/static/share/img_haibao3.min.png',
 						class: 'green',
 						background: 'rgba(255, 255, 255, 0.47)',
 						textColor: "#0BA827",
@@ -44,7 +44,7 @@
 						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao4.png',
+						imageUrl: '/static/share/img_haibao4.min.png',
 						class: 'purple',
 						background: 'rgba(255, 255, 255, 0.51)',
 						textColor: "#E54685",
@@ -54,7 +54,7 @@
 						phone: '189****1312'
 					},
 					{
-						imageUrl: '/static/share/img_haibao5.png',
+						imageUrl: '/static/share/img_haibao5.min.png',
 						class: 'orange',
 						background: 'rgba(255, 255, 255, 0.58)',
 						textColor: "#CC4502",

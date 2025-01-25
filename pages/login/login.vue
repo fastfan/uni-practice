@@ -163,7 +163,7 @@
 		}
 
 		&_btn {
-			background: url("@/static/btn_popups.png") no-repeat;
+			background: url("@/static/btn_popups.min.png") no-repeat;
 			background-size: cover;
 			width: 600rpx;
 			height: 112rpx;

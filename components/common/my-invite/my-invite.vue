@@ -2,7 +2,7 @@
 	<u-popup :show="isVisible" :mode="mode" :closeable="false">
 		<view class="my_invite_container">
 			<view class="container_bg">
-				<image src="/static/share/img_fxz.png" class="bg" mode="widthFix"></image>
+				<image src="/static/share/img_fxz.min.png" class="bg" mode="widthFix"></image>
 				<view class="icon_view" @click="clickEvent('close')">
 					<image src="/static/share/ic_guanbi.png" class="icon" mode=""></image>
 				</view>
@@ -24,7 +24,7 @@
 						<my-textlist :text-list="itemList"></my-textlist>
 					</view>
 					<view class="container_bottom">
-						<image class="img" src="/static/share/banner_fenxiao.png" mode="widthFix">
+						<image class="img" src="/static/share/banner_fenxiao.min.png" mode="widthFix">
 						</image>
 					</view>
 					<view class="container_btn" @click="clickEvent('ensure')">查看玩法</view>
