@@ -36,7 +36,6 @@
 <script>
 import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
 import MescrollBody from '@/components/mescroll-uni/mescroll-body.vue'
-import { masonry } from '@dcloudio/uni-ui'
 import { apiGoods } from '@/api/mock/mock.js'
 export default {
 	mixins: [MescrollMixin],
