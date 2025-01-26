@@ -142,26 +142,47 @@
 						</view>
 					</view>
 				</view>
-				<view class="content_mid" :style="{ padding: '0 0 0 20rpx' }">
-					<view class="content_mid_item">
-						<my-waterfall-flow :wfList="dataList" @itemTap="itemTap" v-slot="{ item }">
-							<view class="item2">
-								<image :src="item.img" class="panel_img" mode="widthFix"></image>
-								<view v-if="!item.type">
-									<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
-									<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
-										<view class="ft text2 flex_box">
-											<view class="">￥</view>
-											<view class="text3">20</view>
+				<view class="content_mid" :style="{ padding: '0 20rpx 0 20rpx' }">
+					<view class="content_mid_item" style="display: unset">
+						<my-waterfall-flow :wfList="dataList">
+							<template #left="{ leftList }">
+								<view class="item2" v-for="(item, index) in leftList" :key="index" @itemTap="itemTap(item)">
+									<image :src="item.img" class="panel_img" mode="widthFix"></image>
+									<view v-if="!item.type">
+										<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
+										<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
+											<view class="ft text2 flex_box">
+												<view class="">￥</view>
+												<view class="text3">20</view>
+											</view>
+											<view class="ft text4 flex_box" style="margin-left: 6rpx">
+												<view class="">￥</view>
+												<view class="text4">24</view>
+											</view>
+											<view class="rt text6">已售25</view>
 										</view>
-										<view class="ft text4 flex_box" style="margin-left: 6rpx">
-											<view class="">￥</view>
-											<view class="text4">24</view>
-										</view>
-										<view class="rt text6">已售25</view>
 									</view>
 								</view>
-							</view>
+							</template>
+							<template #right="{ rightList }">
+								<view class="item2" v-for="(item, index) in rightList" :key="index" @itemTap="itemTap(item)">
+									<image :src="item.img" class="panel_img" mode="widthFix"></image>
+									<view v-if="!item.type">
+										<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
+										<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
+											<view class="ft text2 flex_box">
+												<view class="">￥</view>
+												<view class="text3">20</view>
+											</view>
+											<view class="ft text4 flex_box" style="margin-left: 6rpx">
+												<view class="">￥</view>
+												<view class="text4">24</view>
+											</view>
+											<view class="rt text6">已售25</view>
+										</view>
+									</view>
+								</view>
+							</template>
 						</my-waterfall-flow>
 					</view>
 				</view>

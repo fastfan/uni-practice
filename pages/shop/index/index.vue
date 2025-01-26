@@ -11,20 +11,37 @@
 			<!-- 瀑布流布局列表 -->
 			<view class="pubuBox">
 				<view class="pubuItem">
-					<my-waterfall-flow :wfList="dataList" @itemTap="itemTap" v-slot="{ item }">
-						<view class="item-masonry">
-							<image :src="item.goodImg" mode="widthFix"></image>
-							<view class="listtitle" v-if="!item.type">
-								<!-- 这是没有高度的父盒子（下半部分） -->
-								<view class="listtitle1">{{ item.goodName }}</view>
-								<view class="listtitle2">
-									{{ item.goodPrice }}
-								</view>
-								<view class="listtitle3">
-									{{ item.goodSold }}
+					<my-waterfall-flow :wfList="dataList">
+						<template #left="{ leftList }">
+							<view class="item-masonry" v-for="(item, index) in leftList" :key="index" @itemTap="itemTap">
+								<image :src="item.goodImg" mode="widthFix"></image>
+								<view class="listtitle" v-if="!item.type">
+									<!-- 这是没有高度的父盒子（下半部分） -->
+									<view class="listtitle1">{{ item.goodName }}</view>
+									<view class="listtitle2">
+										{{ item.goodPrice }}
+									</view>
+									<view class="listtitle3">
+										{{ item.goodSold }}
+									</view>
 								</view>
 							</view>
-						</view>
+						</template>
+						<template #right="{ rightList }">
+							<view class="item-masonry" v-for="(item, index) in rightList" :key="index" @itemTap="itemTap">
+								<image :src="item.goodImg" mode="widthFix"></image>
+								<view class="listtitle" v-if="!item.type">
+									<!-- 这是没有高度的父盒子（下半部分） -->
+									<view class="listtitle1">{{ item.goodName }}</view>
+									<view class="listtitle2">
+										{{ item.goodPrice }}
+									</view>
+									<view class="listtitle3">
+										{{ item.goodSold }}
+									</view>
+								</view>
+							</view>
+						</template>
 					</my-waterfall-flow>
 				</view>
 			</view>

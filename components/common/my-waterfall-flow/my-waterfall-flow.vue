@@ -3,18 +3,20 @@
 		<!--    left    -->
 		<view>
 			<view id="left" v-if="leftList.length">
-				<view v-for="(item, index) in leftList" :key="index" class="wf-item" @tap="itemTap(item)">
+				<slot name="left" :leftList="leftList"></slot>
+				<!-- <view v-for="(item, index) in leftList" :key="index" class="wf-item" @tap="itemTap(item)">
 					<slot :item="item" />
-				</view>
+				</view> -->
 			</view>
 		</view>
 
 		<!--    right    -->
 		<view>
 			<view id="right" v-if="rightList.length">
-				<view v-for="(item, index) in rightList" :key="index" class="wf-item" @tap="itemTap(item)">
+				<slot name="right" :rightList="rightList" />
+				<!-- <view v-for="(item, index) in rightList" :key="index" class="wf-item" @tap="itemTap(item)">
 					<slot :item="item" />
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
