@@ -11,19 +11,21 @@
 			<!-- 瀑布流布局列表 -->
 			<view class="pubuBox">
 				<view class="pubuItem">
-					<view class="item-masonry" v-for="(item, index) in dataList" :key="index">
-						<image :src="item.goodImg" mode="widthFix"></image>
-						<view class="listtitle" v-if="!item.type">
-							<!-- 这是没有高度的父盒子（下半部分） -->
-							<view class="listtitle1">{{ item.goodName }}</view>
-							<view class="listtitle2">
-								{{ item.goodPrice }}
-							</view>
-							<view class="listtitle3">
-								{{ item.goodSold }}
+					<my-waterfall-flow :wfList="dataList" @itemTap="itemTap" v-slot="{ item }">
+						<view class="item-masonry">
+							<image :src="item.goodImg" mode="widthFix"></image>
+							<view class="listtitle" v-if="!item.type">
+								<!-- 这是没有高度的父盒子（下半部分） -->
+								<view class="listtitle1">{{ item.goodName }}</view>
+								<view class="listtitle2">
+									{{ item.goodPrice }}
+								</view>
+								<view class="listtitle3">
+									{{ item.goodSold }}
+								</view>
 							</view>
 						</view>
-					</view>
+					</my-waterfall-flow>
 				</view>
 			</view>
 		</mescroll-body>
@@ -149,6 +151,9 @@ export default {
 		}
 	},
 	methods: {
+		itemTap(item) {
+			console.log(item)
+		},
 		handlerColumnChange(e) {
 			console.log(111, e)
 			this.$set(this.menuList[0], 'title', e.label)
@@ -204,29 +209,13 @@ export default {
 
 					this.dataList = this.dataList.concat(res.list) //追加新数据
 					if (page.num == 1) {
-						const length = Math.ceil(this.dataList.length / 2)
-						this.dataList.splice(Math.ceil(length + 1), 0, {
+						this.dataList.splice(1, 0, {
 							id: '',
 							goodImg: '/static/ruzhu_banner.min.png',
 							goodName: '',
 							goodPrice: '',
 							goodSold: '',
 							type: 'insert'
-						})
-					} else {
-						this.dataList.forEach((item, index) => {
-							if (item.type && item.type === 'insert') {
-								this.dataList.splice(index, 1)
-								const length = Math.ceil(this.dataList.length / 2)
-								this.dataList.splice(Math.ceil(length + 1), 0, {
-									id: '',
-									goodImg: '/static/ruzhu_banner.min.png',
-									goodName: '',
-									goodPrice: '',
-									goodSold: '',
-									type: 'insert'
-								})
-							}
 						})
 					}
 				})
@@ -257,8 +246,8 @@ page {
 }
 
 .pubuItem {
-	column-count: 2;
-	column-gap: 20rpx;
+	// column-count: 2;
+	// column-gap: 20rpx;
 	// display: flex;
 	// flex-wrap: wrap;
 }
