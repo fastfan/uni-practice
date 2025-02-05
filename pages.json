@@ -18,7 +18,7 @@
 		{
 			"path": "pages/benefit/index/index",
 			"style": {
-				"navigationBarTitleText": "福利",
+				"navigationBarTitleText": "趣视频",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -83,7 +83,7 @@
 				"iconPath": "static/tab/tab4.png",
 				"selectedIconPath": "static/tab/tab4-active.png",
 				"pagePath": "pages/benefit/index/index",
-				"text": "福利"
+				"text": "趣视频"
 			},
 			{
 				"iconPath": "static/tab/tab3.png",

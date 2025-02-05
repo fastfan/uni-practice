@@ -1,8 +1,19 @@
 <template>
-	<view class="HomeIndex">
-		<scroll-view scroll-y class="contentBox">
+	<scroll-view scroll-y class="contentBox">
+		<view class="HomeIndex">
 			<view class="top_box">
-				<u-navbar title="51积分" :bgColor="bgColor" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
+				<u-navbar
+					title=" "
+					:titleStyle="titleStyle"
+					:bgColor="bgColor"
+					leftIcon="map"
+					leftIconSize="20"
+					leftText="银川市的士学校"
+					:is-back="false"
+					:placeholder="true"
+					:border="false"
+					@leftClick="leftClick"
+				></u-navbar>
 				<!-- <view class="top_box_title"></view>
 			    <u--text text="51积分" align="center" size="36rpx"></u--text> -->
 				<view class="top_box_ad">
@@ -47,13 +58,18 @@
 						:activeStyle="{ color: '#F3483C', fontWeight: '500', fontSize: '30rpx' }"
 						:inactiveStyle="{ color: '#333', fontWeight: '400', fontSize: '26rpx' }"
 						itemStyle="height: 112rpx;"
+						@click="tabClick"
+						:current="currentTab"
 					></u-tabs>
 				</view>
-				<view class="mid_box_panelmid">
-					<view class="mid_box_panelmid_item" v-for="(item, index) in imgList2" :key="idex">
-						<u--image :src="item.src" width="212rpx" height="212rpx"></u--image>
-					</view>
-				</view>
+				<!-- 九宫格内容区域 -->
+				<swiper @change="slideOn" :current="currentTab" style="height: calc(844rpx - 112rpx)">
+					<swiper-item v-for="(item, index) in gridData" :key="index" class="mid_box_panelmid">
+						<view class="mid_box_panelmid_item" v-for="(items, indexs) in gridData[currentTab]" :key="indexs">
+							<u--image :src="items.src" width="212rpx" height="212rpx"></u--image>
+						</view>
+					</swiper-item>
+				</swiper>
 			</view>
 			<view class="bottom_box">
 				<view class="bottom_box_paneltop overflow_hidden">
@@ -142,116 +158,83 @@
 						</view>
 					</view>
 				</view>
-				<view class="content_mid" :style="{ padding: '0 20rpx 0 20rpx' }">
-					<view class="content_mid_item" style="display: unset">
-						<my-waterfall-flow :wfList="dataList">
-							<template #left="{ leftList }">
-								<view class="item2" v-for="(item, index) in leftList" :key="index" @itemTap="itemTap(item)">
-									<image :src="item.img" class="panel_img" mode="widthFix"></image>
-									<view v-if="!item.type">
-										<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
-										<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
-											<view class="ft text2 flex_box">
-												<view class="">￥</view>
-												<view class="text3">20</view>
+				<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
+					<!-- 瀑布流布局列表 -->
+					<view class="content_mid" :style="{ padding: '0 20rpx 0 20rpx' }">
+						<view class="content_mid_item" style="display: block">
+							<my-waterfall-flow :wfList="dataList">
+								<template #left="{ leftList }">
+									<view class="item2" v-for="(item, index) in leftList" :key="index" @itemTap="itemTap(item)">
+										<image :src="item.goodImg" class="panel_img" mode="widthFix"></image>
+										<view v-if="!item.type">
+											<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
+											<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
+												<view class="ft text2 flex_box">
+													<view class="">￥</view>
+													<view class="text3">20</view>
+												</view>
+												<view class="ft text4 flex_box" style="margin-left: 6rpx">
+													<view class="">￥</view>
+													<view class="text4">24</view>
+												</view>
+												<view class="rt text6">已售25</view>
 											</view>
-											<view class="ft text4 flex_box" style="margin-left: 6rpx">
-												<view class="">￥</view>
-												<view class="text4">24</view>
-											</view>
-											<view class="rt text6">已售25</view>
 										</view>
 									</view>
-								</view>
-							</template>
-							<template #right="{ rightList }">
-								<view class="item2" v-for="(item, index) in rightList" :key="index" @itemTap="itemTap(item)">
-									<image :src="item.img" class="panel_img" mode="widthFix"></image>
-									<view v-if="!item.type">
-										<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
-										<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
-											<view class="ft text2 flex_box">
-												<view class="">￥</view>
-												<view class="text3">20</view>
+								</template>
+								<template #right="{ rightList }">
+									<view class="item2" v-for="(item, index) in rightList" :key="index" @itemTap="itemTap(item)">
+										<image :src="item.goodImg" class="panel_img" mode="widthFix"></image>
+										<view v-if="!item.type">
+											<view :style="{ padding: '0 20rpx' }">{{ item.title }}</view>
+											<view class="overflow_hidden" style="line-height: 34rpx; padding: 0 14rpx; margin: 14rpx 0">
+												<view class="ft text2 flex_box">
+													<view class="">￥</view>
+													<view class="text3">20</view>
+												</view>
+												<view class="ft text4 flex_box" style="margin-left: 6rpx">
+													<view class="">￥</view>
+													<view class="text4">24</view>
+												</view>
+												<view class="rt text6">已售25</view>
 											</view>
-											<view class="ft text4 flex_box" style="margin-left: 6rpx">
-												<view class="">￥</view>
-												<view class="text4">24</view>
-											</view>
-											<view class="rt text6">已售25</view>
 										</view>
 									</view>
-								</view>
-							</template>
-						</my-waterfall-flow>
+								</template>
+							</my-waterfall-flow>
+						</view>
 					</view>
-				</view>
+				</mescroll-body>
 			</view>
-		</scroll-view>
-	</view>
+		</view>
+	</scroll-view>
 </template>
 
 <script>
+import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
+import MescrollBody from '@/components/mescroll-uni/mescroll-body.vue'
+import { apiGoods } from '@/api/mock/mock.js'
 export default {
+	mixins: [MescrollMixin],
+	components: {
+		MescrollBody
+	},
 	data() {
 		return {
-			loadStatus: 'loadmore',
-			dataList: [
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5cfe59b33fee45f694e95d8fccba8d02.png',
-					title: '我是标题1',
-					desc: '描述描述描述描述描述描述描述描述1',
-					price: 20
+			// 上拉加载的配置(可选, 绝大部分情况无需配置)
+			upOption: {
+				page: {
+					size: 10 // 每页数据的数量,默认10
 				},
-				{
-					img: '/static/img_datu.min.png',
-					title: '我是标题2',
-					desc: '描述描述描述描述描述描述描述描述2',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/13d1d5023182457b8563864c6a79eb74.png',
-					title: '我是标题2',
-					desc: '描述描述描述描述描述描述描述描述2',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/5d13c771d19747368394d3f0847454d3.png',
-					title: '我是标题3',
-					desc: '描述描述描述描述描述描述描述描述3',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/0915b6e7b90b45529fffda925982f9bc.png',
-					title: '我是标题4',
-					desc: '描述描述描述描述描述描述描述描述4',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/51f911a141b347c6a9b44c3decc175cf.png',
-					title: '我是标题5',
-					desc: '描述描述描述描述描述描述描述描述5',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a1308cf7e6eb400d9868fd4828b792a2.jpeg',
-					title: '我是标题6',
-					desc: '描述描述描述描述描述描述描述描述6',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/7910754789dd4bfe881009a79775af02.jpg',
-					title: '我是标题7',
-					desc: '描述描述描述描述描述描述描述描述7',
-					price: 20
-				},
-				{
-					img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a7816477276746e8a6cbf36e3a338497.jpg',
-					title: '我是标题8',
-					desc: '描述描述描述描述描述描述描述描述58',
-					price: 20
+				noMoreSize: 999, // 配置列表的总数量要大于等于5条才显示'-- END --'的提示
+				empty: {
+					tip: '暂无相关数据'
 				}
-			],
+			},
+			currentTab: 0,
+			loadStatus: 'loadmore',
+			titleStyle: { fontWeight: 500, fontSize: '36rpx', color: '#333333' },
+			dataList: [],
 			bgColor: '#FEC0BC',
 			list: [
 				{
@@ -281,38 +264,109 @@ export default {
 					src: '/static/bnr_rys.min.png'
 				}
 			],
-			imgList2: [
-				{
-					src: '/static/sort_zaocan.min.png'
-				},
-				{
-					src: '/static/sort_xiaochi.min.png'
-				},
-				{
-					src: '/static/sort_shaokao.min.png'
-				},
-				{
-					src: '/static/sort_yexiao.min.png'
-				},
-				{
-					src: '/static/sort_zhufenlei.min.png'
-				},
-				{
-					src: '/static/sort_tianpin.min.png'
-				},
-				{
-					src: '/static/sort_linshi.min.png'
-				},
-				{
-					src: '/static/sort_shuiguo.min.png'
-				},
-				{
-					src: '/static/sort_ruzhu.min.png'
-				}
+			gridData: [
+				[
+					{
+						src: '/static/sort_zaocan.min.png'
+					},
+					{
+						src: '/static/sort_xiaochi.min.png'
+					},
+					{
+						src: '/static/sort_shaokao.min.png'
+					},
+					{
+						src: '/static/sort_yexiao.min.png'
+					},
+					{
+						src: '/static/sort_zhufenlei.min.png'
+					},
+					{
+						src: '/static/sort_tianpin.min.png'
+					},
+					{
+						src: '/static/sort_linshi.min.png'
+					},
+					{
+						src: '/static/sort_shuiguo.min.png'
+					},
+					{
+						src: '/static/sort_ruzhu.min.png'
+					}
+				],
+				[
+					{
+						src: '/static/sort_jdwx.png'
+					},
+					{
+						src: '/static/sort_fsfl.png'
+					},
+					{
+						src: '/static/sort_qmwx.png'
+					},
+					{
+						src: '/static/sort_glst.png'
+					},
+					{
+						src: '/static/sort_jzfw.png'
+					},
+					{
+						src: '/static/sort_jtbj.png'
+					},
+					{
+						src: '/static/sort_jdqx.png'
+					},
+					{
+						src: '/static/sort_slwx.png'
+					},
+					{
+						src: '/static/sort_dlwx.png'
+					}
+				],
+				[
+					{
+						src: '/static/sort_huanzuotao.png'
+					},
+					{
+						src: '/static/sort_jiaofei.png'
+					},
+					{
+						src: '/static/sort_sijirenz.png'
+					},
+					{
+						src: '/static/sort_yexiao.min.png'
+					},
+					{
+						src: '/static/sort_sijifuwu.png'
+					},
+					{
+						src: '/static/sort_zhaopin.png'
+					},
+					{
+						src: '/static/sort_zixun.png'
+					},
+					{
+						src: '/static/sort_shuiguo.min.png'
+					},
+					{
+						src: '/static/sort_ruzhu.min.png'
+					}
+				]
 			]
 		}
 	},
 	methods: {
+		leftClick() {
+			console.log('点击了定位')
+		},
+		slideOn(e) {
+			this.currentTab = e.detail.current
+		},
+		tabClick(item) {
+			console.log(item)
+			const { name, index } = item
+			this.currentTab = index
+		},
 		itemTap(item) {
 			console.log(item)
 		},
@@ -322,42 +376,78 @@ export default {
 				type: 'to'
 			})
 		},
+		/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
+		upCallback(page) {
+			// 此处可以继续请求其他接口
+			// if(page.num == 1){
+			// 	// 请求其他接口...
+			// }
 
-		insertItem() {
-			this.dataList.splice(1, 0, {
-				img: '/static/ruzhu_banner.min.png',
-				title: '',
-				desc: '',
-				price: '',
-				type: 'insert'
-			})
-		},
-		loadData() {
-			setTimeout(() => {
-				const newData = []
-				for (let i = 0; i < 10; i++) {
-					newData.push({
-						img: 'https://minio.ruikedz.com/51plat-test/test/pms/product/a6898b34438f41629c52021fd7bbd614.jpg',
-						title: '我是标题10',
-						desc: '描述描述描述描述描述描述描述描述10',
-						price: 20
-					})
-				}
-				// 将新数据添加到列表中
-				this.dataList = [...this.dataList, ...newData]
-			}, 1000)
+			// 如果希望先请求其他接口,再触发upCallback,可参考以下写法
+			// if(!this.isInitxx){
+			// 	apiGetxx().then(res=>{
+			// 		this.isInitxx = true
+			// 		this.mescroll.resetUpScroll() // 重新触发upCallback
+			// 	}).catch(()=>{
+			// 		this.mescroll.endErr()
+			// 	})
+			// 	return // 此处return,先获取xx
+			// }
+
+			//联网加载数据
+			apiGoods(page.num, page.size)
+				.then((res) => {
+					console.log(page)
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//this.mescroll.endByPage(res.list.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//this.mescroll.endBySize(res.list.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//this.mescroll.endSuccess(res.list.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据
+					this.mescroll.endSuccess(res.list.length)
+
+					//设置列表数据
+					if (page.num == 1) {
+						this.dataList = [] //如果是第一页需手动制空列表
+					}
+
+					this.dataList = this.dataList.concat(res.list) //追加新数据
+					if (page.num == 1) {
+						this.dataList.splice(1, 0, {
+							id: '',
+							goodImg: '/static/ruzhu_banner.min.png',
+							goodName: '',
+							goodPrice: '',
+							goodSold: '',
+							type: 'insert'
+						})
+					}
+				})
+				.catch(() => {
+					//联网失败, 结束加载
+					this.mescroll.endErr()
+				})
 		}
 	},
-	onLoad() {
-		this.insertItem()
-	}
+	onLoad() {}
 }
 </script>
-
+<style lang="scss">
+// page {
+// 	overflow: hidden;
+// }
+</style>
 <style lang="scss" scoped>
 .HomeIndex {
 	background-color: #f2f2f2;
-
+	// overflow-y: scroll;
 	.contentBox {
 		// 滚动区自适配高度
 		flex-grow: 1;
@@ -369,7 +459,7 @@ export default {
 		line-height: 162rpx;
 		text-align: center;
 		padding: 0 24rpx 0 24rpx;
-		margin-bottom: 18rpx;
+		margin-bottom: 28rpx;
 
 		// ::v-deep .u-image {
 		// 	margin-top: 8rpx;
@@ -380,7 +470,7 @@ export default {
 		height: 1040rpx;
 		background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
 		padding: 0 24rpx 48rpx 24rpx;
-		margin: 0 0 18rpx 0;
+		margin: 0 0 32rpx 0;
 
 		&_title {
 			height: 110rpx;
@@ -447,7 +537,7 @@ export default {
 	}
 
 	.mid_box {
-		margin: 0 0 52rpx 0;
+		margin: 0 0 28rpx 0;
 		// padding: 0 24rpx;
 		background: #fff;
 		height: 844rpx;
@@ -461,25 +551,17 @@ export default {
 				position: absolute;
 				bottom: -6rpx;
 			}
-
-			// ::v-deep .u-tabs__wrapper__nav__item {
-			// 	flex: 1 !important;
-			// }
 		}
-
 		&_panelmid {
-			// height: 112rpx;
-			// border-bottom: 2rpx solid #ccc;
 			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
 			padding: 0 24rpx;
+			height: auto !important;
 
 			&_item {
 				height: 212rpx;
 				background: #ffffff;
-				// box-shadow: inset 14rpx 14rpx 30rpx 0rpx rgba(251, 178, 178, 0.32), inset -14rpx -14rpx 30rpx 0rpx rgba(251, 178, 178, 0.31);
-				// border-radius: 16rpx;
 				flex: 0 0 calc((100% - 48rpx) / 3);
 				margin: 24rpx 24rpx 0 0;
 
@@ -493,11 +575,9 @@ export default {
 	.bottom_box {
 		padding: 0 24rpx;
 		background: #fff;
-		margin: 0 0 52rpx 0;
+		margin: 0 0 28rpx 0;
 
 		&_paneltop {
-			// height: 46rpx;
-			// border-bottom: 2rpx solid #ccc;
 			padding-top: 40rpx;
 
 			&_left {
@@ -506,7 +586,6 @@ export default {
 				.panel_img {
 					width: 34rpx;
 					height: 34rpx;
-					// background: #ccc;
 					vertical-align: text-top;
 					margin: 0 18rpx 0 0;
 				}
@@ -546,7 +625,6 @@ export default {
 						.panel_img {
 							width: 100rpx;
 							height: 100rpx;
-							// background: #ccc;
 							margin: 0 18rpx 0 0;
 						}
 
@@ -586,7 +664,7 @@ export default {
 
 		.content_mid {
 			clear: both;
-			margin: 42rpx 0 0 0;
+			margin: 36rpx 0 0 0;
 
 			&_item {
 				display: flex;
