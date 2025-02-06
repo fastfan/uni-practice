@@ -8,13 +8,6 @@
 			}
 		},
 		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "uni-app",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/benefit/index/index",
 			"style": {
 				"navigationBarTitleText": "趣视频",
@@ -68,6 +61,39 @@
 			}
 		}
 	],
+	"subPackages": [{
+			"root": "subHome",
+			"pages": []
+		},
+		{
+			"root": "subShop",
+			"pages": [{
+				"path": "shopList/shopList",
+				"style": {
+					"navigationBarTitleText": "商家列表",
+					"enablePullDownRefresh": false
+				}
+			}]
+		},
+		{
+			"root": "subVideo",
+			"pages": []
+		},
+		{
+			"root": "subFind",
+			"pages": []
+		},
+		{
+			"root": "subMy",
+			"pages": []
+		}
+	],
+	// "preloadRule": {
+	// 	"pages/index/index": {
+	// 		"network": "all",
+	// 		"packages": ["subHome"]
+	// 	}
+	// },
 	"tabBar": {
 		"backgroundColor": "#FFFFFF",
 		"color": "#333333",
@@ -118,6 +144,7 @@
 		}
 	},
 	"uniIdRouter": {},
+	"lazyCodeLoading": "requiredComponents",
 	"permission": {
 		"scope.userLocation": {
 			"desc": "你的位置信息将用于小程序位置接口的效果展示"

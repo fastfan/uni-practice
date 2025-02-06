@@ -76,12 +76,14 @@
 					<image src="/static/ic_shangcheng.png" class="panel_img"></image>
 					优选商家
 				</view>
-				<view class="bottom_box_paneltop_right">
+				<view class="bottom_box_paneltop_right" @click="jump('shopList')">
 					查看更多
 					<u-icon name="arrow-right"></u-icon>
 				</view>
 			</view>
-			<my-shop-list :dataList="shopList"></my-shop-list>
+			<view class="bottom_box_panellist">
+				<my-shop-list :dataList="shopList"></my-shop-list>
+			</view>
 		</view>
 		<view class="bottom_box bottom_box2" style="margin-bottom: 0">
 			<view class="bottom_box_paneltop bottom_box2_paneltop overflow_hidden">
@@ -89,7 +91,7 @@
 					<image src="/static/ic_shangcheng.png" class="panel_img"></image>
 					优选商城
 				</view>
-				<view class="bottom_box_paneltop_right bottom_box2_paneltop_right">
+				<view class="bottom_box_paneltop_right bottom_box2_paneltop_right" @click="jump('shop')">
 					查看更多
 					<u-icon name="arrow-right"></u-icon>
 				</view>
@@ -145,7 +147,6 @@ export default {
 				}
 			},
 			currentTab: 0,
-			loadStatus: 'loadmore',
 			titleStyle: { fontWeight: 500, fontSize: '36rpx', color: '#333333' },
 			dataList: [],
 			bgColor: '#FEC0BC',
@@ -373,6 +374,17 @@ export default {
 		}
 	},
 	methods: {
+		jump(type) {
+			if (type === 'shop') {
+				uni.switchTab({
+					url: '/pages/shop/index/index'
+				})
+			} else if (type === 'shopList') {
+				uni.navigateTo({
+					url: '/subShop/shopList/shopList'
+				})
+			}
+		},
 		leftClick() {
 			console.log('点击了定位')
 		},
@@ -585,7 +597,7 @@ export default {
 
 		&_paneltop {
 			padding-top: 40rpx;
-
+			margin-bottom: 30rpx;
 			&_left {
 				float: left;
 
@@ -606,7 +618,10 @@ export default {
 				line-height: 46rpx;
 			}
 		}
-
+		&_panellist {
+			height: 1106rpx;
+			overflow-y: scroll;
+		}
 		&_panelmid2 {
 			margin: 20rpx 0;
 

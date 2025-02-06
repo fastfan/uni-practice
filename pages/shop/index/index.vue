@@ -1,53 +1,43 @@
 <template>
-	<!-- <mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback"> -->
 	<view class="shop-center">
-		<u-navbar title="商城" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
-		<my-dropdown :menuList="menuList" active-color="#FA520D">
-			<my-dropdown-item v-model="synthesisValue" dropdownKey="synthesis" :options="columnOptions" type="radioList" @change="handlerColumnChange"></my-dropdown-item>
-			<my-dropdown-item v-model="priceValue" dropdownKey="price" :options="priceOptions" type="radioBlock" @change="handlerTypeChange"></my-dropdown-item>
-			<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="radioBlock" @change="handlerTypeChange"></my-dropdown-item>
-		</my-dropdown>
+		<view class="top-box">
+			<u-navbar
+				title="商城"
+				:titleStyle="titleStyle"
+				:bgColor="bgColor"
+				leftIcon="map"
+				leftIconSize="20"
+				leftText="银川市的士学校"
+				:is-back="false"
+				:placeholder="true"
+				:border="false"
+				@leftClick="leftClick"
+			></u-navbar>
+			<u-search
+				class="sub-shop-list-search"
+				placeholder="请输入搜索内容"
+				v-model="keyword"
+				:clearabled="true"
+				:showAction="false"
+				bgColor="#ffffff"
+			></u-search>
+			<view class="content-top"></view>
+		</view>
+
 		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback">
 			<!-- 瀑布流布局列表 -->
-			<view class="pubuBox">
-				<view class="pubuItem">
-					<my-waterfall-flow :wfList="dataList">
-						<template #left="{ leftList }">
-							<view class="item-masonry" v-for="(item, index) in leftList" :key="index" @itemTap="itemTap">
-								<image :src="item.goodImg" mode="widthFix"></image>
-								<view class="listtitle" v-if="!item.type">
-									<!-- 这是没有高度的父盒子（下半部分） -->
-									<view class="listtitle1">{{ item.goodName }}</view>
-									<view class="listtitle2">
-										{{ item.goodPrice }}
-									</view>
-									<view class="listtitle3">
-										{{ item.goodSold }}
-									</view>
-								</view>
-							</view>
-						</template>
-						<template #right="{ rightList }">
-							<view class="item-masonry" v-for="(item, index) in rightList" :key="index" @itemTap="itemTap">
-								<image :src="item.goodImg" mode="widthFix"></image>
-								<view class="listtitle" v-if="!item.type">
-									<!-- 这是没有高度的父盒子（下半部分） -->
-									<view class="listtitle1">{{ item.goodName }}</view>
-									<view class="listtitle2">
-										{{ item.goodPrice }}
-									</view>
-									<view class="listtitle3">
-										{{ item.goodSold }}
-									</view>
-								</view>
-							</view>
-						</template>
-					</my-waterfall-flow>
-				</view>
+			<view class="content-mid">
+				<my-waterfall-flow :wfList="dataList">
+					<template #left="{ leftList }">
+						<my-goods-list v-for="(item, index) in leftList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
+					</template>
+					<template #right="{ rightList }">
+						<my-goods-list v-for="(item, index) in rightList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
+					</template>
+				</my-waterfall-flow>
 			</view>
 		</mescroll-body>
 	</view>
-	<!-- </mescroll-body> -->
 </template>
 
 <script>
@@ -61,125 +51,18 @@ export default {
 	},
 	data() {
 		return {
-			menuList: [
-				{
-					title: '区域',
-					dropdownKey: 'synthesis'
-				},
-				{
-					title: '行业分类',
-					dropdownKey: 'price'
-				},
-				{
-					title: '距离',
-					dropdownKey: 'sales'
-				}
-			],
-			synthesisValue: '',
-			columnOptions: [
-				{
-					key: 'type',
-					list: [
-						{
-							label: '金凤区',
-							value: '1'
-						},
-						{
-							label: '兴庆区',
-							value: '2'
-						},
-						{
-							label: '西夏区',
-							value: '3'
-						},
-						{
-							label: '灵武区',
-							value: '4'
-						},
-						{
-							label: '贺兰县',
-							value: '5'
-						}
-					]
-				}
-			],
-			priceValue: '',
-			priceOptions: [
-				{
-					title: '',
-					key: 'type',
-					default: '',
-					list: [
-						{
-							text: '早餐早点',
-							value: '1'
-						},
-						{
-							text: '麻辣烧烤',
-							value: '2'
-						},
-						{
-							text: '火锅',
-							value: '3'
-						},
-						{
-							text: '甜品饮料',
-							value: '4'
-						},
-						{
-							text: '水果蔬菜',
-							value: '5'
-						}
-					]
-				}
-			],
-			salesValue: '',
-			salesOptions: [
-				{
-					title: '',
-					key: 'type',
-					default: '',
-					list: [
-						{
-							text: '1km内',
-							value: 1
-						},
-						{
-							text: '2km内',
-							value: 2
-						},
-						{
-							text: '3km内',
-							value: 3
-						},
-						{
-							text: '5km内',
-							value: 5
-						},
-						{
-							text: '7km内',
-							value: 7
-						}
-					]
-				}
-			],
-			dataList: []
+			titleStyle: { fontWeight: 500, fontSize: '36rpx', color: '#333333' },
+			bgColor: '#FEC0BC',
+			dataList: [],
+			keyword: ''
 		}
 	},
 	methods: {
+		leftClick() {
+			console.log('点击了定位')
+		},
 		itemTap(item) {
 			console.log(item)
-		},
-		handlerColumnChange(e) {
-			console.log(111, e)
-			this.$set(this.menuList[0], 'title', e.label)
-		},
-		handlerTypeChange(e) {
-			console.log(e)
-			if (e.cancel) return
-		},
-		insertItem() {
-			// const length = Math.ceil(this.dataList.length / 2)
 		},
 		/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
 		upCallback(page) {
@@ -248,88 +131,22 @@ export default {
 <style lang="scss">
 .shop-center {
 	background: #f8f9fa;
-}
-
-//瀑布流
-page {
-	background-color: #eee;
-	height: 100%;
-	// overflow: hidden;
-}
-
-.pubuBox {
-	padding: 22rpx;
-}
-
-.pubuItem {
-	// column-count: 2;
-	// column-gap: 20rpx;
-	// display: flex;
-	// flex-wrap: wrap;
-}
-
-.item-masonry {
-	box-sizing: border-box;
-	border-radius: 15rpx;
-	overflow: hidden;
-	background-color: #fff;
-	break-inside: avoid;
-	/*避免在元素内部插入分页符*/
-	box-sizing: border-box;
-	margin-bottom: 20rpx;
-	// margin-right: 20rpx;
-	// width: calc(50% - 10rpx);
-	box-shadow: 0px 0px 28rpx 1rpx rgba(78, 101, 153, 0.14);
-
-	// &:nth-child(2n) {
-	// 	margin-right: 0;
-	// }
-}
-
-.item-masonry image {
-	width: 100%;
-}
-
-.listtitle {
-	padding-left: 22rpx;
-	font-size: 24rpx;
-	padding-bottom: 22rpx;
-
-	.listtitle1 {
-		line-height: 39rpx;
-		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		line-clamp: 2;
-		-webkit-box-orient: vertical;
-		min-height: 39rpx;
-		max-height: 78rpx;
+	.top-box {
+		height: 750rpx;
+		background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
+		padding: 0 24rpx 48rpx 24rpx;
+		margin: 0 0 32rpx 0;
 	}
-
-	.listtitle2 {
-		color: #ff0000;
-		font-size: 32rpx;
-		line-height: 32rpx;
-		font-weight: bold;
-		padding-top: 22rpx;
-
-		.listtitle2son {
-			font-size: 32rpx;
-		}
+	.content-mid {
+		padding: 0 20rpx;
 	}
-
-	.listtitle3 {
-		font-size: 28rpx;
-		color: #909399;
-		line-height: 32rpx;
-		padding-top: 22rpx;
+	.content-top {
+		height: 434rpx;
+		background: #ffffff;
+		border-radius: 20rpx;
 	}
-}
-
-.loading {
-	text-align: center;
-	padding: 10px;
+	::v-deep .u-search {
+		margin: 46rpx 24rpx 22rpx !important;
+	}
 }
 </style>

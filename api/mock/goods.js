@@ -1,7 +1,7 @@
 const goods = [{
 	"id": "1",
 	"goodImg": "https://minio.ruikedz.com/51plat-test/test/pms/product/5cfe59b33fee45f694e95d8fccba8d02.png",
-	"goodName": "【1】  六罐装荷兰",
+	"goodName": "【1】  六罐装荷兰水套装修复受损发质",
 	"goodPrice": 1149.00,
 	"goodSold": 648
 }, {
