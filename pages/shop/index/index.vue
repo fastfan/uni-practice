@@ -13,14 +13,18 @@
 				:border="false"
 				@leftClick="leftClick"
 			></u-navbar>
-			<u-search
-				class="sub-shop-list-search"
-				placeholder="请输入搜索内容"
-				v-model="keyword"
-				:clearabled="true"
-				:showAction="false"
-				bgColor="#ffffff"
-			></u-search>
+			<u-sticky>
+				<u-search
+					class="sub-shop-list-search"
+					placeholder="请输入搜索内容"
+					v-model="keyword"
+					:clearabled="true"
+					:showAction="false"
+					bgColor="#ffffff"
+					borderColor="#FC3B50"
+				></u-search>
+			</u-sticky>
+
 			<view class="content-top"></view>
 		</view>
 
@@ -134,7 +138,7 @@ export default {
 	.top-box {
 		height: 750rpx;
 		background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
-		padding: 0 24rpx 48rpx 24rpx;
+		padding: 0 22rpx 48rpx 22rpx;
 		margin: 0 0 32rpx 0;
 	}
 	.content-mid {
@@ -146,7 +150,7 @@ export default {
 		border-radius: 20rpx;
 	}
 	::v-deep .u-search {
-		margin: 46rpx 24rpx 22rpx !important;
+		margin: 46rpx 0 22rpx !important;
 	}
 }
 </style>
