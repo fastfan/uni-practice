@@ -4,8 +4,7 @@
 			"path": "pages/home/index/index",
 			"style": {
 				"navigationStyle": "custom", // 隐藏系统导航栏
-				"navigationBarTitleText": "首页",
-				"enablePullDownRefresh": false
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
