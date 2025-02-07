@@ -13,18 +13,15 @@
 				:border="false"
 				@leftClick="leftClick"
 			></u-navbar>
-			<u-sticky>
-				<u-search
-					class="sub-shop-list-search"
-					placeholder="请输入搜索内容"
-					v-model="keyword"
-					:clearabled="true"
-					:showAction="false"
-					bgColor="#ffffff"
-					borderColor="#FC3B50"
-				></u-search>
-			</u-sticky>
-
+			<u-search
+				class="sub-shop-list-search"
+				placeholder="请输入搜索内容"
+				v-model="keyword"
+				:clearabled="true"
+				:showAction="false"
+				bgColor="#ffffff"
+				borderColor="#FC3B50"
+			></u-search>
 			<view class="content-top"></view>
 		</view>
 
@@ -137,9 +134,11 @@ export default {
 	background: #f8f9fa;
 	.top-box {
 		height: 750rpx;
-		background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
+		// background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
+		background: url('/static/bg_zhutibg.png') center center no-repeat;
 		padding: 0 22rpx 48rpx 22rpx;
 		margin: 0 0 32rpx 0;
+		background-size: cover;
 	}
 	.content-mid {
 		padding: 0 20rpx;

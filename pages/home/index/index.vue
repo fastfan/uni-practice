@@ -15,6 +15,18 @@
 			></u-navbar>
 			<!-- <view class="top_box_title"></view>
 			    <u--text text="51积分" align="center" size="36rpx"></u--text> -->
+			<view class="search-con">
+				<view class="search">
+					<image class="img" src="https://51plat.oss-cn-beijing.aliyuncs.com/51Integral/static/images/mall/Search_2x.png" mode=""></image>
+					<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
+					<view class="search-btn" @click="onClickSearchValue">搜索</view>
+				</view>
+				<image
+					class="change"
+					src="https://51plat.oss-cn-beijing.aliyuncs.com/51Integral/static/images/mall/ic_layout_arrange@2x.png"
+					@click="onClickChangeListStyle"
+				></image>
+			</view>
 			<view class="top_box_ad">
 				<u--image src="/static/banner.min.png" radius="6" width="100%" height="250rpx"></u--image>
 			</view>
@@ -489,7 +501,56 @@ export default {
 		background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
 		padding: 0 24rpx 48rpx 24rpx;
 		margin: 0 0 32rpx 0;
+		.search-con {
+			margin: 20rpx 30rpx;
+			height: 80rpx;
+			line-height: 80rpx;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
 
+			.search {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				background: #fff;
+				width: 100%;
+				border-radius: 35rpx;
+				height: 70rpx;
+				line-height: 70rpx;
+
+				.img {
+					width: 40rpx;
+					height: 40rpx;
+					margin-left: 20rpx;
+				}
+
+				.search-input {
+					flex: 1;
+					margin: 0 20rpx;
+					font-size: 28rpx;
+				}
+
+				.search-btn {
+					height: 60rpx;
+					line-height: 60rpx;
+					border-radius: 35rpx;
+					color: #fff;
+					text-align: center;
+					background: #ff5e52;
+					width: 104rpx;
+					margin-right: 4rpx;
+				}
+			}
+
+			.change {
+				width: 40rpx;
+				height: 40rpx;
+				margin-left: 20rpx;
+			}
+		}
 		&_title {
 			height: 110rpx;
 		}
