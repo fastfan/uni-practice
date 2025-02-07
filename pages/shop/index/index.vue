@@ -30,10 +30,20 @@
 			<view class="content-mid">
 				<my-waterfall-flow :wfList="dataList">
 					<template #left="{ leftList }">
-						<my-goods-list v-for="(item, index) in leftList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
+						<my-goods-list
+							v-for="(item, index) in leftList"
+							:key="index"
+							:listItem="item"
+							@click.native="itemTap(item)"
+						></my-goods-list>
 					</template>
 					<template #right="{ rightList }">
-						<my-goods-list v-for="(item, index) in rightList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
+						<my-goods-list
+							v-for="(item, index) in rightList"
+							:key="index"
+							:listItem="item"
+							@click.native="itemTap(item)"
+						></my-goods-list>
 					</template>
 				</my-waterfall-flow>
 			</view>
