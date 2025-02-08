@@ -6,7 +6,7 @@
 				<view class="my-dropdown-floor_ul">
 					<text
 						:class="['my-dropdown-floor_li', selected[item.key] == cell.value ? 'my-dropdown-floor_li__active' : '']"
-						v-for="(cell, cellIndex) in item.list"
+						v-for="(cell, cellIndex) in item.children"
 						:key="cellIndex"
 						@click.stop.prevent="handlerCellClick(item.key, cell.value, cell)"
 					>

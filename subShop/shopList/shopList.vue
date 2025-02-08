@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { shopList, shopList2 } from '@/api/mock/data.js'
+import { shopList, shopList2 } from '@/common/mock/data.js'
 export default {
 	data() {
 		return {
@@ -60,7 +60,7 @@ export default {
 			synthesisValue: '',
 			columnOptions: [
 				{
-					key: 'type',
+					key: 'firstKey',
 					list: [
 						{
 							label: '金凤区',
@@ -91,7 +91,7 @@ export default {
 					title: '',
 					key: 'firstKey',
 					default: '',
-					list: [
+					children: [
 						{
 							text: '商超购物',
 							value: '1',
@@ -182,28 +182,33 @@ export default {
 			salesOptions: [
 				{
 					title: '',
-					key: 'type',
+					key: 'firstKey',
 					default: '',
-					list: [
+					children: [
 						{
 							text: '1km内',
-							value: 1
+							value: 1,
+							level: 1
 						},
 						{
 							text: '2km内',
-							value: 2
+							value: 2,
+							level: 1
 						},
 						{
 							text: '3km内',
-							value: 3
+							value: 3,
+							level: 1
 						},
 						{
 							text: '5km内',
-							value: 5
+							value: 5,
+							level: 1
 						},
 						{
 							text: '7km内',
-							value: 7
+							value: 7,
+							level: 1
 						}
 					]
 				}
