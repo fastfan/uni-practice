@@ -63,7 +63,14 @@
 	],
 	"subPackages": [{
 			"root": "subHome",
-			"pages": []
+			"pages": [{
+				"path": "searchHistory/searchHistory",
+				"style": {
+					"navigationBarTitleText": "搜索聚合",
+					"enablePullDownRefresh": false,
+					"navigationStyle": "custom"
+				}
+			}]
 		},
 		{
 			"root": "subShop",

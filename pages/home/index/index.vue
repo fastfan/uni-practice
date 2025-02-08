@@ -7,7 +7,7 @@
 					<uni-icons type="location" size="22" class="top_box_unicon"></uni-icons>
 					银川市的士学校
 				</view>
-				<view class="search-con padding_24">
+				<view class="search-con padding_24" @click="jump('searchHistory')">
 					<view class="search">
 						<image class="img" src="/static/images/home/ic_search@2x.png" mode=""></image>
 						<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
@@ -216,7 +216,11 @@ export default {
 				})
 			} else if (type === 'shopList') {
 				uni.navigateTo({
-					url: '/subShop/shopList/shopList'
+					url: `/subShop/${type}/${type}`
+				})
+			} else if (type === 'searchHistory') {
+				uni.navigateTo({
+					url: `/subHome/${type}/${type}`
 				})
 			}
 		},
