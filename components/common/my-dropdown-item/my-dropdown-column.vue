@@ -8,7 +8,18 @@
 						:class="['my-dropdown-floor_li', selected[item.key] == cell.value ? 'my-dropdown-floor_li__active' : '']"
 						v-for="(cell, cellIndex) in item.list"
 						:key="cellIndex"
-						@click.stop.prevent="handlerCellClick(item.key, cell.value)"
+						@click.stop.prevent="handlerCellClick(item.key, cell.value, cell)"
+					>
+						{{ cell.text }}
+					</text>
+				</view>
+				<view v-if="secondList.length > 0" style="height: 2rpx; background: #ccc; width: 92%; margin: 24rpx"></view>
+				<view class="my-dropdown-floor_ul" v-if="secondList.length > 0">
+					<text
+						:class="['my-dropdown-floor_li', secondSelected['secondKey'] == cell.value ? 'my-dropdown-floor_li__active' : '']"
+						v-for="(cell, cellIndex) in secondList"
+						:key="cellIndex"
+						@click.stop.prevent="handlerCellClick(item.key, cell.value, cell)"
 					>
 						{{ cell.text }}
 					</text>
@@ -82,7 +93,11 @@ export default {
 	},
 	data() {
 		return {
-			selected: {} // 存储选中的值
+			selected: {}, // 存储选中的值
+			secondList: [],
+			secondSelected: {
+				secondKey: ''
+			}
 		}
 	},
 	watch: {
@@ -99,8 +114,19 @@ export default {
 		}
 	},
 	methods: {
-		handlerCellClick(key, data) {
-			this.$set(this.selected, key, data)
+		handlerCellClick(key, data, item) {
+			if (item.hasOwnProperty('children')) {
+				this.secondList = item.children
+			}
+			if (item.level === 1) {
+				this.$set(this.selected, key, data)
+				this.$set(this.secondSelected, 'secondKey', '')
+			} else if (item.level === 2) {
+				this.$set(this.secondSelected, 'secondKey', data)
+			}
+			// console.log(key, data)
+			// console.log(this.selected)
+			// console.log(this.secondSelected)
 		},
 		handlerCancel() {
 			this.$emit('success', {
@@ -113,7 +139,7 @@ export default {
 				this.$emit('success', {
 					confirm: true,
 					type: 'column',
-					data: JSON.parse(JSON.stringify(this.selected))
+					data: JSON.parse(JSON.stringify({ ...this.selected, ...this.secondSelected }))
 				})
 			} catch (err) {
 				this.$emit('success', {

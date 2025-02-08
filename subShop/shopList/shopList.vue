@@ -89,28 +89,91 @@ export default {
 			priceOptions: [
 				{
 					title: '',
-					key: 'type',
+					key: 'firstKey',
 					default: '',
 					list: [
 						{
-							text: '早餐早点',
-							value: '1'
+							text: '商超购物',
+							value: '1',
+							level: 1,
+							children: [
+								{
+									text: '粮油米面',
+									value: '11',
+									level: 2
+								},
+								{
+									text: '厨房用品',
+									value: '12',
+									level: 2
+								}
+							]
 						},
 						{
-							text: '麻辣烧烤',
-							value: '2'
+							text: '美食餐饮',
+							value: '2',
+							level: 1,
+							children: [
+								{
+									text: '汉堡薯条',
+									value: '21',
+									level: 2
+								},
+								{
+									text: '快餐便当',
+									value: '22',
+									level: 2
+								},
+								{
+									text: '地方菜系',
+									value: '23',
+									level: 2
+								},
+								{
+									text: '奶茶咖啡',
+									value: '24',
+									level: 2
+								},
+								{
+									text: '包子粥店',
+									value: '25',
+									level: 2
+								}
+							]
 						},
 						{
-							text: '火锅',
-							value: '3'
+							text: '家政服务',
+							value: '3',
+							level: 1,
+							children: [
+								{
+									text: '卧室清洁',
+									value: '31',
+									level: 2
+								},
+								{
+									text: '厨房清洁',
+									value: '32',
+									level: 2
+								}
+							]
 						},
 						{
-							text: '甜品饮料',
-							value: '4'
-						},
-						{
-							text: '水果蔬菜',
-							value: '5'
+							text: '汽车维修',
+							value: '4',
+							level: 1,
+							children: [
+								{
+									text: '换坐垫',
+									value: '41',
+									level: 2
+								},
+								{
+									text: '换门贴',
+									value: '42',
+									level: 2
+								}
+							]
 						}
 					]
 				}

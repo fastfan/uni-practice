@@ -49,7 +49,7 @@ export default {
 .my-goods-list {
 	margin-bottom: 28rpx;
 	.item {
-		height: auto;
+		// height: auto;
 		background: #fff;
 		border-radius: 12rpx;
 		.item-list {
@@ -84,6 +84,7 @@ export default {
 		.panel-img {
 			width: 100%;
 			height: 336rpx;
+			vertical-align: bottom;
 		}
 		.panel-img2 {
 			width: 34rpx;
