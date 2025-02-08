@@ -1,14 +1,13 @@
 <template>
 	<view class="sub-shop-list">
-		<u-navbar title="商家列表" :placeholder="true" :border="false" @leftClick="leftClick"></u-navbar>
-		<u-search
-			class="sub-shop-list-search"
-			placeholder="请输入搜索内容"
-			v-model="keyword"
-			:clearabled="true"
-			:showAction="false"
-			bgColor="#ffffff"
-		></u-search>
+		<uni-nav-bar title="商家列表" left-icon="left" @clickLeft="leftClick" :statusBar="true" :fixed="true" :border="false" />
+		<view class="search-con">
+			<view class="search">
+				<image class="img" src="/static/images/home/ic_search@2x.png" mode=""></image>
+				<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
+				<!-- <view class="search-btn" @click="onClickSearchValue">搜索</view> -->
+			</view>
+		</view>
 		<my-dropdown :menuList="menuList" active-color="#FA520D">
 			<my-dropdown-item
 				v-model="synthesisValue"
@@ -39,6 +38,7 @@
 </template>
 
 <script>
+import { shopList, shopList2 } from '@/api/mock/data.js'
 export default {
 	data() {
 		return {
@@ -145,129 +145,7 @@ export default {
 					]
 				}
 			],
-			shopList: [
-				{
-					id: 1,
-					type: 'normal',
-					shopName: '喜阿婆粥饼店',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					children: [
-						{
-							name: '八宝粥1',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥2',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '',
-							soled: '123'
-						},
-						{
-							name: '八宝粥3',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						}
-					]
-				},
-				{
-					id: 2,
-					type: 'normal',
-					shopName: '喜阿婆粥饼店2',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					children: [
-						{
-							name: '八宝粥4',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥5',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥6',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '',
-							soled: '123'
-						}
-					]
-				},
-				{
-					id: 3,
-					type: 'normal',
-					shopName: '喜阿婆粥饼店3',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					children: [
-						{
-							name: '八宝粥7',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥8',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '',
-							soled: '123'
-						},
-						{
-							name: '八宝粥9',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						}
-					]
-				},
-				{
-					id: 4,
-					type: 'single',
-					shopName: '【世外桃源】自助烧烤',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					shopSrc: '/static/img_shanpin.min.png',
-					children: []
-				},
-				{
-					id: 5,
-					type: 'empty',
-					shopName: '【世外桃源】自助烧烤',
-					shopRate: '',
-					shopPrevage: '',
-					shopDistance: '100',
-					children: []
-				}
-			]
+			shopList: [...shopList, ...shopList2]
 		}
 	},
 	methods: {
@@ -290,13 +168,59 @@ export default {
 <style lang="scss" scoped>
 .sub-shop-list {
 	background: #f2f2f2;
-	::v-deep .u-search {
-		margin: 28rpx 24rpx 30rpx !important;
-	}
 	&-item {
 		padding: 24rpx;
-		height: calc(100vh - 380rpx);
+		height: calc(100vh - 420rpx);
 		overflow-y: scroll;
+	}
+	.search-con {
+		margin: 22rpx 0 34rpx 0;
+		padding: 0 24rpx;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+
+		.search {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			background: #fff;
+			width: 100%;
+			border-radius: 35rpx;
+			height: 66rpx;
+			line-height: 66rpx;
+
+			.img {
+				width: 44rpx;
+				height: 46rpx;
+				margin-left: 30rpx;
+			}
+
+			.search-input {
+				flex: 1;
+				margin: 0 20rpx;
+				font-size: 28rpx;
+			}
+
+			.search-btn {
+				height: 58rpx;
+				line-height: 58rpx;
+				border-radius: 35rpx;
+				color: #fff;
+				text-align: center;
+				background: #ff7a4a;
+				width: 104rpx;
+				margin-right: 4rpx;
+			}
+		}
+
+		.change {
+			width: 40rpx;
+			height: 40rpx;
+			margin-left: 20rpx;
+		}
 	}
 }
 </style>

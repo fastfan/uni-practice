@@ -11,19 +11,18 @@
 			<view v-if="!listItem.type" class="item-list">
 				<view class="item-list-name">{{ listItem.goodName }}</view>
 				<view class="flex_box">
-					<view class="text">返积分</view>
-					<view class="text">积分可抵扣</view>
+					<view class="text" v-for="(tag, tags) in listItem.taglist" :key="tags">{{ tag }}</view>
 				</view>
 				<view class="overflow_hidden item-list-text">
 					<view class="ft text2 flex_box">
 						<view class="">￥</view>
-						<view class="text3">20</view>
+						<view class="text3">{{ listItem.goodPriced }}</view>
 					</view>
 					<view class="ft text4 flex_box">
 						<view class="">￥</view>
-						<view class="text5">24</view>
+						<view class="text5">{{ listItem.goodPrice }}</view>
 					</view>
-					<view class="rt text6">已售25</view>
+					<view class="rt text6">已售{{ listItem.goodSold }}</view>
 				</view>
 			</view>
 		</view>

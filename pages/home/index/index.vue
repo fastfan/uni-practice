@@ -1,83 +1,78 @@
 <template>
 	<view class="HomeIndex">
-		<view class="top_box">
-			<u-navbar
-				title=" "
-				:titleStyle="titleStyle"
-				:bgColor="bgColor"
-				leftIcon="map"
-				leftIconSize="20"
-				leftText="银川市的士学校"
-				:is-back="false"
-				:placeholder="true"
-				:border="false"
-				@leftClick="leftClick"
-			></u-navbar>
-			<!-- <view class="top_box_title"></view>
-			    <u--text text="51积分" align="center" size="36rpx"></u--text> -->
-			<view class="search-con">
-				<view class="search">
-					<image class="img" src="https://51plat.oss-cn-beijing.aliyuncs.com/51Integral/static/images/mall/Search_2x.png" mode=""></image>
-					<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
-					<view class="search-btn" @click="onClickSearchValue">搜索</view>
+		<view class="top_box" :style="{ paddingTop: topHeight }">
+			<view class="top_fixed">
+				<view class="top_box_title" :style="{ height: statusBarHeight + 'px' }"></view>
+				<view class="top_box_title" :style="{ height: navBarHeight + 'px' }">
+					<uni-icons type="location" size="22" class="top_box_unicon"></uni-icons>
+					银川市的士学校
 				</view>
-				<image
-					class="change"
-					src="https://51plat.oss-cn-beijing.aliyuncs.com/51Integral/static/images/mall/ic_layout_arrange@2x.png"
-					@click="onClickChangeListStyle"
-				></image>
+				<view class="search-con padding_24">
+					<view class="search">
+						<image class="img" src="/static/images/home/ic_search@2x.png" mode=""></image>
+						<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
+						<view class="search-btn" @click="onClickSearchValue">搜索</view>
+					</view>
+					<image class="change" src="/static/images/home/icon_sousuo@2x.png" @click="onClickScan"></image>
+				</view>
 			</view>
-			<view class="top_box_ad">
-				<u--image src="/static/banner.min.png" radius="6" width="100%" height="250rpx"></u--image>
+			<!-- <uni-nav-bar
+				left-icon="location"
+				leftText="银川市的士学校"
+				leftWidth="300rpx"
+				backgroundColor="#FEC0BC"
+				title=" "
+				@clickLeft="leftClick"
+				:statusBar="true"
+				:fixed="true"
+				:border="false"
+			></uni-nav-bar> -->
+			<view class="top_box_ad padding_24">
+				<image class="img" src="/static/images/home/banner@2x.png"></image>
 			</view>
 			<view class="top_box_top flex_box">
 				<view class="top_box_top_left">
-					<image src="/static/text.png" class="panel_img"></image>
+					<image src="/static/images/home/taxt_bdsh@2x.png" class="panel_img"></image>
 				</view>
 				<view class="top_box_top_mid">
 					<view>95128宁夏开始运营啦</view>
 					<view>各位司机朋友，新款顶灯现已到货</view>
 				</view>
 				<view class="top_box_top_right">
-					<image src="/static/gonggao.png" class="panel_img2"></image>
+					<image src="/static/images/home/gonggao@2x.png" class="panel_img2"></image>
 				</view>
 			</view>
-			<view class="top_box_mid">
+			<view class="top_box_mid padding_24">
 				<view class="top_box_mid_list" v-for="(item, index) in imgList" :key="index">
-					<u--image :src="item.src" width="340rpx" height="190rpx"></u--image>
+					<image class="img" :src="item.src"></image>
 				</view>
 				<view class="top_box_mid_circle">
-					<u--image src="/static/zhuqianba.min.png" width="220rpx" height="220rpx"></u--image>
+					<image class="img" src="/static/images/home/zhuqianba@2x.png"></image>
 				</view>
 			</view>
 		</view>
-		<view class="top_banner flex_box flex_row_between">
-			<!-- <u--image src="/static/bnr_shangjiaruzhu.png" width="100%" height="132rpx"></u--image> -->
-			<view>
-				<u--image src="/static/bnr_shangjiaruzhul.min.png" width="340rpx" height="152rpx" @click="goDriving"></u--image>
-			</view>
-			<view>
-				<u--image src="/static/bnr_shangjiaruzhu.min.png" width="340rpx" height="152rpx"></u--image>
-			</view>
+		<view class="top_banner flex_box flex_row_between padding_24">
+			<image class="img" src="/static/images/home/banner_ruzhu@2x.png" mode="widthFix"></image>
 		</view>
 		<view class="mid_box">
 			<view class="mid_box_paneltop">
-				<u-tabs
-					class="mid_box_paneltop_tab"
-					:list="list"
+				<my-tabs
+					:tabs="list"
+					field="name"
+					v-model="currentTab"
+					@change="tabClick"
+					height="112rpx"
 					lineColor="#F3483C"
-					:activeStyle="{ color: '#F3483C', fontWeight: '500', fontSize: '30rpx' }"
-					:inactiveStyle="{ color: '#333', fontWeight: '400', fontSize: '26rpx' }"
-					itemStyle="height: 112rpx;"
-					@click="tabClick"
-					:current="currentTab"
-				></u-tabs>
+					activeColor="#F3483C"
+					activeFontSize="36rpx"
+					fontSize="30rpx"
+				></my-tabs>
 			</view>
 			<!-- 九宫格内容区域 -->
 			<swiper @change="slideOn" :current="currentTab" style="height: calc(844rpx - 112rpx)">
 				<swiper-item v-for="(item, index) in gridData" :key="index" class="mid_box_panelmid">
 					<view class="mid_box_panelmid_item" v-for="(items, indexs) in gridData[currentTab]" :key="indexs">
-						<u--image :src="items.src" width="212rpx" height="212rpx"></u--image>
+						<image class="img" :src="items.src"></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -85,12 +80,12 @@
 		<view class="bottom_box">
 			<view class="bottom_box_paneltop overflow_hidden">
 				<view class="bottom_box_paneltop_left">
-					<image src="/static/ic_shangcheng.png" class="panel_img"></image>
+					<image src="/static/images/home/icon_shangjia@2x.png" class="panel_img"></image>
 					优选商家
 				</view>
 				<view class="bottom_box_paneltop_right" @click="jump('shopList')">
 					查看更多
-					<u-icon name="arrow-right"></u-icon>
+					<uni-icons type="right" size="16"></uni-icons>
 				</view>
 			</view>
 			<view class="bottom_box_panellist">
@@ -100,12 +95,12 @@
 		<view class="bottom_box bottom_box2" style="margin-bottom: 0">
 			<view class="bottom_box_paneltop bottom_box2_paneltop overflow_hidden">
 				<view class="bottom_box_paneltop_left">
-					<image src="/static/ic_shangcheng.png" class="panel_img"></image>
+					<image src="/static/images/home/ic_shangcheng@2x.png" class="panel_img"></image>
 					优选商城
 				</view>
 				<view class="bottom_box_paneltop_right bottom_box2_paneltop_right" @click="jump('shop')">
 					查看更多
-					<u-icon name="arrow-right"></u-icon>
+					<uni-icons type="right" size="16"></uni-icons>
 				</view>
 			</view>
 			<view class="bottom_box_panelmid2 flex_box" :style="{ padding: '0 20rpx' }">
@@ -141,6 +136,7 @@
 import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
 import MescrollBody from '@/components/mescroll-uni/mescroll-body.vue'
 import { apiGoods } from '@/api/mock/mock.js'
+import { gridData, shopList } from '@/api/mock/data.js'
 export default {
 	mixins: [MescrollMixin],
 	components: {
@@ -148,6 +144,10 @@ export default {
 	},
 	data() {
 		return {
+			searchKeyValue: '',
+			topHeight: 0,
+			statusBarHeight: getApp().globalData.statusBarHeight,
+			navBarHeight: getApp().globalData.navBarHeight,
 			// 上拉加载的配置(可选, 绝大部分情况无需配置)
 			upOption: {
 				page: {
@@ -164,228 +164,51 @@ export default {
 			bgColor: '#FEC0BC',
 			list: [
 				{
+					id: 1,
+					name: '商超购物'
+					// disabled: true
+				},
+				{
+					id: 2,
 					name: '美食餐饮'
 					// disabled: true
 				},
 				{
+					id: 3,
 					name: '家政服务'
 					// disabled: true
 				},
 				{
-					name: '汽车维修'
+					id: 4,
+					name: '出租车服务'
 					// disabled: true
 				}
 			],
 			imgList: [
 				{
-					src: '/static/bnr_lvyou.min.png'
+					src: '/static/images/home/bnr_lvyou@2x.png'
 				},
 				{
-					src: '/static/bnr_fenxz.min.png'
+					src: '/static/images/home/bnr_fenxz@2x.png'
 				},
 				{
-					src: '/static/bnr_mlwd.min.png'
+					src: '/static/images/home/bnr_mlwd@2x.png'
 				},
 				{
-					src: '/static/bnr_rys.min.png'
+					src: '/static/images/home/bnr_rys@2x.png'
 				}
 			],
-			gridData: [
-				[
-					{
-						src: '/static/sort_zaocan.min.png'
-					},
-					{
-						src: '/static/sort_xiaochi.min.png'
-					},
-					{
-						src: '/static/sort_shaokao.min.png'
-					},
-					{
-						src: '/static/sort_yexiao.min.png'
-					},
-					{
-						src: '/static/sort_zhufenlei.min.png'
-					},
-					{
-						src: '/static/sort_tianpin.min.png'
-					},
-					{
-						src: '/static/sort_linshi.min.png'
-					},
-					{
-						src: '/static/sort_shuiguo.min.png'
-					},
-					{
-						src: '/static/sort_ruzhu.min.png'
-					}
-				],
-				[
-					{
-						src: '/static/sort_jdwx.png'
-					},
-					{
-						src: '/static/sort_fsfl.png'
-					},
-					{
-						src: '/static/sort_qmwx.png'
-					},
-					{
-						src: '/static/sort_glst.png'
-					},
-					{
-						src: '/static/sort_jzfw.png'
-					},
-					{
-						src: '/static/sort_jtbj.png'
-					},
-					{
-						src: '/static/sort_jdqx.png'
-					},
-					{
-						src: '/static/sort_slwx.png'
-					},
-					{
-						src: '/static/sort_dlwx.png'
-					}
-				],
-				[
-					{
-						src: '/static/sort_huanzuotao.png'
-					},
-					{
-						src: '/static/sort_jiaofei.png'
-					},
-					{
-						src: '/static/sort_sijirenz.png'
-					},
-					{
-						src: '/static/sort_yexiao.min.png'
-					},
-					{
-						src: '/static/sort_sijifuwu.png'
-					},
-					{
-						src: '/static/sort_zhaopin.png'
-					},
-					{
-						src: '/static/sort_zixun.png'
-					},
-					{
-						src: '/static/sort_shuiguo.min.png'
-					},
-					{
-						src: '/static/sort_ruzhu.min.png'
-					}
-				]
-			],
-			shopList: [
-				{
-					id: 1,
-					type: 'normal',
-					shopName: '喜阿婆粥饼店',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					children: [
-						{
-							name: '八宝粥1',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥2',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '',
-							soled: '123'
-						},
-						{
-							name: '八宝粥3',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						}
-					]
-				},
-				{
-					id: 2,
-					type: 'normal',
-					shopName: '喜阿婆粥饼店2',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					children: [
-						{
-							name: '八宝粥4',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥5',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥6',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '',
-							soled: '123'
-						}
-					]
-				},
-				{
-					id: 3,
-					type: 'normal',
-					shopName: '喜阿婆粥饼店3',
-					shopRate: '5.0',
-					shopPrevage: '60',
-					shopDistance: '100',
-					children: [
-						{
-							name: '八宝粥7',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						},
-						{
-							name: '八宝粥8',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '',
-							soled: '123'
-						},
-						{
-							name: '八宝粥9',
-							src: '/static/img_shanpin.min.png',
-							tagList: ['返积分', '积分可抵扣'],
-							price: '12',
-							count: '6',
-							soled: '123'
-						}
-					]
-				}
-			]
+			gridData,
+			shopList
 		}
 	},
 	methods: {
+		onClickSearchValue() {
+			console.log('点击了搜索')
+		},
+		onClickScan() {
+			console.log('点击了扫一扫')
+		},
 		jump(type) {
 			if (type === 'shop') {
 				uni.switchTab({
@@ -403,19 +226,12 @@ export default {
 		slideOn(e) {
 			this.currentTab = e.detail.current
 		},
-		tabClick(item) {
-			console.log(item)
-			const { name, index } = item
+		tabClick(index) {
+			console.log(index)
 			this.currentTab = index
 		},
 		itemTap(item) {
 			console.log(item)
-		},
-		goDriving() {
-			uni.$u.route({
-				url: '/pages/driving/driving',
-				type: 'to'
-			})
 		},
 		/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
 		upCallback(page) {
@@ -463,7 +279,7 @@ export default {
 					if (page.num == 1) {
 						this.dataList.splice(1, 0, {
 							id: '',
-							goodImg: '/static/ruzhu_banner.min.png',
+							goodImg: '/static/images/home/ruzhu_banner@2x.png',
 							goodName: '',
 							goodPrice: '',
 							goodSold: '',
@@ -477,7 +293,10 @@ export default {
 				})
 		}
 	},
-	onLoad() {}
+	onLoad() {
+		console.log(getApp())
+		this.topHeight = uni.rpx2px(136) + this.statusBarHeight + this.navBarHeight + 'px'
+	}
 }
 </script>
 <style lang="scss">
@@ -490,26 +309,34 @@ export default {
 		text-align: center;
 		padding: 0 24rpx 0 24rpx;
 		margin-bottom: 28rpx;
-
-		// ::v-deep .u-image {
-		// 	margin-top: 8rpx;
-		// }
+		.img {
+			height: 152rpx;
+			width: 100%;
+		}
 	}
-
+	::v-deep .uni-navbar-btn-text text {
+		font-size: 26rpx !important;
+		font-weight: 500;
+	}
+	.top_fixed {
+		position: fixed;
+		z-index: 999;
+		top: 0;
+		background: linear-gradient(180deg, #fec0bc 5%, #fee3e1 100%);
+		width: 100%;
+	}
 	.top_box {
-		height: 1040rpx;
-		background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
-		padding: 0 24rpx 48rpx 24rpx;
+		background: linear-gradient(180deg, #fec0bc 5%, #fee3e1 30%, #fff4ea 84%, #ffffff 100%);
+		padding: 0 0 48rpx 0;
 		margin: 0 0 32rpx 0;
 		.search-con {
-			margin: 20rpx 30rpx;
+			margin: 22rpx 0 34rpx 0;
 			height: 80rpx;
 			line-height: 80rpx;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-between;
-
 			.search {
 				display: flex;
 				flex-direction: row;
@@ -518,13 +345,13 @@ export default {
 				background: #fff;
 				width: 100%;
 				border-radius: 35rpx;
-				height: 70rpx;
-				line-height: 70rpx;
+				height: 66rpx;
+				line-height: 66rpx;
 
 				.img {
-					width: 40rpx;
-					height: 40rpx;
-					margin-left: 20rpx;
+					width: 44rpx;
+					height: 46rpx;
+					margin-left: 30rpx;
 				}
 
 				.search-input {
@@ -534,12 +361,12 @@ export default {
 				}
 
 				.search-btn {
-					height: 60rpx;
-					line-height: 60rpx;
+					height: 58rpx;
+					line-height: 58rpx;
 					border-radius: 35rpx;
 					color: #fff;
 					text-align: center;
-					background: #ff5e52;
+					background: #ff7a4a;
 					width: 104rpx;
 					margin-right: 4rpx;
 				}
@@ -552,18 +379,30 @@ export default {
 			}
 		}
 		&_title {
-			height: 110rpx;
+			// height: 88rpx;
+			line-height: 88rpx;
+			padding-left: 24rpx;
+			font-size: 24rpx;
+			font-weight: 500;
+		}
+		&_unicon {
+			vertical-align: middle;
 		}
 
 		&_ad {
-			margin: 24rpx 0;
+			margin: 0 0 24rpx 0;
+			.img {
+				width: 100%;
+				height: 250rpx;
+				border-radius: 6rpx;
+			}
 		}
 
 		&_top {
 			height: 120rpx;
 			background-color: #fff;
 			border-radius: 6rpx;
-			margin: 0 0 34rpx 0;
+			margin: 0 24rpx 34rpx;
 
 			.panel_img2 {
 				width: 60rpx;
@@ -600,6 +439,10 @@ export default {
 			// border-radius: 50rpx;
 			&_list {
 				margin: 0 22rpx 24rpx 0;
+				.img {
+					width: 340rpx;
+					height: 190rpx;
+				}
 
 				&:nth-child(2n) {
 					margin-right: 0;
@@ -611,6 +454,10 @@ export default {
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
+				.img {
+					width: 220rpx;
+					height: 220rpx;
+				}
 			}
 		}
 	}
@@ -623,27 +470,24 @@ export default {
 
 		&_paneltop {
 			height: 112rpx;
-			border-bottom: 2rpx solid #ccc;
-			position: relative;
-
-			::v-deep .u-tabs {
-				position: absolute;
-				bottom: -6rpx;
-			}
+			border-bottom: 1rpx solid #ccc;
 		}
 		&_panelmid {
 			width: 100%;
 			display: flex;
 			flex-wrap: wrap;
-			padding: 0 24rpx;
+			margin: 0 24rpx;
 			height: auto !important;
 
 			&_item {
 				height: 212rpx;
 				background: #ffffff;
-				flex: 0 0 calc((100% - 48rpx) / 3);
+				flex: 0 0 calc((100% - 100rpx) / 3);
 				margin: 24rpx 24rpx 0 0;
-
+				.img {
+					width: 100%;
+					height: 212rpx;
+				}
 				&:nth-child(3n) {
 					margin-right: 0;
 				}
@@ -657,26 +501,27 @@ export default {
 		margin: 0 0 28rpx 0;
 
 		&_paneltop {
-			padding-top: 40rpx;
-			margin-bottom: 30rpx;
+			background: #fff;
+			height: 104rpx;
+			line-height: 104rpx;
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+			justify-content: space-between;
 			&_left {
-				float: left;
-
 				.panel_img {
 					width: 34rpx;
 					height: 34rpx;
-					vertical-align: text-top;
-					margin: 0 18rpx 0 0;
+					vertical-align: middle;
+					margin: -10rpx 18rpx 0 0;
 				}
 			}
 
 			&_right {
-				float: right;
 				display: flex;
 				font-weight: 400;
 				font-size: 24rpx;
 				color: #666666;
-				line-height: 46rpx;
 			}
 		}
 		&_panellist {
@@ -736,12 +581,7 @@ export default {
 
 		&_paneltop {
 			padding: 0 24rpx;
-			background: #fff;
-			height: 104rpx;
-			line-height: 104rpx;
-
 			&_right {
-				margin: 36rpx 0 0 0;
 			}
 		}
 

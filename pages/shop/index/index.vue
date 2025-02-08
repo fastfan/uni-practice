@@ -1,49 +1,14 @@
 <template>
 	<view class="shop-center">
-		<view class="top-box">
-			<u-navbar
-				title="商城"
-				:titleStyle="titleStyle"
-				:bgColor="bgColor"
-				leftIcon="map"
-				leftIconSize="20"
-				leftText="银川市的士学校"
-				:is-back="false"
-				:placeholder="true"
-				:border="false"
-				@leftClick="leftClick"
-			></u-navbar>
-			<u-search
-				class="sub-shop-list-search"
-				placeholder="请输入搜索内容"
-				v-model="keyword"
-				:clearabled="true"
-				:showAction="false"
-				bgColor="#ffffff"
-				borderColor="#FC3B50"
-			></u-search>
-			<view class="content-top"></view>
-		</view>
-
 		<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback">
 			<!-- 瀑布流布局列表 -->
 			<view class="content-mid">
 				<my-waterfall-flow :wfList="dataList">
 					<template #left="{ leftList }">
-						<my-goods-list
-							v-for="(item, index) in leftList"
-							:key="index"
-							:listItem="item"
-							@click.native="itemTap(item)"
-						></my-goods-list>
+						<my-goods-list v-for="(item, index) in leftList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
 					</template>
 					<template #right="{ rightList }">
-						<my-goods-list
-							v-for="(item, index) in rightList"
-							:key="index"
-							:listItem="item"
-							@click.native="itemTap(item)"
-						></my-goods-list>
+						<my-goods-list v-for="(item, index) in rightList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
 					</template>
 				</my-waterfall-flow>
 			</view>
@@ -62,10 +27,7 @@ export default {
 	},
 	data() {
 		return {
-			titleStyle: { fontWeight: 500, fontSize: '36rpx', color: '#333333' },
-			bgColor: '#FEC0BC',
-			dataList: [],
-			keyword: ''
+			dataList: []
 		}
 	},
 	methods: {
@@ -142,14 +104,6 @@ export default {
 <style lang="scss">
 .shop-center {
 	background: #f8f9fa;
-	.top-box {
-		height: 750rpx;
-		// background: linear-gradient(180deg, #fec0bc 12%, #fee3e1 50%, #fff4ea 84%, #ffffff 100%);
-		background: url('/static/bg_zhutibg.png') center center no-repeat;
-		padding: 0 22rpx 48rpx 22rpx;
-		margin: 0 0 32rpx 0;
-		background-size: cover;
-	}
 	.content-mid {
 		padding: 0 20rpx;
 	}
@@ -157,9 +111,6 @@ export default {
 		height: 434rpx;
 		background: #ffffff;
 		border-radius: 20rpx;
-	}
-	::v-deep .u-search {
-		margin: 46rpx 0 22rpx !important;
 	}
 }
 </style>

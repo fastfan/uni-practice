@@ -11,11 +11,11 @@
 				<view class="content-top">
 					<view class="content-top-lt">
 						<view style="display: flex">
-							<image src="/static/img_shanpin.min.png" class="panel-img"></image>
+							<image :src="item.src" class="panel-img"></image>
 							<view class="lefttop">
 								<view>{{ item.shopName }}</view>
 								<view class="text">
-									<u--image src="/static/ic_xinji.png" width="24rpx" height="24rpx"></u--image>
+									<image class="img" src="/static/images/home/ic_xinji@2x.png"></image>
 									<view class="font">{{ item.shopRate }}</view>
 									<view class="font2">人均¥{{ item.shopPrevage }}</view>
 								</view>
@@ -25,16 +25,16 @@
 					<view class="content-top-rt">
 						<view class="texts">距您{{ item.shopDistance }}米</view>
 						<view class="text flex_box flex_row_between">
-							<u--image src="/static/ic_chongdian.png" width="24rpx" height="24rpx"></u--image>
-							<u--image src="/static/ic_wuxian.png" width="24rpx" height="24rpx"></u--image>
-							<u--image src="/static/ic_jinbi.png" width="24rpx" height="24rpx"></u--image>
+							<image class="img" src="/static/images/home/ic_chongdian@2x.png" mode="widthFix"></image>
+							<image class="img" src="/static/images/home/ic_wuxian@2x.png" mode="widthFix"></image>
+							<image class="img" src="/static/images/home/ic_jinbi@2x.png" mode="widthFix"></image>
 						</view>
 					</view>
 				</view>
 				<view class="content-mid">
 					<view class="content-mid-item">
 						<view v-for="(items, indexs) in item.children" class="item" :key="items.name">
-							<image src="/static/img_shanpin.min.png" class="panel-img"></image>
+							<image :src="item.src" class="panel-img"></image>
 							<view class="panel-name">{{ items.name }}</view>
 							<view class="flex_box">
 								<view class="text" v-for="(tag, tags) in items.tagList" :key="tags">{{ tag }}</view>
@@ -45,7 +45,7 @@
 									<view class="text3">{{ items.price }}</view>
 									<view class="text6" v-if="items.count">
 										<view class="text7">+{{ items.count }}</view>
-										<image src="/static/yinjifen.png" class="panel-img2"></image>
+										<image src="/static/images/home/yinjifen@2x.png" class="panel-img2"></image>
 									</view>
 								</view>
 								<view class="rt text4">已售{{ items.soled }}</view>
@@ -55,13 +55,13 @@
 				</view>
 			</view>
 			<view v-if="item.type === 'single'" class="content-single">
-				<image src="/static/img_shanpin.min.png" class="panel-img" mode="widthFix"></image>
+				<image :src="item.src" class="panel-img" mode="widthFix"></image>
 				<view class="content-top">
 					<view class="content-top-lt">
 						<view class="lefttop">
 							<view>{{ item.shopName }}</view>
 							<view class="text">
-								<u--image src="/static/ic_xinji.png" width="24rpx" height="24rpx"></u--image>
+								<image class="img" src="/static/images/home/ic_xinji@2x.png"></image>
 								<view class="font">{{ item.shopRate }}</view>
 								<view class="font2">人均¥{{ item.shopPrevage }}</view>
 							</view>
@@ -70,15 +70,15 @@
 					<view class="content-top-rt">
 						<view class="texts">距您{{ item.shopDistance }}米</view>
 						<view class="text flex_box flex_row_between">
-							<u--image src="/static/ic_chongdian.png" width="24rpx" height="24rpx"></u--image>
-							<u--image src="/static/ic_wuxian.png" width="24rpx" height="24rpx"></u--image>
-							<u--image src="/static/ic_jinbi.png" width="24rpx" height="24rpx"></u--image>
+							<image class="img" src="/static/images/home/ic_chongdian@2x.png" mode="widthFix"></image>
+							<image class="img" src="/static/images/home/ic_wuxian@2x.png" mode="widthFix"></image>
+							<image class="img" src="/static/images/home/ic_jinbi@2x.png" mode="widthFix"></image>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view v-if="item.type === 'empty'" class="content-single">
-				<image src="/static/img_shanpin.min.png" class="panel-img" mode="widthFix"></image>
+				<image :src="item.src" class="panel-img" mode="widthFix"></image>
 				<view class="content-top">
 					<view class="content-top-lt">
 						<view class="lefttop">
@@ -148,6 +148,10 @@ export default {
 					font-weight: 400;
 					font-size: 26rpx;
 					color: #333333;
+					.img {
+						width: 24rpx;
+						height: 24rpx;
+					}
 					.font,
 					.font2 {
 						font-size: 22rpx;
@@ -160,7 +164,14 @@ export default {
 				float: right;
 				.text {
 					display: flex;
-					margin-top: 26rpx;
+					margin-top: 20rpx;
+					.img {
+						width: 100%;
+						margin-right: 16rpx;
+						&:nth-child(3) {
+							margin-right: 0;
+						}
+					}
 				}
 				.texts {
 					font-weight: 400;
