@@ -49,7 +49,7 @@ export default {
 					dropdownKey: 'synthesis'
 				},
 				{
-					title: '行业分类',
+					title: '店铺分类',
 					dropdownKey: 'price'
 				},
 				{

@@ -112,6 +112,16 @@ export const shopList2 = [{
 		children: []
 	},
 	{
+		id: 4,
+		type: 'singles',
+		shopName: '张记桂林米粉（石油城店）',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		src: '/static/images/home/img_shanpin@2x.png',
+		children: []
+	},
+	{
 		id: 5,
 		type: 'empty',
 		shopName: '【世外桃源】自助烧烤',

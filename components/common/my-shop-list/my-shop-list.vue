@@ -54,6 +54,29 @@
 					</view>
 				</view>
 			</view>
+			<view v-if="item.type === 'singles'" class="content-singles">
+				<view class="content-top">
+					<view style="display: flex">
+						<image :src="item.src" class="panel-img"></image>
+						<view class="lefttop">
+							<view>{{ item.shopName }}</view>
+							<view class="text">
+								<image class="img" src="/static/images/home/ic_xinji@2x.png"></image>
+								<view class="font">{{ item.shopRate }}</view>
+								<view class="font2">人均¥{{ item.shopPrevage }}</view>
+							</view>
+							<view class="leftbottom">
+								<view class="text flex_box flex_row_between">
+									<image class="img" src="/static/images/home/ic_chongdian@2x.png" mode="widthFix"></image>
+									<image class="img" src="/static/images/home/ic_wuxian@2x.png" mode="widthFix"></image>
+									<image class="img" src="/static/images/home/ic_jinbi@2x.png" mode="widthFix"></image>
+								</view>
+								<view class="texts">距您{{ item.shopDistance }}米</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view v-if="item.type === 'single'" class="content-single">
 				<image :src="item.src" class="panel-img" mode="widthFix"></image>
 				<view class="content-top">
@@ -178,6 +201,57 @@ export default {
 					font-size: 28rpx;
 					color: #727272;
 					margin-top: 10rpx;
+				}
+			}
+		}
+		.content-singles {
+			.content-top {
+				padding: 20rpx;
+				.panel-img {
+					width: 164rpx;
+					height: 164rpx;
+					margin: 0 18rpx 0 0;
+				}
+				.lefttop {
+					padding-top: 0;
+					flex: 1;
+					.text {
+						display: flex;
+						margin-top: 20rpx;
+						font-weight: 400;
+						font-size: 26rpx;
+						color: #333333;
+						.img {
+							width: 24rpx;
+							height: 24rpx;
+							margin-top: 6rpx;
+						}
+						.font,
+						.font2 {
+							font-size: 28rpx;
+							margin-right: 20rpx;
+							margin-left: 6rpx;
+						}
+					}
+				}
+				.leftbottom {
+					display: flex;
+					justify-content: space-between;
+					margin-top: 20rpx;
+					align-items: flex-end;
+					.text {
+						display: flex;
+						margin-top: 0;
+						.img {
+							width: 40rpx;
+							margin-right: 16rpx;
+						}
+					}
+					.texts {
+						font-weight: 400;
+						font-size: 28rpx;
+						color: #727272;
+					}
 				}
 			}
 		}
