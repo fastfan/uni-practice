@@ -387,7 +387,7 @@ export default {
 		}
 	},
 	onPageScroll(e) {
-		let opacity = (e.scrollTop / 324).toFixed(2)
+		let opacity = (e.scrollTop / 100).toFixed(2)
 		console.log(opacity)
 		this.oops = opacity
 		this.backgroundColor = 'rgba(255,255,255,' + (opacity >= 1 ? 1 : opacity) + ')'
@@ -395,13 +395,14 @@ export default {
 			frontColor: opacity >= 1 ? '#000000' : '#ffffff',
 			backgroundColor: opacity >= 1 ? '#ffffff' : '#000000'
 		})
+		const midAreaTop = 212 // 距离顶部距离
+		const midAreaHeight = 378 // 自身高度
+		const midAreaHeightMarginBottom = 24 // 下外边距
 		if (opacity >= 1) {
 			this.topHeight = this.navBarHeight + 'px'
-			this.topHeight2 = this.navBarHeight + uni.rpx2px(100) + 'px'
+			// this.topHeight2 = this.navBarHeight + uni.rpx2px(100) + 'px'
+			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom + 100) + 'px'
 		} else {
-			const midAreaTop = 212 // 距离顶部距离
-			const midAreaHeight = 378 // 自身高度
-			const midAreaHeightMarginBottom = 24 // 下外边距
 			this.topHeight = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 		}
