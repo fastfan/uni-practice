@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { shopList, shopList2 } from '@/common/mock/data.js'
+import { shopList, shopList2 } from '@/api/mock/data.js'
 export default {
 	data() {
 		return {

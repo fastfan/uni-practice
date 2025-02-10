@@ -16,17 +16,6 @@
 					<image class="change" src="/static/images/home/icon_sousuo@2x.png" @click="onClickScan"></image>
 				</view>
 			</view>
-			<!-- <uni-nav-bar
-				left-icon="location"
-				leftText="银川市的士学校"
-				leftWidth="300rpx"
-				backgroundColor="#FEC0BC"
-				title=" "
-				@clickLeft="leftClick"
-				:statusBar="true"
-				:fixed="true"
-				:border="false"
-			></uni-nav-bar> -->
 			<view class="top_box_ad padding_24">
 				<image class="img" src="/static/images/home/banner@2x.png"></image>
 			</view>
@@ -35,15 +24,35 @@
 					<image src="/static/images/home/taxt_bdsh@2x.png" class="panel_img"></image>
 				</view>
 				<view class="top_box_top_mid">
-					<view>95128宁夏开始运营啦</view>
-					<view>各位司机朋友，新款顶灯现已到货</view>
+					<!-- <view>95128宁夏开始运营啦</view>
+					<view>各位司机朋友，新款顶灯现已到货</view> -->
+					<swiper
+						class="news-swiper"
+						:interval="3000"
+						:duration="1000"
+						:vertical="true"
+						:circular="true"
+						:indicator-dots="false"
+						:autoplay="true"
+					>
+						<swiper-item v-for="(anew, index) in news" :key="index">
+							<view class="swiper-item">
+								<view class="msg">
+									{{ anew.noticeTitle }}
+								</view>
+								<view class="tag" v-if="anew.level && anew.level !== '0'">
+									{{ anew.level == '1' ? '重要' : anew.level == '2' ? '紧急' : '' }}
+								</view>
+							</view>
+						</swiper-item>
+					</swiper>
 				</view>
 				<view class="top_box_top_right">
 					<image src="/static/images/home/gonggao@2x.png" class="panel_img2"></image>
 				</view>
 			</view>
 			<view class="top_box_mid padding_24">
-				<view class="top_box_mid_list" v-for="(item, index) in imgList" :key="index">
+				<view class="top_box_mid_list" v-for="(item, index) in imgList" :key="index" @click="clickMakeMoney(item)">
 					<image class="img" :src="item.src"></image>
 				</view>
 				<view class="top_box_mid_circle">
@@ -146,6 +155,29 @@ export default {
 		return {
 			searchKeyValue: '',
 			topHeight: 0,
+			news: [
+				{
+					createTime: '2023-10-19 09:30:37',
+					id: '13',
+					level: '0',
+					noticeContent: '',
+					noticeTitle: '宁AT2234-您定制的门贴现已制作完成，请前往的士学校调度服务中心领取。'
+				},
+				{
+					createTime: '2023-10-19 09:03:00',
+					id: '12',
+					level: '0',
+					noticeContent: '',
+					noticeTitle: '宁AT1234-您定制的门贴现已制作完成，请前往的士学校调度服务中心领取。'
+				},
+				{
+					createTime: '2022-08-11 14:40:49',
+					id: '10',
+					level: '0',
+					noticeContent: '',
+					noticeTitle: '银川全力推进网约车合规化'
+				}
+			],
 			statusBarHeight: getApp().globalData.statusBarHeight,
 			navBarHeight: getApp().globalData.navBarHeight,
 			// 上拉加载的配置(可选, 绝大部分情况无需配置)
@@ -184,23 +216,56 @@ export default {
 					// disabled: true
 				}
 			],
+			// 95128宁夏
+			taxiMiniData: {
+				miniAppId: 'wx6f464f83da33faf9',
+				miniAppPath: 'pages/home/home'
+			},
+			// 51畅行通
+			travelMiniData: {
+				miniAppId: 'wxed37c897ab04150b',
+				miniAppPath: 'pages/home/index/index'
+			},
+			// 51暖心餐厅
+			diningMiniData: {
+				miniAppId: 'wx546912a79a869b5c',
+				miniAppPath: 'pages/index/index'
+			},
 			imgList: [
 				{
+					isMiniProgrom: true,
+					MiniData: {
+						miniAppId: 'wxed37c897ab04150b',
+						miniAppPath: 'pages/home/index/index'
+					},
+					url: '',
 					src: '/static/images/home/bnr_lvyou@2x.png'
 				},
 				{
+					isMiniProgrom: false,
+					MiniData: {},
+					url: '',
 					src: '/static/images/home/bnr_fenxz@2x.png'
 				},
 				{
+					isMiniProgrom: false,
+					MiniData: {},
+					url: '',
 					src: '/static/images/home/bnr_mlwd@2x.png'
 				},
 				{
+					isMiniProgrom: false,
+					MiniData: {},
+					url: '',
 					src: '/static/images/home/bnr_rys@2x.png'
 				}
 			],
 			gridData,
 			shopList
 		}
+	},
+	onShow() {
+		this.requestData()
 	},
 	methods: {
 		onClickSearchValue() {
@@ -236,6 +301,58 @@ export default {
 		},
 		itemTap(item) {
 			console.log(item)
+		},
+		// 点击赚钱吧
+		clickMakeMoney(item) {
+			const { isMiniProgrom, MiniData, url } = item
+			if (isMiniProgrom) {
+				this.openMiniProgram(MiniData)
+			} else {
+				console.log(url)
+			}
+		},
+		/**
+		 * 打开外部小程序
+		 */
+		openMiniProgram(e) {
+			console.log('打开小程序: ', e)
+			let appId = e.miniAppId
+			let path = e.miniAppPath
+			let _that = this
+			const accountInfo = uni.getAccountInfoSync()
+			const currentAppid = accountInfo.miniProgram.appId
+			if (appId == currentAppid) {
+				this.openMiniUrl(path)
+			} else {
+				uni.navigateToMiniProgram({
+					appId,
+					path,
+					success: function (res) {},
+					fail: function (res) {
+						console.log('打开失败')
+					}
+				})
+			}
+		},
+		/**
+		 * 打开小程序内部页面
+		 */
+		openMiniUrl(url) {
+			if (this.jumpToLogin()) {
+				let [, subUrl] = url.split('/')
+				if (!url) {
+					return that.$tui.toast('请联系管理员配置正确的路径！')
+				}
+				if (subUrl == 'pages') {
+					uni.switchTab({
+						url
+					})
+				} else {
+					uni.navigateTo({
+						url
+					})
+				}
+			}
 		},
 		/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
 		upCallback(page) {
@@ -295,7 +412,8 @@ export default {
 					//联网失败, 结束加载
 					this.mescroll.endErr()
 				})
-		}
+		},
+		requestData() {}
 	},
 	onLoad() {
 		console.log(getApp())
@@ -426,6 +544,36 @@ export default {
 
 			&_mid {
 				flex-grow: 1;
+				.news-swiper {
+					width: 100%;
+					height: 80rpx;
+				}
+
+				.swiper-item {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					overflow: hidden;
+
+					.msg {
+						color: $uni-text-color;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						font-size: 28rpx;
+						// line-height: 80rpx;
+					}
+
+					.tag {
+						margin-left: 20rpx;
+						background-image: linear-gradient(0deg, #ffb686 0%, #ff7e7b 100%);
+						border-radius: 2px;
+						border-radius: 5rpx;
+						font-size: 22rpx;
+						color: #ffffff;
+						padding: 0 5rpx;
+					}
+				}
 			}
 
 			&_right {
