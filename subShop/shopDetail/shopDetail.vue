@@ -10,16 +10,16 @@
 		<!-- 顶部区域背景 -->
 		<view class="top_area area_height" data-type="1"></view>
 		<view class="mid_area area_height" data-type="1"></view>
-		<view class="tabs-content" :style="{ top: topHeight2 }">
+		<view class="tabs-content" :style="{ paddingTop: '312rpx' }">
 			<!-- tab切换 -->
 			<view :class="['tabs', 'area_height', oops >= 1 ? 'active' : '']" data-type="2" :style="{ top: topHeight }"></view>
 			<template v-if="tabIndex == 0">
 				<!-- 广告位置 -->
-				<!-- <view class="advert_area area_height" data-type="1">
+				<view class="advert_area area_height" data-type="1">
 					<view class="img_box">
 						<image class="img" src="https://vcg02.cfp.cn/creative/vcg/800/new/VCG41N2186093764.jpg"></image>
 					</view>
-				</view> -->
+				</view>
 
 				<!-- 菜品区域 -->
 				<view class="cate_content">
@@ -98,8 +98,8 @@ export default {
 	data() {
 		return {
 			oops: '',
-			windowHeight: getApp().globalData.windowHeight, //窗口高度
-			scrollHeight: getApp().globalData.windowHeight, //滚动高度
+			windowHeight: getApp().globalData.winHeight, //窗口高度
+			scrollHeight: getApp().globalData.winHeight, //滚动高度
 			statusBarHeight: getApp().globalData.statusBarHeight, //顶部状态栏高度
 			navBarHeight: getApp().globalData.navBarHeight + getApp().globalData.statusBarHeight, //顶部导航高度
 			backgroundColor: 'rgba(255,255,255,0)',
@@ -113,7 +113,7 @@ export default {
 			stickyTop: 0, //吸顶的距离
 			productList: [
 				{
-					name: '中餐',
+					name: '美味中餐',
 					id: '1',
 					icon: '',
 					list: [
@@ -135,7 +135,7 @@ export default {
 					]
 				},
 				{
-					name: '西餐',
+					name: '地道西餐',
 					id: '2',
 					icon: '',
 					list: [
@@ -177,7 +177,7 @@ export default {
 					]
 				},
 				{
-					name: '中餐',
+					name: '甜品点心',
 					id: '1',
 					icon: '',
 					list: [
@@ -199,7 +199,7 @@ export default {
 					]
 				},
 				{
-					name: '西餐',
+					name: '早点早餐',
 					id: '2',
 					icon: '',
 					list: [
@@ -241,7 +241,7 @@ export default {
 					]
 				},
 				{
-					name: '中餐',
+					name: '包子油条·',
 					id: '1',
 					icon: '',
 					list: [
@@ -263,7 +263,7 @@ export default {
 					]
 				},
 				{
-					name: '西餐',
+					name: '豆浆饮品',
 					id: '2',
 					icon: '',
 					list: [
@@ -305,7 +305,7 @@ export default {
 					]
 				},
 				{
-					name: '中餐',
+					name: '汉堡薯条',
 					id: '1',
 					icon: '',
 					list: [
@@ -327,7 +327,7 @@ export default {
 					]
 				},
 				{
-					name: '西餐',
+					name: '生煎铁板',
 					id: '2',
 					icon: '',
 					list: [
@@ -380,8 +380,6 @@ export default {
 					name: '商家'
 				}
 			],
-			lineBg:
-				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAOCAYAAABdC15GAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFxSURBVHgBzZNRTsJAEIb/WTW+lpiY+FZPIDew3ABP4GJ8hxsI9zBpOYHeQDwBPQI+mRiRvpLojtPdYhCorQqF/6GdbGd2vvwzBXZcNAt4oj1ANeUoAT5iqkUjbEFLHNmhD1YPEvpZ3ghkGlVDCkc94/BmHMq998I5ONiY1ZBfpKAyuOtgAc5yOEDmYEWNh32BHF91sGHZHmwW4azciN9aQwnz3SJEgOmte+R2tdLprTYoa50mvuomlLpD4Y3oQZnov6D2RzCqI93bWOHaEmAGqQUyRBlZR1WfarcD/EJ2z8DtzDGvsMCwpm8XOCfDUsVOCYhiqRxI/CTQo4UOvjzO7Pow18vfywneuUHHUUxLn55lLw5JFpZ8bEUcY8oXdOLWiHLTxvoGpLqoUmy6dBT15o/ox3znpoycAmxUsiJTbs1cmxeVKp+0zmFIS7bGWiVghC7Vwse8jFKAX9eljh4ggKLLv7uaQvG9/F59Oo2SouxPu7OTCxN/s8wAAAAASUVORK5CYII=',
 			tabIndex: 0,
 			isClick: false
 		}
@@ -400,8 +398,7 @@ export default {
 		const midAreaHeightMarginBottom = 24 // 下外边距
 		if (opacity >= 1) {
 			this.topHeight = this.navBarHeight + 'px'
-			// this.topHeight2 = this.navBarHeight + uni.rpx2px(100) + 'px'
-			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom + 100) + 'px'
+			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 		} else {
 			this.topHeight = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
@@ -440,7 +437,7 @@ export default {
 							}
 						}
 						//左侧菜单可滚动的高度 = 屏幕窗口总高度 - 需要减去的区域高度 + 不需要减去的区域高度 + 18;
-						this.scrollHeight = this.windowHeight - this.allAreaHeight + addHeight + 18
+						this.scrollHeight = this.windowHeight - this.navBarHeight - 40
 					}
 				})
 				.exec()
@@ -451,7 +448,7 @@ export default {
 				.boundingClientRect((data) => {
 					if (data) {
 						//吸顶距离 = 顶部标题栏高度与状态栏高度之和 + 需要吸顶的元素本身的高度
-						this.stickyTop = this.statusBarHeight + data.height
+						this.stickyTop = this.navBarHeight + data.height
 					}
 				})
 				.exec()
@@ -540,6 +537,7 @@ view {
 .subhome-shop-detail {
 	padding-bottom: calc(constant(safe-area-inset-bottom) + 100rpx);
 	padding-bottom: calc(env(safe-area-inset-bottom) + 100rpx);
+	height: 100%;
 }
 
 .nav_bar {
@@ -599,7 +597,7 @@ view {
 	}
 }
 .tabs-content {
-	position: absolute;
+	// position: absolute;
 	width: 100%;
 }
 .tabs {
