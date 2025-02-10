@@ -75,12 +75,21 @@
 		{
 			"root": "subShop",
 			"pages": [{
-				"path": "shopList/shopList",
-				"style": {
-					"navigationBarTitleText": "商家列表",
-					"enablePullDownRefresh": false
+					"path": "shopList/shopList",
+					"style": {
+						"navigationBarTitleText": "商家列表",
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "shopDetail/shopDetail",
+					"style": {
+						"navigationBarTitleText": "商家详情",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
 				}
-			}]
+			]
 		},
 		{
 			"root": "subVideo",

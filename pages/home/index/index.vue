@@ -98,7 +98,7 @@
 				</view>
 			</view>
 			<view class="bottom_box_panellist">
-				<my-shop-list :dataList="shopList"></my-shop-list>
+				<my-shop-list :dataList="shopList" @onClickEvent="onClickShopList"></my-shop-list>
 			</view>
 		</view>
 		<view class="bottom_box bottom_box2" style="margin-bottom: 0">
@@ -413,7 +413,14 @@ export default {
 					this.mescroll.endErr()
 				})
 		},
-		requestData() {}
+		requestData() {},
+		// 商家列表点击
+		onClickShopList(data) {
+			console.log('商家列表：：：：：', data)
+			uni.navigateTo({
+				url: '/subShop/shopDetail/shopDetail'
+			})
+		}
 	},
 	onLoad() {
 		console.log(getApp())

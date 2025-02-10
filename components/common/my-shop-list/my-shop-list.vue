@@ -7,7 +7,7 @@
 			v-for="(item, index) in dataList"
 			:key="item.id"
 		>
-			<view v-if="item.type === 'normal'">
+			<view v-if="item.type === 'normal'" class="content-naomal" @click="onClickItem(item)">
 				<view class="content-top">
 					<view class="content-top-lt">
 						<view style="display: flex">
@@ -54,7 +54,7 @@
 					</view>
 				</view>
 			</view>
-			<view v-if="item.type === 'singles'" class="content-singles">
+			<view v-if="item.type === 'singles'" class="content-singles" @click="onClickItem(item)">
 				<view class="content-top">
 					<view style="display: flex">
 						<image :src="item.src" class="panel-img"></image>
@@ -77,7 +77,7 @@
 					</view>
 				</view>
 			</view>
-			<view v-if="item.type === 'single'" class="content-single">
+			<view v-if="item.type === 'single'" class="content-single" @click="onClickItem(item)">
 				<image :src="item.src" class="panel-img" mode="widthFix"></image>
 				<view class="content-top">
 					<view class="content-top-lt">
@@ -100,7 +100,7 @@
 					</view>
 				</view>
 			</view>
-			<view v-if="item.type === 'empty'" class="content-single">
+			<view v-if="item.type === 'empty'" class="content-single" @click="onClickItem(item)">
 				<image :src="item.src" class="panel-img" mode="widthFix"></image>
 				<view class="content-top">
 					<view class="content-top-lt">
@@ -129,6 +129,11 @@ export default {
 	},
 	data() {
 		return {}
+	},
+	methods: {
+		onClickItem(item) {
+			this.$emit('onClickEvent', item)
+		}
 	}
 }
 </script>
