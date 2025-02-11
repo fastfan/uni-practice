@@ -9,17 +9,33 @@
 		</view>
 		<!-- 顶部区域背景 -->
 		<view class="top_area area_height" data-type="1"></view>
-		<view class="mid_area area_height" data-type="1"></view>
-		<view class="tabs-content" :style="{ paddingTop: '312rpx' }">
+		<view class="mid_area area_height" data-type="1">
+			<detail-head-vue></detail-head-vue>
+		</view>
+		<view class="tabs-content">
 			<!-- tab切换 -->
-			<view :class="['tabs', 'area_height', oops >= 1 ? 'active' : '']" data-type="2" :style="{ top: topHeight }"></view>
-			<template v-if="tabIndex == 0">
+			<view :class="['tabs', 'area_height', opacity >= 1 ? 'active' : '']" data-type="2" :style="{ top: topHeight }">
+				<my-tabs
+					:tabs="list"
+					field="name"
+					v-model="currentTab"
+					@change="tabClick"
+					height="100rpx"
+					lineColor="#F3483C"
+					activeColor="#F3483C"
+					activeFontSize="32rpx"
+					fontSize="32rpx"
+					paddingItem="40rpx"
+					lineScale="0.3"
+				></my-tabs>
+			</view>
+			<template v-if="currentTab == 0">
 				<!-- 广告位置 -->
-				<view class="advert_area area_height" data-type="1">
+				<!-- <view class="advert_area area_height" data-type="1">
 					<view class="img_box">
 						<image class="img" src="https://vcg02.cfp.cn/creative/vcg/800/new/VCG41N2186093764.jpg"></image>
 					</view>
-				</view>
+				</view> -->
 
 				<!-- 菜品区域 -->
 				<view class="cate_content">
@@ -29,17 +45,8 @@
 						class="left"
 						:style="{ height: scrollHeight + 'px', top: stickyTop + 'px' }"
 					>
-						<view class="">
-							<view
-								class="menu_name"
-								:id="'menu_name' + index"
-								:class="{ menu_name_active: currentIndex == index }"
-								v-for="(item, index) in productList"
-								@click="onChangeCate(item, index)"
-								:key="index"
-							>
-								{{ item.name }}
-							</view>
+						<view class="menu_item">
+							<my-aside-bar ref="myAsideBar" :currentIndex="currentIndex" :list="productList" @change="onChangeCate"></my-aside-bar>
 						</view>
 					</scroll-view>
 					<view class="right">
@@ -47,26 +54,16 @@
 							<view class="title sticky_title" :style="{ top: stickyTop + 'px' }">
 								{{ item.name }}
 							</view>
-							<view class="content">
-								<view class="product_item" v-for="(cell, cIndex) in item.list" :key="cIndex">
-									<image :src="cell.img" mode="aspectFill" class="product_img"></image>
-									<view class="prodcut_info">
-										<view class="name">
-											{{ cell.name }}
-										</view>
-										<view class="price">￥{{ cell.price }}</view>
-									</view>
-								</view>
-							</view>
+							<my-shop-list-item :list="item.list" :type="'product'"></my-shop-list-item>
 						</view>
 					</view>
 				</view>
 			</template>
 
 			<!-- 评论 -->
-			<view class="" v-if="tabIndex == 1"></view>
+			<view class="" v-if="currentTab == 1"></view>
 			<!-- 商家信息 -->
-			<view class="" v-if="tabIndex == 2"></view>
+			<view class="" v-if="currentTab == 2"></view>
 		</view>
 
 		<!-- 底部区域 -->
@@ -94,10 +91,14 @@
 </template>
 
 <script>
+import DetailHeadVue from './detailHead.vue'
+import { productList } from '../../api/mock/data'
 export default {
+	components: { DetailHeadVue },
 	data() {
 		return {
-			oops: '',
+			opacity: '',
+			currentTab: 0,
 			windowHeight: getApp().globalData.winHeight, //窗口高度
 			scrollHeight: getApp().globalData.winHeight, //滚动高度
 			statusBarHeight: getApp().globalData.statusBarHeight, //顶部状态栏高度
@@ -111,283 +112,26 @@ export default {
 			leftScrollTop: 0,
 			rightItemHeight: 0,
 			stickyTop: 0, //吸顶的距离
-			productList: [
+			productList,
+			list: [
 				{
-					name: '美味中餐',
-					id: '1',
-					icon: '',
-					list: [
-						{
-							name: '七味盐黄金豆腐',
-							img: 'https://qcloud.dpfile.com/pc/wU3rvxK40IRQSH-ME1GftzbPAzUEH2TKcu_Umu2cXIBUnUZhRs1BQ-3fNG1nS2hQ5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 188
-						},
-						{
-							name: '龙井凤尾虾仁',
-							img: 'https://qcloud.dpfile.com/pc/oUbzBcAwYHbcXkxpAKlEs-C8fJQSNvsbJU8yORW5Ev8LwkSAC8kXSFYMi29l17Qs5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶饼',
-							img: 'https://qcloud.dpfile.com/pc/BDNSIx7XBHIm2AZ-68Yq8CsI0vGyA_Bjnzl6bPXAAqciRqcwCz8FTdU3fU3gYaOR5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 18
-						}
-					]
+					name: '商品'
 				},
 				{
-					name: '地道西餐',
-					id: '2',
-					icon: '',
-					list: [
-						{
-							name: '绿茶烤鸡',
-							img: 'https://qcloud.dpfile.com/pc/qnYmJT9l5QbBNCNfezzLojGCAHfoE6xmprOQlvoyvpiwK8Lj0colHBWeX6r06i-Y5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 36
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						}
-					]
-				},
-				{
-					name: '甜品点心',
-					id: '1',
-					icon: '',
-					list: [
-						{
-							name: '七味盐黄金豆腐',
-							img: 'https://qcloud.dpfile.com/pc/wU3rvxK40IRQSH-ME1GftzbPAzUEH2TKcu_Umu2cXIBUnUZhRs1BQ-3fNG1nS2hQ5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 188
-						},
-						{
-							name: '龙井凤尾虾仁',
-							img: 'https://qcloud.dpfile.com/pc/oUbzBcAwYHbcXkxpAKlEs-C8fJQSNvsbJU8yORW5Ev8LwkSAC8kXSFYMi29l17Qs5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶饼',
-							img: 'https://qcloud.dpfile.com/pc/BDNSIx7XBHIm2AZ-68Yq8CsI0vGyA_Bjnzl6bPXAAqciRqcwCz8FTdU3fU3gYaOR5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 18
-						}
-					]
-				},
-				{
-					name: '早点早餐',
-					id: '2',
-					icon: '',
-					list: [
-						{
-							name: '绿茶烤鸡',
-							img: 'https://qcloud.dpfile.com/pc/qnYmJT9l5QbBNCNfezzLojGCAHfoE6xmprOQlvoyvpiwK8Lj0colHBWeX6r06i-Y5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 36
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						}
-					]
-				},
-				{
-					name: '包子油条·',
-					id: '1',
-					icon: '',
-					list: [
-						{
-							name: '七味盐黄金豆腐',
-							img: 'https://qcloud.dpfile.com/pc/wU3rvxK40IRQSH-ME1GftzbPAzUEH2TKcu_Umu2cXIBUnUZhRs1BQ-3fNG1nS2hQ5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 188
-						},
-						{
-							name: '龙井凤尾虾仁',
-							img: 'https://qcloud.dpfile.com/pc/oUbzBcAwYHbcXkxpAKlEs-C8fJQSNvsbJU8yORW5Ev8LwkSAC8kXSFYMi29l17Qs5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶饼',
-							img: 'https://qcloud.dpfile.com/pc/BDNSIx7XBHIm2AZ-68Yq8CsI0vGyA_Bjnzl6bPXAAqciRqcwCz8FTdU3fU3gYaOR5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 18
-						}
-					]
-				},
-				{
-					name: '豆浆饮品',
-					id: '2',
-					icon: '',
-					list: [
-						{
-							name: '绿茶烤鸡',
-							img: 'https://qcloud.dpfile.com/pc/qnYmJT9l5QbBNCNfezzLojGCAHfoE6xmprOQlvoyvpiwK8Lj0colHBWeX6r06i-Y5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 36
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						}
-					]
-				},
-				{
-					name: '汉堡薯条',
-					id: '1',
-					icon: '',
-					list: [
-						{
-							name: '七味盐黄金豆腐',
-							img: 'https://qcloud.dpfile.com/pc/wU3rvxK40IRQSH-ME1GftzbPAzUEH2TKcu_Umu2cXIBUnUZhRs1BQ-3fNG1nS2hQ5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 188
-						},
-						{
-							name: '龙井凤尾虾仁',
-							img: 'https://qcloud.dpfile.com/pc/oUbzBcAwYHbcXkxpAKlEs-C8fJQSNvsbJU8yORW5Ev8LwkSAC8kXSFYMi29l17Qs5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶饼',
-							img: 'https://qcloud.dpfile.com/pc/BDNSIx7XBHIm2AZ-68Yq8CsI0vGyA_Bjnzl6bPXAAqciRqcwCz8FTdU3fU3gYaOR5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 18
-						}
-					]
-				},
-				{
-					name: '生煎铁板',
-					id: '2',
-					icon: '',
-					list: [
-						{
-							name: '绿茶烤鸡',
-							img: 'https://qcloud.dpfile.com/pc/qnYmJT9l5QbBNCNfezzLojGCAHfoE6xmprOQlvoyvpiwK8Lj0colHBWeX6r06i-Y5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 36
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						},
-						{
-							name: '石锅鸡汤',
-							img: 'https://qcloud.dpfile.com/pc/eK-lcbiSwCMfuurDzas6sDXooZ-820qyij7E-_2Guvl3SQvBEuZcM3cJ5XDTpMvP5g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 58
-						},
-						{
-							name: '绿茶葱香',
-							img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 48
-						},
-						{
-							name: '面包诱惑',
-							img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg',
-							price: 32
-						}
-					]
-				}
-			],
-			list4: [
-				{
-					name: '点餐'
-				},
-				{
-					name: '评论'
+					name: '评价'
 				},
 				{
 					name: '商家'
 				}
 			],
-			tabIndex: 0,
+			currentTab: 0,
 			isClick: false
 		}
 	},
 	onPageScroll(e) {
 		let opacity = (e.scrollTop / 100).toFixed(2)
-		console.log(opacity)
-		this.oops = opacity
+		console.log(e.scrollTop)
+		this.opacity = opacity
 		this.backgroundColor = 'rgba(255,255,255,' + (opacity >= 1 ? 1 : opacity) + ')'
 		uni.setNavigationBarColor({
 			frontColor: opacity >= 1 ? '#000000' : '#ffffff',
@@ -398,14 +142,14 @@ export default {
 		const midAreaHeightMarginBottom = 24 // 下外边距
 		if (opacity >= 1) {
 			this.topHeight = this.navBarHeight + 'px'
-			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
+			// this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 		} else {
 			this.topHeight = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
-			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
+			// this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 		}
 		if (!this.isClick) {
 			let scrollTop = parseInt(e.scrollTop)
-			for (var i = 0; i < this.topList.length; i++) {
+			for (let i = 0; i < this.topList.length; i++) {
 				if (scrollTop >= this.topList[i].top && scrollTop <= this.topList[i].bottom) {
 					this.currentIndex = i
 					this.leftScrollTop = this.rightItemHeight * i
@@ -437,7 +181,7 @@ export default {
 							}
 						}
 						//左侧菜单可滚动的高度 = 屏幕窗口总高度 - 需要减去的区域高度 + 不需要减去的区域高度 + 18;
-						this.scrollHeight = this.windowHeight - this.navBarHeight - 40
+						this.scrollHeight = this.windowHeight - this.navBarHeight - 88
 					}
 				})
 				.exec()
@@ -457,6 +201,10 @@ export default {
 		})
 	},
 	methods: {
+		tabClick(index) {
+			console.log(index)
+			this.currentTab = index
+		},
 		/**
 		 * 返回上一级
 		 */
@@ -467,16 +215,25 @@ export default {
 		 * 获取右边内容距离顶部的距离
 		 */
 		getTop() {
+			// console.log(this.$refs.myAsideBar)
 			const query = uni.createSelectorQuery().in(this)
-			query
+			const query2 = uni.createSelectorQuery().in(this.$refs.myAsideBar)
+			query2
 				.select('.menu_name')
 				.boundingClientRect()
+				.exec((data) => {
+					console.log(data)
+					if (data) {
+						this.rightItemHeight = data[0].height //获取左侧的第一个菜单的高度
+					}
+				})
+			query
 				.selectAll('.item')
 				.boundingClientRect()
 				.exec((data) => {
 					if (data) {
-						this.rightItemHeight = data[0].height //获取左侧的第一个菜单的高度
-						data[1].map((item, index) => {
+						console.log(data)
+						data[0].map((item, index) => {
 							this.topList.push({
 								top: parseInt(item.top - this.stickyTop),
 								bottom: parseInt(item.bottom - this.stickyTop)
@@ -490,13 +247,14 @@ export default {
 		 * @param {Object} index
 		 * 点击商品分类
 		 */
-		onChangeCate(item, index) {
-			if (this.currentIndex == index) {
-				return
-			}
+		onChangeCate(data) {
+			const { item, index } = data
+			console.log(index)
+			console.log(this.rightItemHeight)
+			console.log(this.topList)
 			this.isClick = true
-			this.currentIndex = index
 			this.leftScrollTop = this.rightItemHeight * index
+			console.log(this.leftScrollTop)
 			uni.pageScrollTo({
 				scrollTop: this.topList[index].top
 			})
@@ -515,7 +273,7 @@ export default {
 		 * 点击切换tab
 		 */
 		onChangeTab(data) {
-			this.tabIndex = data.index
+			this.currentTab = data.index
 		}
 	}
 }
@@ -573,10 +331,6 @@ view {
 }
 .mid_area {
 	margin: 0 20rpx;
-	height: 378rpx;
-	background: #ffffff;
-	box-shadow: 0rpx 4rpx 12rpx 0rpx rgba(255, 116, 110, 0.1);
-	border-radius: 24rpx;
 	position: absolute;
 	width: 95%;
 	top: 214rpx;
@@ -599,6 +353,7 @@ view {
 .tabs-content {
 	// position: absolute;
 	width: 100%;
+	padding: 328rpx 0 0 0;
 }
 .tabs {
 	height: 100rpx;
@@ -619,39 +374,25 @@ view {
 		top: 100rpx; */
 	display: flex;
 	flex-direction: row;
-
+	margin-top: 14rpx;
 	.left {
 		position: sticky;
 		top: 100rpx;
-		width: 200rpx;
-		background: #fff;
+		width: 180rpx;
+		background: #f2f2f2;
 		// border: 1px solid red;
-
-		.menu_name {
-			/* 	position: sticky;
-				top: 0; */
-			height: 100rpx;
-			line-height: 100rpx;
-			text-align: center;
-			color: #8d8d8d;
-		}
-
-		.menu_name_active {
-			background: #f5f5f5;
-			color: #333;
+		.menu_item {
 		}
 	}
 
 	.right {
 		flex: 1;
 		min-height: 100rpx;
-		background: #f5f5f5;
+		// background: #f5f5f5;
 		padding: 0 20rpx;
-
 		.item {
 			border-bottom: 1px solid #eee;
-			background: #fff;
-
+			// background: #fff;
 			.title {
 				position: sticky;
 				top: 100rpx;
@@ -659,27 +400,6 @@ view {
 				line-height: 60rpx;
 				background: #fff;
 				padding-left: 20rpx;
-			}
-
-			.product_item {
-				height: 120rpx;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: space-between;
-				margin-bottom: 20rpx;
-				padding: 0 20rpx;
-
-				.product_img {
-					width: 120rpx;
-					height: 120rpx;
-					border-radius: 6rpx;
-				}
-
-				.prodcut_info {
-					flex: 1;
-					padding-left: 20rpx;
-				}
 			}
 		}
 	}
