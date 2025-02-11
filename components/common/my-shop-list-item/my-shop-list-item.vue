@@ -84,8 +84,8 @@ export default {
 		border-radius: 8rpx;
 
 		.product_img {
-			width: 80rpx;
-			height: 80rpx;
+			width: 200rpx;
+			height: 200rpx;
 			border-radius: 8rpx;
 		}
 

@@ -46,7 +46,12 @@
 						:style="{ height: scrollHeight + 'px', top: stickyTop + 'px' }"
 					>
 						<view class="menu_item">
-							<my-aside-bar ref="myAsideBar" :currentIndex="currentIndex" :list="productList" @change="onChangeCate"></my-aside-bar>
+							<my-aside-bar
+								ref="myAsideBar"
+								:currentIndex="currentIndex"
+								:list="productList"
+								@change="onChangeCate"
+							></my-aside-bar>
 						</view>
 					</scroll-view>
 					<view class="right">
@@ -196,8 +201,9 @@ export default {
 					}
 				})
 				.exec()
-
-			this.getTop()
+			setTimeout(() => {
+				this.getTop()
+			}, 300)
 		})
 	},
 	methods: {
