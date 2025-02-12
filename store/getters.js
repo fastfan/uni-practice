@@ -13,6 +13,7 @@ const getters = {
 	homeRefresh: state => state.base.homeRefresh,
 	loading: state => state.base.loading,
 	shareImgUrl: state => state.share.shareImgUrl,
+	shopCarList: state => state.shopCar.shopCarList
 }
 
 export default getters

@@ -46,12 +46,7 @@
 						:style="{ height: scrollHeight + 'px', top: stickyTop + 'px' }"
 					>
 						<view class="menu_item">
-							<my-aside-bar
-								ref="myAsideBar"
-								:currentIndex="currentIndex"
-								:list="productList"
-								@change="onChangeCate"
-							></my-aside-bar>
+							<my-aside-bar ref="myAsideBar" :currentIndex="currentIndex" :list="productList" @change="onChangeCate"></my-aside-bar>
 						</view>
 					</scroll-view>
 					<view class="right">
@@ -72,38 +67,20 @@
 		</view>
 
 		<!-- 底部区域 -->
-		<view class="foot">
-			<view class="inner">
-				<view class="icon_box">
-					<u-icon name="shopping-cart" color="#e93323" size="32"></u-icon>
-				</view>
-				<view class="">
-					<u-button
-						text="去结算"
-						type="primary"
-						iconColor="#e93323"
-						shape="circle"
-						:customStyle="{
-							width: '120px',
-							backgroundColor: '#e93323',
-							borderColor: '#e93323'
-						}"
-					></u-button>
-				</view>
-			</view>
-		</view>
+		<my-shop-car :list="shopCarList"></my-shop-car>
 	</view>
 </template>
 
 <script>
 import DetailHeadVue from './detailHead.vue'
-import { productList } from '../../api/mock/data'
+import { productList } from '@/api/mock/data'
 export default {
 	components: { DetailHeadVue },
 	data() {
 		return {
 			opacity: '',
 			currentTab: 0,
+			shopCarCount: 0,
 			windowHeight: getApp().globalData.winHeight, //窗口高度
 			scrollHeight: getApp().globalData.winHeight, //滚动高度
 			statusBarHeight: getApp().globalData.statusBarHeight, //顶部状态栏高度
@@ -135,7 +112,7 @@ export default {
 	},
 	onPageScroll(e) {
 		let opacity = (e.scrollTop / 100).toFixed(2)
-		console.log(e.scrollTop)
+		// console.log(opacity)
 		this.opacity = opacity
 		this.backgroundColor = 'rgba(255,255,255,' + (opacity >= 1 ? 1 : opacity) + ')'
 		uni.setNavigationBarColor({
@@ -154,7 +131,9 @@ export default {
 		}
 		if (!this.isClick) {
 			let scrollTop = parseInt(e.scrollTop)
-			for (let i = 0; i < this.topList.length; i++) {
+			// console.log(e)
+			// console.log(this.topList)
+			for (var i = 0; i < this.topList.length; i++) {
 				if (scrollTop >= this.topList[i].top && scrollTop <= this.topList[i].bottom) {
 					this.currentIndex = i
 					this.leftScrollTop = this.rightItemHeight * i
@@ -201,6 +180,7 @@ export default {
 					}
 				})
 				.exec()
+
 			setTimeout(() => {
 				this.getTop()
 			}, 300)
@@ -228,7 +208,7 @@ export default {
 				.select('.menu_name')
 				.boundingClientRect()
 				.exec((data) => {
-					console.log(data)
+					// console.log(data)
 					if (data) {
 						this.rightItemHeight = data[0].height //获取左侧的第一个菜单的高度
 					}
@@ -238,7 +218,6 @@ export default {
 				.boundingClientRect()
 				.exec((data) => {
 					if (data) {
-						console.log(data)
 						data[0].map((item, index) => {
 							this.topList.push({
 								top: parseInt(item.top - this.stickyTop),
@@ -255,12 +234,9 @@ export default {
 		 */
 		onChangeCate(data) {
 			const { item, index } = data
-			console.log(index)
-			console.log(this.rightItemHeight)
-			console.log(this.topList)
+			this.currentIndex = index
 			this.isClick = true
 			this.leftScrollTop = this.rightItemHeight * index
-			console.log(this.leftScrollTop)
 			uni.pageScrollTo({
 				scrollTop: this.topList[index].top
 			})
@@ -299,8 +275,8 @@ view {
 }
 
 .subhome-shop-detail {
-	padding-bottom: calc(constant(safe-area-inset-bottom) + 100rpx);
-	padding-bottom: calc(env(safe-area-inset-bottom) + 100rpx);
+	padding-bottom: calc(constant(safe-area-inset-bottom) + 64rpx);
+	padding-bottom: calc(env(safe-area-inset-bottom) + 64rpx);
 	height: 100%;
 }
 
@@ -408,49 +384,6 @@ view {
 				padding-left: 20rpx;
 			}
 		}
-	}
-}
-
-.foot {
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 1000;
-	min-height: 100rpx;
-	padding-bottom: constant(safe-area-inset-bottom);
-	padding-bottom: env(safe-area-inset-bottom);
-	background: #fff;
-	box-shadow: 0 -4px 10px -3px rgba(0, 0, 0, 0.2);
-
-	.inner {
-		height: 100rpx;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 20rpx;
-	}
-
-	.icon_box {
-		width: 80rpx;
-		height: 80rpx;
-		border-radius: 50%;
-		background: #f5f5f5;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
-}
-
-.cart_list {
-	padding-bottom: calc(constant(safe-area-inset-bottom) + 100rpx);
-	padding-bottom: calc(env(safe-area-inset-bottom) + 100rpx);
-
-	.cart_item {
-		height: 120rpx;
-		border-bottom: 1px solid #eee;
 	}
 }
 </style>

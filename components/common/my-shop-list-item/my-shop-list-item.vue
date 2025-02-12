@@ -6,7 +6,7 @@
 				<view class="name">
 					{{ cell.name }}
 				</view>
-				<view class="flex_box">
+				<view class="flex_box type-box">
 					<view class="text" v-for="(tag, tags) in cell.taglist" :key="tags">{{ tag }}</view>
 				</view>
 				<view class="sold">已售{{ cell.sold }}</view>
@@ -23,7 +23,7 @@
 							@click="clickDelete(cell)"
 						></image>
 						<text v-if="cell.count && cell.count > 0" class="num">{{ cell.count }}</text>
-						<image class="img2" src="/static/images/shop/btn_add@2x.png" @click="clickAdd(cell)"></image>
+						<image class="img" src="/static/images/shop/btn_add@2x.png" @click="clickAdd(cell)"></image>
 					</view>
 				</view>
 			</view>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+const carList = []
 export default {
 	props: {
 		list: {
@@ -52,17 +53,27 @@ export default {
 	},
 	methods: {
 		clickAdd(item) {
-			console.log(item)
-			this.$nextTick(() => {
-				item.count = item.count ? item.count : 0
-				item.count++
-				this.$set(item, 'count', item.count)
-			})
+			item.count = item.count ? item.count : 0
+			item.count++
+			this.$set(item, 'count', item.count)
+			// 添加购物车
+			// 通过商品id来判断，相同count+1,不同就push
+			const goods = carList.find((res) => res.goodsId === item.goodsId)
+			if (!goods) {
+				carList.push(item)
+			}
+			// console.log('this.carList:::::::', carList)
+			this.$store.dispatch('updateShopCarList', carList)
 		},
 		clickDelete(item) {
-			console.log(item)
 			item.count--
 			this.$set(item, 'count', item.count)
+			// 将数量为0的商品移除购物车
+			const goodsIndex = carList.findIndex((res) => res.count === 0)
+			if (goodsIndex !== -1) {
+				carList.splice(goodsIndex, 1)
+			}
+			this.$store.dispatch('updateShopCarList', carList)
 		}
 	},
 	mounted() {
@@ -97,6 +108,8 @@ export default {
 				font-weight: 400;
 				font-size: 28rpx;
 				color: #333333;
+				margin-bottom: 10rpx;
+				line-height: 40rpx;
 			}
 			.text {
 				border-radius: 4rpx;
@@ -115,7 +128,6 @@ export default {
 			}
 			.count {
 				justify-content: space-between;
-				margin-top: 8rpx;
 				.count-left {
 					font-weight: 500;
 					font-size: 22rpx;
@@ -123,12 +135,10 @@ export default {
 					display: flex;
 					align-items: flex-end;
 					.icon {
-						line-height: 0;
 					}
 					.price {
 						font-size: 36rpx;
 						line-height: 36rpx;
-						margin-bottom: -12rpx;
 					}
 				}
 				.count-right {
@@ -137,17 +147,14 @@ export default {
 					.num {
 						font-size: 24rpx;
 						color: #000000;
-						margin: 0 10rpx 0 20rpx;
-						line-height: 36rpx;
+						margin: 0 10rpx;
+						line-height: 56rpx;
 					}
 					.img {
-						width: 40rpx;
-						height: 40rpx;
-					}
-					.img2 {
 						width: 56rpx;
 						height: 56rpx;
-						margin-bottom: -10rpx;
+					}
+					.img2 {
 					}
 				}
 			}
