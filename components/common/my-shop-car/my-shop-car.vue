@@ -5,7 +5,7 @@
 				<view class="car-left">
 					<image class="img" v-if="carLength === 0" src="/static/images/shop/icon_gouwuche_pro@2x.png"></image>
 					<image class="img" v-else src="/static/images/shop/icon_gouwuche@2x.png"></image>
-					<view class="text4" v-if="carLength > 0">{{ carLength }}</view>
+					<view class="text4" v-if="count > 0">{{ count }}</view>
 				</view>
 				<view class="car-mid" v-if="carLength > 0">
 					<view class="text">待支付</view>
