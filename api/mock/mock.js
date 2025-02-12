@@ -7,7 +7,7 @@
 // 模拟数据
 import goods from "./goods.js";
 import {
-	aaa
+	shops
 } from "./data.js";
 
 // 获取新闻列表
@@ -183,8 +183,35 @@ export function apiGetTabs() {
 		//延时,模拟联网
 		setTimeout(function() {
 			try {
-				let tabs = ['全部', '奶粉', '面膜', '图书', '果汁', '奶瓶', '美素', '花王', '韩蜜', '口红', '毛巾', '玩具',
-					'衣服'
+				let tabs = [{
+						name: '全部'
+					}, {
+						name: '奶粉'
+					}, {
+						name: '面膜'
+					}, {
+						name: '图书'
+					}, {
+						name: '果汁'
+					}, {
+						name: '奶瓶'
+					}, {
+						name: '美素'
+					}, {
+						name: '花王'
+					}, {
+						name: '韩蜜'
+					}, {
+						name: '口红'
+					}, {
+						name: '毛巾'
+					}, {
+						name: '玩具'
+					},
+					{
+						name: '衣服'
+					}
+
 				];
 				//模拟接口请求成功
 				resolute(tabs);
@@ -213,13 +240,13 @@ export function apiShops(pageNum, pageSize, keyword) {
 				let keywordList = [];
 				if (!keyword || keyword == "全部") {
 					// 搜索全部商品
-					keywordList = aaa;
+					keywordList = shops;
 				} else {
 					// 关键词搜索
 					if (keyword == "母婴") keyword = "婴"; // 为这个关键词展示多几条数据
-					for (let i = 0; i < goods.length; i++) {
-						let good = goods[i]
-						if (good.goodName.indexOf(keyword) !== -1) {
+					for (let i = 0; i < shops.length; i++) {
+						let good = shops[i]
+						if (good.name.indexOf(keyword) !== -1) {
 							keywordList.push(good)
 						}
 					}

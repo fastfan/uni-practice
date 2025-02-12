@@ -682,7 +682,7 @@ export const commentList = [{
 
 
 
-export const aaa = [{
+export const shops = [{
 		goodsId: '1',
 		name: '七味盐黄金豆腐七味盐黄金豆腐',
 		img: 'https://qcloud.dpfile.com/pc/wU3rvxK40IRQSH-ME1GftzbPAzUEH2TKcu_Umu2cXIBUnUZhRs1BQ-3fNG1nS2hQ5g_3Oo7Z9EXqcoVvW9arsw.jpg',
