@@ -1,5 +1,5 @@
 <template>
-	<view class="subhome-shop-detail">
+	<view :class="['subhome-shop-detail', currentTab === 0 ? 'bottom-area' : '']">
 		<!-- 顶部导航栏 -->
 		<view class="nav_bar" :style="{ height: navBarHeight + 'px', backgroundColor: backgroundColor }">
 			<view class="state_height"></view>
@@ -29,14 +29,7 @@
 					lineScale="0.3"
 				></my-tabs>
 			</view>
-			<template v-if="currentTab == 0">
-				<!-- 广告位置 -->
-				<!-- <view class="advert_area area_height" data-type="1">
-					<view class="img_box">
-						<image class="img" src="https://vcg02.cfp.cn/creative/vcg/800/new/VCG41N2186093764.jpg"></image>
-					</view>
-				</view> -->
-
+			<view v-show="currentTab == 0">
 				<!-- 菜品区域 -->
 				<view class="cate_content">
 					<scroll-view
@@ -58,24 +51,30 @@
 						</view>
 					</view>
 				</view>
-			</template>
+			</view>
 
 			<!-- 评论 -->
-			<view class="" v-if="currentTab == 1"></view>
+			<view class="" v-show="currentTab == 1">
+				<detail-comment-vue :list="commentList"></detail-comment-vue>
+			</view>
 			<!-- 商家信息 -->
-			<view class="" v-if="currentTab == 2"></view>
+			<view class="" v-show="currentTab == 2">
+				<detail-mechant-vue></detail-mechant-vue>
+			</view>
 		</view>
 
 		<!-- 底部区域 -->
-		<my-shop-car :list="shopCarList"></my-shop-car>
+		<my-shop-car v-if="currentTab == 0"></my-shop-car>
 	</view>
 </template>
 
 <script>
 import DetailHeadVue from './detailHead.vue'
-import { productList } from '@/api/mock/data'
+import DetailMechantVue from './detailMechant.vue'
+import DetailCommentVue from './detailComment.vue'
+import { productList, commentList } from '@/api/mock/data'
 export default {
-	components: { DetailHeadVue },
+	components: { DetailHeadVue, DetailMechantVue, DetailCommentVue },
 	data() {
 		return {
 			opacity: '',
@@ -95,6 +94,7 @@ export default {
 			rightItemHeight: 0,
 			stickyTop: 0, //吸顶的距离
 			productList,
+			commentList,
 			list: [
 				{
 					name: '商品'
@@ -275,11 +275,12 @@ view {
 }
 
 .subhome-shop-detail {
-	padding-bottom: calc(constant(safe-area-inset-bottom) + 64rpx);
-	padding-bottom: calc(env(safe-area-inset-bottom) + 64rpx);
 	height: 100%;
 }
-
+.bottom-area {
+	padding-bottom: calc(constant(safe-area-inset-bottom) + 64rpx);
+	padding-bottom: calc(env(safe-area-inset-bottom) + 64rpx);
+}
 .nav_bar {
 	position: fixed;
 	top: 0;

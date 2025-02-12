@@ -656,3 +656,53 @@ export const productList = [{
 		]
 	}
 ]
+
+export const commentList = [{
+		avater: '/static/images/home/zhuqianba@2x.png',
+		phone: '189****9326',
+		date: '2024.04.29',
+		attidude: '非常满意',
+		attidudeType: 'perfect',
+		text: '物美价廉，都是最新日期，配送也非常及时。',
+		textImgs: [{
+				img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg'
+			},
+			{
+				img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg'
+			}
+		]
+	},
+	{
+		avater: '/static/images/home/zhuqianba@2x.png',
+		phone: '189****9326',
+		date: '2024.04.29',
+		attidude: '一般',
+		attidudeType: 'nothing',
+		text: '商品日期新鲜，整体还可以。',
+		textImgs: []
+	},
+	{
+		avater: '/static/images/home/zhuqianba@2x.png',
+		phone: '189****9326',
+		date: '2024.04.29',
+		attidude: '不满意',
+		attidudeType: 'angry',
+		text: '包装有破损，未按规定时间配送',
+		textImgs: []
+	},
+	{
+		avater: '/static/images/home/zhuqianba@2x.png',
+		phone: '189****9326',
+		date: '2024.04.29',
+		attidude: '非常满意',
+		attidudeType: 'perfect',
+		text: '物美价廉，都是最新日期，配送也非常及时。',
+		textImgs: [{
+				img: 'https://qcloud.dpfile.com/pc/8To1nn0bLS0Z8UXhWs7d_6_4hgdHYJDB9PY0bTHn51l0M4tvZgWeKDKSXjsROSf95g_3Oo7Z9EXqcoVvW9arsw.jpg'
+			},
+			{
+				img: 'https://qcloud.dpfile.com/pc/S1Yt03ZHevIEbvb3fhAy67V74qWD5ZJURHvRhFUOlP2YaCqE8KEE8D3jXlKeA1a95g_3Oo7Z9EXqcoVvW9arsw.jpg'
+			}
+		]
+	}
+]
