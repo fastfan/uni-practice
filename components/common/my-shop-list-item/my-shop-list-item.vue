@@ -76,9 +76,16 @@ export default {
 			this.$store.dispatch('updateShopCarList', carList)
 		}
 	},
-	mounted() {
-		this.dataList = [...this.list]
-	}
+	watch: {
+		list: {
+			handler: function (val) {
+				this.dataList = [...val]
+			},
+			immediate: true,
+			deep: true
+		}
+	},
+	mounted() {}
 }
 </script>
 

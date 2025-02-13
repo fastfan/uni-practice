@@ -10,7 +10,7 @@
 					<image class="img" src="/static/images/shop/ic_xinji@2x.png"></image>
 					<view class="font">
 						{{ detailsInfo.shopRate }}
-						<text>{{ detailsInfo.shopTime }}</text>
+						<text style="margin-left: 20rpx">{{ detailsInfo.shopTime }}</text>
 					</view>
 				</view>
 			</view>
@@ -105,10 +105,13 @@ export default {
 				font-size: 26rpx;
 				display: flex;
 				margin-top: 22rpx;
+				.font {
+					margin-left: 6rpx;
+				}
 				.img {
 					width: 26rpx;
 					height: 24rpx;
-					margin-top: 6rpx;
+					margin-top: 4rpx;
 				}
 			}
 		}

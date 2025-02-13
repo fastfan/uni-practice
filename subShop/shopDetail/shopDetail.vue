@@ -43,11 +43,21 @@
 						</view>
 					</scroll-view>
 					<view class="right">
-						<view class="item" v-for="(item, index) in productList" :key="index">
-							<view class="title sticky_title" :style="{ top: stickyTop + 'px' }">
-								{{ item.name }}
-							</view>
-							<my-shop-list-item :list="item.list" :type="'product'"></my-shop-list-item>
+						<view class="item">
+							<!-- 	<view class="title sticky_title" :style="{ top: stickyTop + 'px', zIndex: 999 }">
+														{{ item.name }}
+													</view> -->
+							<!-- <my-shop-list-item :list="item.list" :type="'product'"></my-shop-list-item> -->
+							<!-- 如果每个子组件布局一样, 则可使用v-for (注意v-for的ref="mescrollItem"必须是固定值)-->
+							<mescroll-item
+								v-for="(item, index) in productList"
+								ref="mescrollItem"
+								:list="item.list"
+								:key="index"
+								:i="index"
+								:type="'product'"
+								:index="currentIndex"
+							></mescroll-item>
 						</view>
 					</view>
 				</view>
@@ -73,8 +83,11 @@ import DetailHeadVue from './detailHead.vue'
 import DetailMechantVue from './detailMechant.vue'
 import DetailCommentVue from './detailComment.vue'
 import { productList, commentList } from '@/api/mock/data'
+import MescrollItem from './mescroll-more-item.vue'
+import MescrollMoreMixin from '@/components/mescroll-uni/mixins/mescroll-more.js'
 export default {
-	components: { DetailHeadVue, DetailMechantVue, DetailCommentVue },
+	mixins: [MescrollMoreMixin], // 多个mescroll-body写在子组件时, 则使用mescroll-more.js补充子组件的页面生命周期
+	components: { DetailHeadVue, DetailMechantVue, DetailCommentVue, MescrollItem },
 	data() {
 		return {
 			opacity: '',
@@ -129,18 +142,18 @@ export default {
 			this.topHeight = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 			// this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 		}
-		if (!this.isClick) {
-			let scrollTop = parseInt(e.scrollTop)
-			// console.log(e)
-			// console.log(this.topList)
-			for (var i = 0; i < this.topList.length; i++) {
-				if (scrollTop >= this.topList[i].top && scrollTop <= this.topList[i].bottom) {
-					this.currentIndex = i
-					this.leftScrollTop = this.rightItemHeight * i
-					break
-				}
-			}
-		}
+		// if (!this.isClick) {
+		// 	let scrollTop = parseInt(e.scrollTop)
+		// 	// console.log(e)
+		// 	// console.log(this.topList)
+		// 	for (var i = 0; i < this.topList.length; i++) {
+		// 		if (scrollTop >= this.topList[i].top && scrollTop <= this.topList[i].bottom) {
+		// 			this.currentIndex = i
+		// 			this.leftScrollTop = this.rightItemHeight * i
+		// 			break
+		// 		}
+		// 	}
+		// }
 	},
 	onLoad() {
 		this.$nextTick(() => {
@@ -213,19 +226,19 @@ export default {
 						this.rightItemHeight = data[0].height //获取左侧的第一个菜单的高度
 					}
 				})
-			query
-				.selectAll('.item')
-				.boundingClientRect()
-				.exec((data) => {
-					if (data) {
-						data[0].map((item, index) => {
-							this.topList.push({
-								top: parseInt(item.top - this.stickyTop),
-								bottom: parseInt(item.bottom - this.stickyTop)
-							})
-						})
-					}
-				})
+			// query
+			// 	.selectAll('.item')
+			// 	.boundingClientRect()
+			// 	.exec((data) => {
+			// 		if (data) {
+			// 			data[0].map((item, index) => {
+			// 				this.topList.push({
+			// 					top: parseInt(item.top - this.stickyTop),
+			// 					bottom: parseInt(item.bottom - this.stickyTop)
+			// 				})
+			// 			})
+			// 		}
+			// 	})
 		},
 		/**
 		 * @param {Object} item
@@ -237,9 +250,9 @@ export default {
 			this.currentIndex = index
 			this.isClick = true
 			this.leftScrollTop = this.rightItemHeight * index
-			uni.pageScrollTo({
-				scrollTop: this.topList[index].top
-			})
+			// uni.pageScrollTo({
+			// 	scrollTop: this.topList[index].top
+			// })
 			setTimeout(() => {
 				this.isClick = false
 			}, 600)
