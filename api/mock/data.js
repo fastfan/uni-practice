@@ -2,13 +2,13 @@ export const shopList = [{
 		id: 1,
 		type: 'normal',
 		shopName: '喜阿婆粥饼店',
-		src: '/static/images/home/img_shanpin@2x.png',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 		shopRate: '5.0',
 		shopPrevage: '60',
 		shopDistance: '100',
 		children: [{
 				name: '八宝粥1',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '6',
@@ -16,7 +16,7 @@ export const shopList = [{
 			},
 			{
 				name: '八宝粥2',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '',
@@ -24,7 +24,7 @@ export const shopList = [{
 			},
 			{
 				name: '八宝粥3',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '6',
@@ -36,13 +36,13 @@ export const shopList = [{
 		id: 2,
 		type: 'normal',
 		shopName: '喜阿婆粥饼店2',
-		src: '/static/images/home/img_shanpin@2x.png',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 		shopRate: '5.0',
 		shopPrevage: '60',
 		shopDistance: '100',
 		children: [{
 				name: '八宝粥4',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '6',
@@ -50,7 +50,7 @@ export const shopList = [{
 			},
 			{
 				name: '八宝粥5',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '6',
@@ -58,7 +58,7 @@ export const shopList = [{
 			},
 			{
 				name: '八宝粥6',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '',
@@ -70,13 +70,13 @@ export const shopList = [{
 		id: 3,
 		type: 'normal',
 		shopName: '喜阿婆粥饼店3',
-		src: '/static/images/home/img_shanpin@2x.png',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 		shopRate: '5.0',
 		shopPrevage: '60',
 		shopDistance: '100',
 		children: [{
 				name: '八宝粥7',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '6',
@@ -84,7 +84,7 @@ export const shopList = [{
 			},
 			{
 				name: '八宝粥8',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '',
@@ -92,7 +92,823 @@ export const shopList = [{
 			},
 			{
 				name: '八宝粥9',
-				src: '/static/images/home/img_shanpin@2x.png',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 4,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 5,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 6,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 7,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 8,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 9,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 10,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 11,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 12,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 13,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 14,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 15,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 16,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 17,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 18,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 19,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 20,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 21,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 22,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 23,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 24,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 25,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 26,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店2',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥4',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥5',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥6',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			}
+		]
+	},
+	{
+		id: 27,
+		type: 'normal',
+		shopName: '喜阿婆粥饼店3',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+		shopRate: '5.0',
+		shopPrevage: '60',
+		shopDistance: '100',
+		children: [{
+				name: '八宝粥7',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '6',
+				soled: '123'
+			},
+			{
+				name: '八宝粥8',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
+				tagList: ['返积分', '积分可抵扣'],
+				price: '12',
+				count: '',
+				soled: '123'
+			},
+			{
+				name: '八宝粥9',
+				src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 				tagList: ['返积分', '积分可抵扣'],
 				price: '12',
 				count: '6',
@@ -102,147 +918,147 @@ export const shopList = [{
 	}
 ]
 export const shopList2 = [{
-		id: 4,
+		id: 28,
 		type: 'single',
 		shopName: '【世外桃源】自助烧烤',
 		shopRate: '5.0',
 		shopPrevage: '60',
 		shopDistance: '100',
-		src: '/static/images/home/img_shanpin@2x.png',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 		children: []
 	},
 	{
-		id: 4,
+		id: 29,
 		type: 'singles',
 		shopName: '张记桂林米粉（石油城店）',
 		shopRate: '5.0',
 		shopPrevage: '60',
 		shopDistance: '100',
-		src: '/static/images/home/img_shanpin@2x.png',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 		children: []
 	},
 	{
-		id: 5,
+		id: 30,
 		type: 'empty',
 		shopName: '【世外桃源】自助烧烤',
 		shopRate: '',
 		shopPrevage: '',
 		shopDistance: '100',
-		src: '/static/images/home/img_shanpin@2x.png',
+		src: 'https://oss.ruikedz.com/51life/static/images/home/img_shanpin@2x.png',
 		children: []
 	}
 ]
 export const gridData = [
 	[{
-			src: '/static/images/home/sort_meizhuanggeh@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_meizhuanggeh@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_qingjie@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_qingjie@2x.png'
 		},
 		{
-			src: '/static/images/home/sort__liangyou@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort__liangyou@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_baihuo@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_baihuo@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_shangchougouwu@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_shangchougouwu@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_rupin@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_rupin@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_linshi2@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_linshi2@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_sudong@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_sudong@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_ruzhu@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_ruzhu@2x.png'
 		}
 	],
 	[{
-			src: '/static/images/home/sort_zaocan@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_zaocan@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_xiaochi@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_xiaochi@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_shaokao@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_shaokao@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_yexiao@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_yexiao@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_zhufenlei@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_zhufenlei@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_tianpin@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_tianpin@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_linshi@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_linshi@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_shuiguo@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_shuiguo@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_ruzhu@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_ruzhu@2x.png'
 		}
 	],
 	[{
-			src: '/static/images/home/sort_jdwx@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_jdwx@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_fsfl@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_fsfl@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_qmwx@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_qmwx@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_glst@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_glst@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_jzfw@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_jzfw@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_jtbj@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_jtbj@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_jdqx@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_jdqx@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_slwx@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_slwx@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_dlwx@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_dlwx@2x.png'
 		}
 	],
 	[{
-			src: '/static/images/home/sort_huanzuotao@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_huanzuotao@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_jiaofei@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_jiaofei@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_jilu@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_jilu@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_xinceruwang@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_xinceruwang@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_sijifuwu@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_sijifuwu@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_zhaopin@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_zhaopin@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_shangcheng@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_shangcheng@2x.png'
 		},
 		{
-			src: '/static/images/home/ic_mentie@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/ic_mentie@2x.png'
 		},
 		{
-			src: '/static/images/home/sort_sijirenz@2x.png'
+			src: 'https://oss.ruikedz.com/51life/static/images/home/sort_sijirenz@2x.png'
 		}
 	]
 ]
@@ -324,7 +1140,7 @@ export const productList = [{
 	},
 	{
 		name: '甜品点心',
-		id: '1',
+		id: '3',
 		icon: '',
 		list: [{
 				goodsId: '11',
@@ -357,7 +1173,7 @@ export const productList = [{
 	},
 	{
 		name: '早点早餐',
-		id: '2',
+		id: '4',
 		icon: '',
 		list: [{
 				goodsId: '14',
@@ -426,7 +1242,7 @@ export const productList = [{
 	},
 	{
 		name: '包子油条',
-		id: '1',
+		id: '5',
 		icon: '',
 		list: [{
 				goodsId: '21',
@@ -459,7 +1275,7 @@ export const productList = [{
 	},
 	{
 		name: '豆浆饮品',
-		id: '2',
+		id: '6',
 		icon: '',
 		list: [{
 				goodsId: '24',
@@ -528,7 +1344,7 @@ export const productList = [{
 	},
 	{
 		name: '汉堡薯条',
-		id: '1',
+		id: '7',
 		icon: '',
 		list: [{
 				goodsId: '31',
@@ -561,7 +1377,7 @@ export const productList = [{
 	},
 	{
 		name: '生煎铁板',
-		id: '2',
+		id: '8',
 		icon: '',
 		list: [{
 				goodsId: '34',
@@ -631,7 +1447,7 @@ export const productList = [{
 ]
 
 export const commentList = [{
-		avater: '/static/images/home/zhuqianba@2x.png',
+		avater: 'https://oss.ruikedz.com/51life/static/images/home/zhuqianba@2x.png',
 		phone: '189****9326',
 		date: '2024.04.29',
 		attidude: '非常满意',
@@ -646,7 +1462,7 @@ export const commentList = [{
 		]
 	},
 	{
-		avater: '/static/images/home/zhuqianba@2x.png',
+		avater: 'https://oss.ruikedz.com/51life/static/images/home/zhuqianba@2x.png',
 		phone: '189****9326',
 		date: '2024.04.29',
 		attidude: '一般',
@@ -655,7 +1471,7 @@ export const commentList = [{
 		textImgs: []
 	},
 	{
-		avater: '/static/images/home/zhuqianba@2x.png',
+		avater: 'https://oss.ruikedz.com/51life/static/images/home/zhuqianba@2x.png',
 		phone: '189****9326',
 		date: '2024.04.29',
 		attidude: '不满意',
@@ -664,7 +1480,7 @@ export const commentList = [{
 		textImgs: []
 	},
 	{
-		avater: '/static/images/home/zhuqianba@2x.png',
+		avater: 'https://oss.ruikedz.com/51life/static/images/home/zhuqianba@2x.png',
 		phone: '189****9326',
 		date: '2024.04.29',
 		attidude: '非常满意',

@@ -32,14 +32,22 @@
 			></my-dropdown-item>
 		</my-dropdown>
 		<view class="sub-shop-list-item">
-			<my-shop-list :dataList="shopList"></my-shop-list>
+			<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
+				<my-shop-list :dataList="shopList" @onClickEvent="onClickShopList"></my-shop-list>
+			</mescroll-body>
 		</view>
 	</view>
 </template>
 
 <script>
-import { shopList, shopList2 } from '@/api/mock/data.js'
+import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
+import MescrollBody from '@/components/mescroll-uni/mescroll-body.vue'
+import { apiShopsList } from '@/api/mock/mock.js'
 export default {
+	mixins: [MescrollMixin],
+	components: {
+		MescrollBody
+	},
 	data() {
 		return {
 			keyword: '',
@@ -213,7 +221,17 @@ export default {
 					]
 				}
 			],
-			shopList: [...shopList, ...shopList2]
+			shopList: [],
+			// 上拉加载的配置(可选, 绝大部分情况无需配置)
+			upOption: {
+				page: {
+					size: 10 // 每页数据的数量,默认10
+				},
+				noMoreSize: 999, // 配置列表的总数量要大于等于999条才显示'-- END --'的提示
+				empty: {
+					tip: '暂无相关数据'
+				}
+			}
 		}
 	},
 	methods: {
@@ -227,6 +245,30 @@ export default {
 		handlerTypeChange(e) {
 			console.log(e)
 			if (e.cancel) return
+		},
+		// 商家点击
+		onClickShopList(data) {
+			console.log('商家：：：：：', data)
+		},
+		upCallback(page) {
+			//联网加载数据
+			apiShopsList(page.num, page.size)
+				.then((res) => {
+					// console.log(res)
+					let curPageLen = res.list.length
+					// 接口返回的总页数 (如列表有26个数据,每页10条,共3页; 则totalPage=3)
+					let totalPage = res.totalPage
+					this.mescroll.endByPage(curPageLen, totalPage)
+					//设置列表数据
+					if (page.num == 1) {
+						this.shopList = [] //如果是第一页需手动制空列表
+					}
+					this.shopList = this.shopList.concat(res.list) //追加新数据
+				})
+				.catch(() => {
+					//联网失败, 结束加载
+					this.mescroll.endErr()
+				})
 		}
 	},
 	onLoad() {}
@@ -238,8 +280,8 @@ export default {
 	background: #f2f2f2;
 	&-item {
 		padding: 24rpx;
-		height: calc(100vh - 420rpx);
-		overflow-y: scroll;
+		// height: calc(100vh - 420rpx);
+		// overflow-y: scroll;
 	}
 	.search-con {
 		margin: 22rpx 0 34rpx 0;

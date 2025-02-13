@@ -7,7 +7,9 @@
 // 模拟数据
 import goods from "./goods.js";
 import {
-	shops
+	shops,
+	shopList,
+	shopList2
 } from "./data.js";
 
 // 获取新闻列表
@@ -246,6 +248,60 @@ export function apiShops(pageNum, pageSize, keyword) {
 					if (keyword == "母婴") keyword = "婴"; // 为这个关键词展示多几条数据
 					for (let i = 0; i < shops.length; i++) {
 						let good = shops[i]
+						if (good.name.indexOf(keyword) !== -1) {
+							keywordList.push(good)
+						}
+					}
+				}
+
+				// 分页
+				for (let i = (pageNum - 1) * pageSize; i < pageNum * pageSize; i++) {
+					if (i >= keywordList.length) break
+					data.list.push(keywordList[i])
+				}
+
+				// 汇总数据
+				data.totalCount = keywordList.length;
+				data.totalPage = Math.ceil(data.totalCount / pageSize);
+				data.hasNext = pageNum < data.totalPage
+
+				//模拟接口请求成功
+				console.log("pageNum=" + pageNum + ", pageSize=" + pageSize + ", data.list.length=" +
+					data.list.length + ", totalCount=" + data.totalCount + ", totalPage=" + data
+					.totalPage + ", hasNext=" + data.hasNext + (keyword ? ", keyword=" + keyword :
+						""));
+				resolute(data);
+			} catch (e) {
+				//模拟接口请求失败
+				reject(e);
+			}
+		}, 1000)
+	})
+}
+
+
+export function apiShopsList(pageNum, pageSize, keyword) {
+	return new Promise((resolute, reject) => {
+		//延时一秒,模拟联网
+		setTimeout(() => {
+			try {
+				let data = {
+					list: [], // 数据列表
+					totalCount: 0, // 总数量
+					totalPage: 0, // 总页数
+					hasNext: false // 是否有下一页
+				}
+
+				// 符合关键词的记录
+				let keywordList = [];
+				if (!keyword || keyword == "全部") {
+					// 搜索全部商品
+					keywordList = [...shopList, ...shopList2];
+				} else {
+					// 关键词搜索
+					if (keyword == "母婴") keyword = "婴"; // 为这个关键词展示多几条数据
+					for (let i = 0; i < keywordList.length; i++) {
+						let good = keywordList[i]
 						if (good.name.indexOf(keyword) !== -1) {
 							keywordList.push(good)
 						}

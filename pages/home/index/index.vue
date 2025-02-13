@@ -98,7 +98,7 @@
 				</view>
 			</view>
 			<view class="bottom_box_panellist">
-				<my-shop-list :dataList="shopList" @onClickEvent="onClickShopList"></my-shop-list>
+				<MescrollMoreItemShop ref="mescrollItem"></MescrollMoreItemShop>
 			</view>
 		</view>
 		<view class="bottom_box bottom_box2" style="margin-bottom: 0">
@@ -124,32 +124,29 @@
 					</view>
 				</view>
 			</view>
-			<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
-				<!-- 瀑布流布局列表 -->
-				<view class="content_mid">
-					<my-waterfall-flow :wfList="dataList">
-						<template #left="{ leftList }">
-							<my-goods-list v-for="(item, index) in leftList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
-						</template>
-						<template #right="{ rightList }">
-							<my-goods-list v-for="(item, index) in rightList" :key="index" :listItem="item" @click.native="itemTap(item)"></my-goods-list>
-						</template>
-					</my-waterfall-flow>
-				</view>
-			</mescroll-body>
+			<!-- 
+							 mescroll-body写在一层子组件时, 需引入mescroll-comp.js, 给子组件添加ref="mescrollItem",
+							 当mescroll-body写在子子..子组件时, 需每层子组件都引入mescroll-comp.js, 添加ref="mescrollItem",
+							 嵌套太多层,建议直接使用mescroll-uni最简单 
+							 -->
+			<!-- 第一步: 给mescroll-body的组件添加: ref="mescrollItem" (固定的,不可改,与mescroll-comp.js对应)-->
+			<MescrollMoreItemGoods ref="mescrollItem" :stickyTop="stickyTop"></MescrollMoreItemGoods>
 		</view>
 	</view>
 </template>
 
 <script>
-import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
-import MescrollBody from '@/components/mescroll-uni/mescroll-body.vue'
-import { apiGoods } from '@/api/mock/mock.js'
-import { gridData, shopList } from '@/api/mock/data.js'
+import MescrollMoreItemShop from './mescroll-more-item-shop.vue'
+import MescrollMoreItemGoods from './mescroll-more-item-goods.vue'
+// import MescrollMoreMixin from '@/components/mescroll-uni/mixins/mescroll-more.js'
+// 第二步: 引入mescroll-comp.js
+import MescrollCompMixin from '@/components/mescroll-uni/mixins/mescroll-comp.js'
+import { gridData } from '@/api/mock/data.js'
 export default {
-	mixins: [MescrollMixin],
+	mixins: [MescrollCompMixin],
 	components: {
-		MescrollBody
+		MescrollMoreItemShop,
+		MescrollMoreItemGoods
 	},
 	data() {
 		return {
@@ -180,19 +177,8 @@ export default {
 			],
 			statusBarHeight: getApp().globalData.statusBarHeight,
 			navBarHeight: getApp().globalData.navBarHeight,
-			// 上拉加载的配置(可选, 绝大部分情况无需配置)
-			upOption: {
-				page: {
-					size: 10 // 每页数据的数量,默认10
-				},
-				noMoreSize: 999, // 配置列表的总数量要大于等于999条才显示'-- END --'的提示
-				empty: {
-					tip: '暂无相关数据'
-				}
-			},
 			currentTab: 0,
 			titleStyle: { fontWeight: 500, fontSize: '36rpx', color: '#333333' },
-			dataList: [],
 			bgColor: '#FEC0BC',
 			list: [
 				{
@@ -260,8 +246,7 @@ export default {
 					src: '/static/images/home/bnr_rys@2x.png'
 				}
 			],
-			gridData,
-			shopList
+			gridData
 		}
 	},
 	onShow() {
@@ -413,14 +398,7 @@ export default {
 					this.mescroll.endErr()
 				})
 		},
-		requestData() {},
-		// 商家列表点击
-		onClickShopList(data) {
-			console.log('商家列表：：：：：', data)
-			uni.navigateTo({
-				url: '/subShop/shopDetail/shopDetail'
-			})
-		}
+		requestData() {}
 	},
 	onLoad() {
 		console.log(getApp())
@@ -684,8 +662,8 @@ export default {
 			}
 		}
 		&_panellist {
-			height: 1106rpx;
-			overflow-y: scroll;
+			height: 100vh;
+			// overflow-y: scroll;
 		}
 		&_panelmid2 {
 			margin: 20rpx 0;
