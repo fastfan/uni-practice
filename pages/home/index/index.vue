@@ -10,7 +10,7 @@
 				<view class="search-con padding_24" @click="jump('searchHistory')">
 					<view class="search">
 						<image class="img" src="/static/images/home/ic_search@2x.png" mode=""></image>
-						<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
+						<input type="text" disabled class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
 						<view class="search-btn" @click="onClickSearchValue">搜索</view>
 					</view>
 					<image class="change" src="/static/images/home/icon_sousuo@2x.png" @click="onClickScan"></image>

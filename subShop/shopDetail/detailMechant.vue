@@ -1,7 +1,7 @@
 <template>
 	<view class="detail-mechant">
 		<view class="content-video"></view>
-		<view class="content-shop">
+		<view class="content-shop has-border">
 			<view class="top">
 				<view class="icon-left">
 					<image class="img" src="/static/images/shop/icon_dianpu@2x.png"></image>
@@ -13,7 +13,7 @@
 				<view class="bottom-block">查看更多</view>
 			</view>
 		</view>
-		<view class="content-shop">
+		<view class="content-shop has-border">
 			<view class="top">
 				<view class="icon-left">
 					<image class="img" src="/static/images/shop/icon_dianpu@2x.png"></image>
@@ -24,7 +24,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="content-shop">
+		<view class="content-shop has-border">
 			<view class="top">
 				<view class="icon-left">
 					<image class="img" src="/static/images/shop/icon_shijian@2x.png"></image>
@@ -71,8 +71,10 @@ export default {
 		border-radius: 20rpx;
 		margin-bottom: 24rpx;
 	}
-	.content-shop {
+	.has-border {
 		border-bottom: 1px solid #e3e3e3;
+	}
+	.content-shop {
 		padding: 40rpx 0;
 		.top {
 			display: flex;
