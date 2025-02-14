@@ -17,7 +17,7 @@
 import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
 import MescrollMoreItemMixin from '@/components/mescroll-uni/mixins/mescroll-more-item.js'
 import MescrollUni from '@/components/mescroll-uni/mescroll-uni.vue'
-import { apiShops } from '@/common/mock/mock.js'
+import { apiShops } from '@/api/mock/mock.js'
 export default {
 	mixins: [MescrollMixin, MescrollMoreItemMixin], // 注意此处还需使用MescrollMoreItemMixin (必须写在MescrollMixin后面)
 	components: {
