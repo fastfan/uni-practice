@@ -1,19 +1,26 @@
 <template>
-	<view :class="['my-dropdown-item', 'my_dropdown-item']" @touchmove.stop.prevent="() => {}" :style="{ height: activeItemHeight + 'rpx' }" v-if="active">
+	<view
+		:class="['my-dropdown-item', 'my_dropdown-item']"
+		@touchmove.stop.prevent="() => {}"
+		:style="{ height: activeItemHeight + 'rpx' }"
+		v-if="active"
+	>
 		<template v-if="!custom">
 			<template v-if="type === 'radioBlock'">
-				<MyDropdownColumn :options="options" @success="onCateSuccess" />
+				<MyDropdownColumn :options="options" @success="onCateSuccess" :value="value" :dropdownKey="dropdownKey" />
 			</template>
 			<template v-if="type === 'radioList'">
 				<scroll-view :scroll-y="true" class="my_dropdown-item_scroll" :style="getScrollStyle">
 					<view
-						v-for="(item, index) in options[0].list"
+						v-for="(item, index) in options[0].children"
 						:key="index"
 						@click.stop.prevent="cellClick(item)"
 						class="my_dropdown-item_scroll_cell"
 						:style="{ height: `${itemHeight}rpx`, 'line-height': `${itemHeight}rpx` }"
 					>
-						<text class="my_cell_title" v-if="item.label" :style="{ color: value == item.value ? activeColor : inactiveColor }">{{ item.label }}</text>
+						<text class="my_cell_title" v-if="item.label" :style="{ color: value == item.value ? activeColor : inactiveColor }">
+							{{ item.label }}
+						</text>
 						<uni-icons v-if="value == item.value" type="checkmarkempty" size="22" :color="activeColor" />
 					</view>
 				</scroll-view>
@@ -115,6 +122,28 @@ export default {
 			// #endif
 		}
 	},
+	watch: {
+		value: {
+			immediate: true,
+			deep: true,
+			handler: function (val) {
+				console.log(val)
+				console.log(this.$parent)
+				const $parent = this.$parent.$parent
+				const arr = this.funRecursion(this.options, val)
+				console.log(arr)
+				if (arr) {
+					arr.pop()
+					if (this.type === 'radioList' && arr.length > 0) {
+						// console.log(arr)
+						$parent.menuList.forEach((item) => {
+							if (item.dropdownKey === this.dropdownKey) item.title = arr[0].label
+						})
+					}
+				}
+			}
+		}
+	},
 	computed: {
 		getScrollHeight() {
 			let height = this.options.length * this.itemHeight
@@ -142,6 +171,16 @@ export default {
 		this.init()
 	},
 	methods: {
+		funRecursion(list, value) {
+			for (let i in list) {
+				console.log(list[i])
+				if (list[i].value == value) return [{ ...list[i] }]
+				if (list[i].children && list[i].children.length > 0) {
+					let node = this.funRecursion(list[i].children, value)
+					if (node !== undefined) return node.concat({ ...list[i] })
+				}
+			}
+		},
 		// 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
 		// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
 		// 这里默认值等于undefined有它的含义，因为最顶层元素(组件)的$parent就是undefined，意味着不传name
@@ -210,11 +249,13 @@ export default {
 			// 通知父组件(my-dropdown)收起菜单
 			this.parent.close()
 			// 发出事件，抛出当前勾选项的value
-			this.$emit('change', item)
+			this.parent.$emit('change', { dropdownKey: this.dropdownKey, ...item })
 		},
 		onCateSuccess(data) {
 			this.parent.close()
-			this.$emit('change', data)
+			if (data.cancel) return
+			this.$emit('input', data.data['secondKey'].value ? data.data['secondKey'].value : data.data['firstKey'].value)
+			this.parent.$emit('change', { dropdownKey: this.dropdownKey, ...data })
 		}
 	}
 }

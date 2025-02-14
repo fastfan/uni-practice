@@ -5,23 +5,26 @@
 				<text class="my-dropdown-floor_title" v-if="item.title">{{ item.title }}</text>
 				<view class="my-dropdown-floor_ul">
 					<text
-						:class="['my-dropdown-floor_li', selected[item.key] == cell.value ? 'my-dropdown-floor_li__active' : '']"
+						:class="['my-dropdown-floor_li', selected[item.key]['value'] == cell.value ? 'my-dropdown-floor_li__active' : '']"
 						v-for="(cell, cellIndex) in item.children"
 						:key="cellIndex"
 						@click.stop.prevent="handlerCellClick(item.key, cell.value, cell)"
 					>
-						{{ cell.text }}
+						{{ cell.label }}
 					</text>
 				</view>
 				<view v-if="secondList.length > 0" style="height: 2rpx; background: #ccc; width: 92%; margin: 24rpx"></view>
 				<view class="my-dropdown-floor_ul" v-if="secondList.length > 0">
 					<text
-						:class="['my-dropdown-floor_li', secondSelected['secondKey'] == cell.value ? 'my-dropdown-floor_li__active' : '']"
+						:class="[
+							'my-dropdown-floor_li',
+							secondSelected['secondKey']['value'] == cell.value ? 'my-dropdown-floor_li__active' : ''
+						]"
 						v-for="(cell, cellIndex) in secondList"
 						:key="cellIndex"
 						@click.stop.prevent="handlerCellClick(item.key, cell.value, cell)"
 					>
-						{{ cell.text }}
+						{{ cell.label }}
 					</text>
 				</view>
 			</view>
@@ -29,7 +32,9 @@
 		<view class="my-dropdown-button-list">
 			<view class="my-dropdown-button-view" style="margin-top: 38rpx; border-top: 1px solid #ccc">
 				<button class="my-dropdown-button-item" @click.stop.prevent="handlerCancel">
-					<text class="my-dropdown-button-text" :style="{ color: inactiveBtnColor, backgroundColor: inactiveBtnBgColor }">取消</text>
+					<text class="my-dropdown-button-text" :style="{ color: inactiveBtnColor, backgroundColor: inactiveBtnBgColor }">
+						取消
+					</text>
 				</button>
 				<!-- <text class="my-dropdown-button-border-left"></text> -->
 				<button class="my-dropdown-button-item" @click.stop.prevent="handlerConfirm">
@@ -43,12 +48,22 @@
 <script>
 export default {
 	props: {
+		// 当前选中项的key值
+		dropdownKey: {
+			type: String,
+			default: ''
+		},
 		// 选项数据，如果传入了默认slot，此参数无效
 		options: {
 			type: Array,
 			default() {
 				return []
 			}
+		},
+		// 当前选中项的value值
+		value: {
+			type: [Number, String, Array, Object],
+			default: ''
 		},
 		// 激活时的颜色
 		activeColor: {
@@ -101,28 +116,52 @@ export default {
 		}
 	},
 	watch: {
-		options: {
+		value: {
 			immediate: true,
 			deep: true,
-			handler: function (list) {
-				for (var i = 0, len = list.length; i < len; i++) {
-					if (list[i]['key']) {
-						this.$set(this.selected, list[i]['key'], list[i]['default'])
+			handler: function (val) {
+				// console.log(val)
+				console.log(this.$parent)
+				const $parent = this.$parent.$parent.$parent
+				const arr = this.funRecursion(this.options, val)
+				// console.log(arr)
+				if (arr) {
+					arr.pop()
+					// console.log(arr)
+					if (arr.length === 1) {
+						this.$set(this.selected, 'firstKey', arr[0])
+					} else if (arr.length === 2) {
+						this.secondList = arr[1].children
+						this.$set(this.selected, 'firstKey', arr[1])
+						this.$set(this.secondSelected, 'secondKey', arr[0])
 					}
+					$parent.menuList.forEach((item) => {
+						if (item.dropdownKey === this.dropdownKey) item.title = arr[0].label
+					})
 				}
 			}
 		}
 	},
 	methods: {
+		funRecursion(list, value) {
+			for (let i in list) {
+				if (list[i].value == value) return [{ ...list[i] }]
+				if (list[i].children && list[i].children.length > 0) {
+					let node = this.funRecursion(list[i].children, value)
+					if (node !== undefined) return node.concat({ ...list[i] })
+				}
+			}
+		},
 		handlerCellClick(key, data, item) {
+			console.log(item)
 			if (item.hasOwnProperty('children')) {
 				this.secondList = item.children
 			}
 			if (item.level === 1) {
-				this.$set(this.selected, key, data)
+				this.$set(this.selected, key, { label: item.label, value: data })
 				this.$set(this.secondSelected, 'secondKey', '')
 			} else if (item.level === 2) {
-				this.$set(this.secondSelected, 'secondKey', data)
+				this.$set(this.secondSelected, 'secondKey', { label: item.label, value: data })
 			}
 			// console.log(key, data)
 			// console.log(this.selected)
@@ -141,11 +180,15 @@ export default {
 					type: 'column',
 					data: JSON.parse(JSON.stringify({ ...this.selected, ...this.secondSelected }))
 				})
+				this.$emit(
+					'input',
+					this.secondSelected['secondKey'].value ? this.secondSelected['secondKey'].value : this.selected['firstKey'].value
+				)
 			} catch (err) {
 				this.$emit('success', {
 					confirm: true,
 					type: 'column',
-					data: JSON.parse(JSON.stringify(this.selected))
+					data: JSON.parse(JSON.stringify({ ...this.selected, ...this.secondSelected }))
 				})
 			}
 		}

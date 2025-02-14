@@ -8,28 +8,10 @@
 				<!-- <view class="search-btn" @click="onClickSearchValue">搜索</view> -->
 			</view>
 		</view>
-		<my-dropdown :menuList="menuList" active-color="#FA520D">
-			<my-dropdown-item
-				v-model="synthesisValue"
-				dropdownKey="synthesis"
-				:options="columnOptions"
-				type="radioList"
-				@change="handlerColumnChange"
-			></my-dropdown-item>
-			<my-dropdown-item
-				v-model="priceValue"
-				dropdownKey="price"
-				:options="priceOptions"
-				type="radioBlock"
-				@change="handlerTypeChange"
-			></my-dropdown-item>
-			<my-dropdown-item
-				v-model="salesValue"
-				dropdownKey="sales"
-				:options="salesOptions"
-				type="radioBlock"
-				@change="handlerTypeChange"
-			></my-dropdown-item>
+		<my-dropdown :menuList="menuList" active-color="#FA520D" @open="open" close="close" @change="change">
+			<my-dropdown-item v-model="synthesisValue" dropdownKey="synthesis" :options="columnOptions" type="radioList"></my-dropdown-item>
+			<my-dropdown-item v-model="priceValue" dropdownKey="price" :options="priceOptions" type="radioBlock"></my-dropdown-item>
+			<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="radioBlock"></my-dropdown-item>
 		</my-dropdown>
 		<view class="sub-shop-list-item">
 			<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
@@ -65,11 +47,11 @@ export default {
 					dropdownKey: 'sales'
 				}
 			],
-			synthesisValue: '',
+			synthesisValue: '3',
 			columnOptions: [
 				{
 					key: 'firstKey',
-					list: [
+					children: [
 						{
 							label: '金凤区',
 							value: '1'
@@ -93,7 +75,7 @@ export default {
 					]
 				}
 			],
-			priceValue: '',
+			priceValue: '12',
 			priceOptions: [
 				{
 					title: '',
@@ -101,83 +83,83 @@ export default {
 					default: '',
 					children: [
 						{
-							text: '商超购物',
+							label: '商超购物',
 							value: '1',
 							level: 1,
 							children: [
 								{
-									text: '粮油米面',
+									label: '粮油米面',
 									value: '11',
 									level: 2
 								},
 								{
-									text: '厨房用品',
+									label: '厨房用品',
 									value: '12',
 									level: 2
 								}
 							]
 						},
 						{
-							text: '美食餐饮',
+							label: '美食餐饮',
 							value: '2',
 							level: 1,
 							children: [
 								{
-									text: '汉堡薯条',
+									label: '汉堡薯条',
 									value: '21',
 									level: 2
 								},
 								{
-									text: '快餐便当',
+									label: '快餐便当',
 									value: '22',
 									level: 2
 								},
 								{
-									text: '地方菜系',
+									label: '地方菜系',
 									value: '23',
 									level: 2
 								},
 								{
-									text: '奶茶咖啡',
+									label: '奶茶咖啡',
 									value: '24',
 									level: 2
 								},
 								{
-									text: '包子粥店',
+									label: '包子粥店',
 									value: '25',
 									level: 2
 								}
 							]
 						},
 						{
-							text: '家政服务',
+							label: '家政服务',
 							value: '3',
 							level: 1,
 							children: [
 								{
-									text: '卧室清洁',
+									label: '卧室清洁',
 									value: '31',
 									level: 2
 								},
 								{
-									text: '厨房清洁',
+									label: '厨房清洁',
 									value: '32',
 									level: 2
 								}
 							]
 						},
 						{
-							text: '汽车维修',
+							label: '汽车维修',
 							value: '4',
 							level: 1,
 							children: [
 								{
-									text: '换坐垫',
+									label: '换坐垫',
 									value: '41',
 									level: 2
 								},
 								{
-									text: '换门贴',
+									label: '换门贴',
 									value: '42',
 									level: 2
 								}
@@ -186,7 +168,7 @@ export default {
 					]
 				}
 			],
-			salesValue: '',
+			salesValue: '2',
 			salesOptions: [
 				{
 					title: '',
@@ -194,27 +176,27 @@ export default {
 					default: '',
 					children: [
 						{
-							text: '1km内',
+							label: '1km内',
 							value: 1,
 							level: 1
 						},
 						{
-							text: '2km内',
+							label: '2km内',
 							value: 2,
 							level: 1
 						},
 						{
-							text: '3km内',
+							label: '3km内',
 							value: 3,
 							level: 1
 						},
 						{
-							text: '5km内',
+							label: '5km内',
 							value: 5,
 							level: 1
 						},
 						{
-							text: '7km内',
+							label: '7km内',
 							value: 7,
 							level: 1
 						}
@@ -238,13 +220,26 @@ export default {
 		leftClick() {
 			uni.navigateBack()
 		},
-		handlerColumnChange(e) {
-			console.log(111, e)
-			this.$set(this.menuList[0], 'title', e.label)
+		open(e) {
+			console.log('展开：：：：', e)
 		},
-		handlerTypeChange(e) {
-			console.log(e)
-			if (e.cancel) return
+		close(e) {
+			console.log('关闭：：：：', e)
+		},
+		change(e) {
+			console.log('change：：：：', e)
+			// if (e.dropdownKey === 'synthesis') {
+			// 	this.synthesisValue = e.value
+			// }
+			// if (e.dropdownKey === 'price') {
+			// 	this.priceValue = e.data.secondKey.value
+			// }
+			// if (e.dropdownKey === 'sales') {
+			// 	this.salesValue = e.data.firstKey.value
+			// }
+			console.log('this.synthesisValue：：：：', this.synthesisValue)
+			console.log('this.priceValue：：：：', this.priceValue)
+			console.log('this.salesValue：：：：', this.salesValue)
 		},
 		// 商家点击
 		onClickShopList(data) {

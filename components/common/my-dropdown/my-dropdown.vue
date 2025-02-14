@@ -22,7 +22,11 @@
 								class="my_dropdown__menu__item__text"
 								v-if="item.title"
 								:style="{
-									color: item.disabled ? '#c0c4cc' : index === current || highlightIndex == index ? activeColor : inactiveColor,
+									color: item.disabled
+										? '#c0c4cc'
+										: index === current || highlightIndex == index
+										? activeColor
+										: inactiveColor,
 									fontSize: `${titleSize}rpx`
 								}"
 							>
@@ -192,6 +196,23 @@ export default {
 		this.$nextTick(() => {
 			this.titleHeight = uni.upx2px(this.height)
 		})
+		this.$on('change', (data) => {
+			// console.log(111111111111, data)
+			// console.log(222222, this.$parent)
+			if (data.cancel) return
+			const menuList = this.$parent.menuList
+			menuList.forEach((item) => {
+				if (item.dropdownKey === data.dropdownKey) {
+					if (data.label) {
+						item.title = data.label
+					} else if (data.data.secondKey) {
+						item.title = data.data.secondKey.label
+					} else {
+						item.title = data.data.firstKey.label
+					}
+				}
+			})
+		})
 	},
 	methods: {
 		// 点击菜单
@@ -250,8 +271,7 @@ export default {
 		// 获取下拉菜单内容的高度
 		getContentHeight() {
 			// #ifdef APP-NVUE
-			uni
-				.createSelectorQuery()
+			uni.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -264,8 +284,7 @@ export default {
 			// #endif
 
 			// #ifdef H5
-			uni
-				.createSelectorQuery()
+			uni.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -278,8 +297,7 @@ export default {
 			// #endif
 
 			// #ifndef APP-NVUE || H5
-			uni
-				.createSelectorQuery()
+			uni.createSelectorQuery()
 				.in(this)
 				.select('.my_dropdown__menu')
 				.boundingClientRect((rect) => {
