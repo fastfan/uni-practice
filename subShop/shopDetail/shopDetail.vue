@@ -44,20 +44,23 @@
 					</scroll-view>
 					<view class="right">
 						<view class="item">
+							<swiper :style="{ height: '100vh' }" :current="currentIndex" @change="swiperChange">
+								<swiper-item v-for="(tab, i) in productList" :key="i">
+									<mescroll-item ref="mescrollItem" :i="i" :index="currentIndex" :height="'100vh'"></mescroll-item>
+								</swiper-item>
+							</swiper>
 							<!-- 	<view class="title sticky_title" :style="{ top: stickyTop + 'px', zIndex: 999 }">
 														{{ item.name }}
 													</view> -->
 							<!-- <my-shop-list-item :list="item.list" :type="'product'"></my-shop-list-item> -->
 							<!-- 如果每个子组件布局一样, 则可使用v-for (注意v-for的ref="mescrollItem"必须是固定值)-->
-							<mescroll-item
-								v-for="(item, index) in productList"
+							<!-- <mescroll-item
 								ref="mescrollItem"
-								:list="item.list"
 								:key="index"
 								:i="index"
 								:type="'product'"
 								:index="currentIndex"
-							></mescroll-item>
+							></mescroll-item> -->
 						</view>
 					</view>
 				</view>
@@ -84,9 +87,7 @@ import DetailMechantVue from './detailMechant.vue'
 import DetailCommentVue from './detailComment.vue'
 import { productList, commentList } from '@/api/mock/data'
 import MescrollItem from './mescroll-more-item.vue'
-import MescrollMoreMixin from '@/components/mescroll-uni/mixins/mescroll-more.js'
 export default {
-	mixins: [MescrollMoreMixin], // 多个mescroll-body写在子组件时, 则使用mescroll-more.js补充子组件的页面生命周期
 	components: { DetailHeadVue, DetailMechantVue, DetailCommentVue, MescrollItem },
 	data() {
 		return {
@@ -258,17 +259,15 @@ export default {
 			}, 600)
 		},
 		/**
-		 * 显示购物车弹窗
-		 */
-		onShowCart() {
-			this.$refs.slide_cart.open()
-		},
-		/**
 		 * @param {Object} data
 		 * 点击切换tab
 		 */
 		onChangeTab(data) {
 			this.currentTab = data.index
+		},
+		// 轮播菜单
+		swiperChange(e) {
+			this.currentIndex = e.detail.current
 		}
 	}
 }

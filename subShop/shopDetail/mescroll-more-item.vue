@@ -1,19 +1,23 @@
 <template>
 	<!-- 不能用v-if (i: 每个tab页的专属下标;  index: 当前tab的下标; 申明在 MescrollMoreItemMixin )-->
-	<view style="height: 100vh" v-show="i === index">
-		<!-- top="120"下拉布局往下偏移,防止被悬浮菜单遮住 -->
-		<mescroll-uni :fixed="false" @init="mescrollInit" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback">
-			<!-- 数据列表 -->
-			<my-shop-list-item :list="goods" :type="type"></my-shop-list-item>
-		</mescroll-uni>
-	</view>
+	<!-- <view style="height: 100vh" v-show="i === index"> -->
+	<!--
+	swiper中的transfrom会使fixed失效,此时用height固定高度; 
+	swiper中无法触发mescroll-mixins.js的onPageScroll和onReachBottom方法,只能用mescroll-uni,不能用mescroll-body
+	-->
+	<!-- top的高度等于悬浮菜单tabs的高度 -->
+	<mescroll-uni :fixed="false" @init="mescrollInit" :down="downOption" @down="downCallback" :up="upOption" @up="upCallback">
+		<!-- 数据列表 -->
+		<my-shop-list-item :list="goods" :type="type"></my-shop-list-item>
+	</mescroll-uni>
+	<!-- </view> -->
 </template>
 
 <script>
 import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
 import MescrollMoreItemMixin from '@/components/mescroll-uni/mixins/mescroll-more-item.js'
 import MescrollUni from '@/components/mescroll-uni/mescroll-uni.vue'
-import { apiShops } from '@/api/mock/mock.js'
+import { apiShops } from '@/common/mock/mock.js'
 export default {
 	mixins: [MescrollMixin, MescrollMoreItemMixin], // 注意此处还需使用MescrollMoreItemMixin (必须写在MescrollMixin后面)
 	components: {
@@ -41,6 +45,34 @@ export default {
 			default() {
 				return []
 			}
+		},
+		height: [Number, String] // mescroll的高度
+	},
+	watch: {
+		carList: {
+			handler: function (val) {
+				// console.log('val::::::::::', val)
+				// console.log('this.goods:::::::::', this.goods)
+				// val.forEach((_t) => {
+				// 	this.goods.forEach((_m) => {
+				// 		if (_t.goodsId === _m.goodsId) {
+				// 			_m.count = _t.count
+				// 		}
+				// 	})
+				// })
+			},
+			deep: true
+		},
+		goods: {
+			handler: function (val) {
+				// console.log('val::::::::::', val)
+			},
+			deep: true
+		}
+	},
+	computed: {
+		carList() {
+			return this.$store.getters.shopCarList
 		}
 	},
 	data() {
@@ -70,19 +102,15 @@ export default {
 					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
 					this.mescroll.endSuccess(res.list.length)
 					//设置列表数据
-					if (page.num == 1) this.goods = [] //如果是第一页需手动制空列表
-					this.goods = this.goods.concat(res.list) //追加新数据
+					// if (page.num == 1) this.goods = [] //如果是第一页需手动制空列表
+					this.$nextTick(() => {
+						this.goods = this.goods.concat(res.list) //追加新数据
+					})
 				})
 				.catch(() => {
 					//联网失败, 结束加载
 					this.mescroll.endErr()
 				})
-		},
-		//点击空布局按钮的回调
-		emptyClick() {
-			uni.showToast({
-				title: '点击了按钮,具体逻辑自行实现'
-			})
 		}
 	}
 }

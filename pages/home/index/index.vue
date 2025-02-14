@@ -98,7 +98,7 @@
 				</view>
 			</view>
 			<view class="bottom_box_panellist">
-				<MescrollMoreItemShop ref="mescrollItem"></MescrollMoreItemShop>
+				<MescrollMoreItemShop></MescrollMoreItemShop>
 			</view>
 		</view>
 		<view class="bottom_box bottom_box2" style="margin-bottom: 0">
@@ -130,7 +130,7 @@
 							 嵌套太多层,建议直接使用mescroll-uni最简单 
 							 -->
 			<!-- 第一步: 给mescroll-body的组件添加: ref="mescrollItem" (固定的,不可改,与mescroll-comp.js对应)-->
-			<MescrollMoreItemGoods ref="mescrollItem" :stickyTop="stickyTop"></MescrollMoreItemGoods>
+			<MescrollMoreItemGoods ref="mescrollItem"></MescrollMoreItemGoods>
 		</view>
 	</view>
 </template>
@@ -138,7 +138,6 @@
 <script>
 import MescrollMoreItemShop from './mescroll-more-item-shop.vue'
 import MescrollMoreItemGoods from './mescroll-more-item-goods.vue'
-// import MescrollMoreMixin from '@/components/mescroll-uni/mixins/mescroll-more.js'
 // 第二步: 引入mescroll-comp.js
 import MescrollCompMixin from '@/components/mescroll-uni/mixins/mescroll-comp.js'
 import { gridData } from '@/api/mock/data.js'
