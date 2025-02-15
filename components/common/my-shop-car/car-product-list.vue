@@ -4,8 +4,8 @@
 			<uni-icons type="trash" size="28" color="#858585" style="vertical-align: middle"></uni-icons>
 			清空购物车
 		</view>
-		<view v-if="dataList.length > 0">
-			<view class="product_item" v-for="(cell, cIndex) in dataList" :key="cIndex">
+		<view v-if="shopCarList.length > 0">
+			<view class="product_item" v-for="(cell, cIndex) in shopCarList" :key="cIndex">
 				<image :src="cell.img" mode="aspectFill" class="product_img"></image>
 				<view :class="type === 'product' ? 'prodcut_info' : 'prodcut_info2'">
 					<view class="name">
@@ -24,7 +24,11 @@
 								@click="clickDelete(cell)"
 							></image>
 							<text v-if="cell.count && cell.count > 0" class="num">{{ cell.count }}</text>
-							<image class="img" src="https://oss.ruikedz.com/51life/static/images/shop/btn_add@2x.png" @click="clickAdd(cell)"></image>
+							<image
+								class="img"
+								src="https://oss.ruikedz.com/51life/static/images/shop/btn_add@2x.png"
+								@click="clickAdd(cell)"
+							></image>
 						</view>
 					</view>
 				</view>
@@ -44,6 +48,8 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+
 export default {
 	props: {
 		list: {
@@ -63,39 +69,35 @@ export default {
 			carList: []
 		}
 	},
+	computed: {
+		shopCarList() {
+			console.log(this.$store.getters.shopCarList)
+			return this.$store.getters.shopCarList
+		}
+	},
 	methods: {
 		clickAdd(item) {
 			item.count = item.count ? item.count : 0
 			item.count++
 			this.$set(item, 'count', item.count)
-			// 添加购物车
-			// 通过商品id来判断，相同count+1,不同就push
-			const goods = this.carList.find((res) => res.goodsId === item.goodsId)
-			if (!goods) {
-				this.carList.push(item)
-			}
-			console.log('this.carList:::::::', this.carList)
-			this.$store.dispatch('updateShopCarList', this.carList)
 		},
 		clickDelete(item) {
 			item.count--
 			this.$set(item, 'count', item.count)
 			// 将数量为0的商品移除购物车
-			const goodsIndex = this.carList.findIndex((res) => res.count === 0)
+			const goodsIndex = this.shopCarList.findIndex((res) => res.count === 0)
 			if (goodsIndex !== -1) {
-				this.carList.splice(goodsIndex, 1)
+				this.shopCarList.splice(goodsIndex, 1)
 			}
-			this.$store.dispatch('updateShopCarList', this.carList)
 		},
 		clearShopCar() {
 			this.$store.dispatch('updateShopCarList', [])
 		}
 	},
 	watch: {
-		list: {
+		shopCarList: {
 			handler: function (val) {
-				this.dataList = [...val]
-				this.carList = [...val]
+				console.log(val)
 			},
 			immediate: true,
 			deep: true

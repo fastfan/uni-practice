@@ -76,7 +76,8 @@ export default {
 			}
 		},
 		change(e) {
-			console.log(e)
+			// console.log(e)
+			this.$emit('change', e)
 		}
 	},
 	mounted() {

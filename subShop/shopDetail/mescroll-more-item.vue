@@ -48,28 +48,7 @@ export default {
 		},
 		height: [Number, String] // mescroll的高度
 	},
-	watch: {
-		carList: {
-			handler: function (val) {
-				// console.log('val::::::::::', val)
-				// console.log('this.goods:::::::::', this.goods)
-				// val.forEach((_t) => {
-				// 	this.goods.forEach((_m) => {
-				// 		if (_t.goodsId === _m.goodsId) {
-				// 			_m.count = _t.count
-				// 		}
-				// 	})
-				// })
-			},
-			deep: true
-		},
-		goods: {
-			handler: function (val) {
-				// console.log('val::::::::::', val)
-			},
-			deep: true
-		}
-	},
+	watch: {},
 	computed: {
 		carList() {
 			return this.$store.getters.shopCarList

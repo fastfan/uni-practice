@@ -48,7 +48,8 @@ export default {
 	},
 	data() {
 		return {
-			dataList: []
+			dataList: [],
+			carList: []
 		}
 	},
 	methods: {
@@ -76,10 +77,23 @@ export default {
 			this.$store.dispatch('updateShopCarList', carList)
 		}
 	},
+	computed: {
+		shopCarList() {
+			// console.log(this.$store.getters.shopCarList)
+			return this.$store.getters.shopCarList
+		}
+	},
 	watch: {
 		list: {
 			handler: function (val) {
 				this.dataList = [...val]
+			},
+			immediate: true,
+			deep: true
+		},
+		shopCarList: {
+			handler: function (val) {
+				console.log(val)
 			},
 			immediate: true,
 			deep: true

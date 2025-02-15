@@ -29,7 +29,7 @@
 					lineScale="0.3"
 				></my-tabs>
 			</view>
-			<view v-show="currentTab == 0">
+			<view v-if="currentTab == 0">
 				<!-- 菜品区域 -->
 				<view class="cate_content">
 					<scroll-view
@@ -39,14 +39,19 @@
 						:style="{ height: scrollHeight + 'px', top: stickyTop + 'px' }"
 					>
 						<view class="menu_item">
-							<my-aside-bar ref="myAsideBar" :currentIndex="currentIndex" :list="productList" @change="onChangeCate"></my-aside-bar>
+							<my-aside-bar
+								ref="myAsideBar"
+								:currentIndex="currentIndex"
+								:list="productList"
+								@change="onChangeCate"
+							></my-aside-bar>
 						</view>
 					</scroll-view>
 					<view class="right">
 						<view class="item">
 							<swiper :style="{ height: '100vh' }" :current="currentIndex" @change="swiperChange">
 								<swiper-item v-for="(tab, i) in productList" :key="i">
-									<mescroll-item ref="mescrollItem" :i="i" :index="currentIndex" :height="'100vh'"></mescroll-item>
+									<mescroll-item :ref="'mescrollItem' + i" :i="i" :index="currentIndex" :height="'100vh'"></mescroll-item>
 								</swiper-item>
 							</swiper>
 							<!-- 	<view class="title sticky_title" :style="{ top: stickyTop + 'px', zIndex: 999 }">
@@ -67,17 +72,17 @@
 			</view>
 
 			<!-- 评论 -->
-			<view class="" v-show="currentTab == 1">
+			<view class="" v-if="currentTab == 1">
 				<detail-comment-vue :list="commentList"></detail-comment-vue>
 			</view>
 			<!-- 商家信息 -->
-			<view class="" v-show="currentTab == 2">
+			<view class="" v-if="currentTab == 2">
 				<detail-mechant-vue></detail-mechant-vue>
 			</view>
 		</view>
 
 		<!-- 底部区域 -->
-		<my-shop-car v-if="currentTab == 0"></my-shop-car>
+		<my-shop-car v-if="currentTab == 0" @change="change"></my-shop-car>
 	</view>
 </template>
 
@@ -268,6 +273,28 @@ export default {
 		// 轮播菜单
 		swiperChange(e) {
 			this.currentIndex = e.detail.current
+		},
+		change(e) {
+			console.log(e)
+			if (!e.show) {
+				// console.log(this.$store.getters.shopCarList)
+				const shopCarList = this.$store.getters.shopCarList
+				// console.log(this.$refs)
+				const goodsList = this.$refs['mescrollItem' + this.currentIndex][0].goods
+				const carList = this.$refs['mescrollItem' + this.currentIndex][0].carList
+				shopCarList.forEach((_x) => {
+					goodsList.forEach((_y) => {
+						if (_x.goodsId === _y.goodsId) {
+							_y.count = _x.count
+						}
+					})
+					carList.forEach((_z) => {
+						if (_x.goodsId === _z.goodsId) {
+							_z.count = _x.count
+						}
+					})
+				})
+			}
 		}
 	}
 }
