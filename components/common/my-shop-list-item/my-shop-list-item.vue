@@ -90,13 +90,6 @@ export default {
 			},
 			immediate: true,
 			deep: true
-		},
-		shopCarList: {
-			handler: function (val) {
-				console.log(val)
-			},
-			immediate: true,
-			deep: true
 		}
 	},
 	mounted() {}

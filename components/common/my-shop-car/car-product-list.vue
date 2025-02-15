@@ -71,7 +71,7 @@ export default {
 	},
 	computed: {
 		shopCarList() {
-			console.log(this.$store.getters.shopCarList)
+			// console.log(this.$store.getters.shopCarList)
 			return this.$store.getters.shopCarList
 		}
 	},
@@ -97,7 +97,7 @@ export default {
 	watch: {
 		shopCarList: {
 			handler: function (val) {
-				console.log(val)
+				// console.log(val)
 			},
 			immediate: true,
 			deep: true

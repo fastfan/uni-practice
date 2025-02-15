@@ -232,9 +232,12 @@ export default {
 			console.log('this.priceValue：：：：', this.priceValue)
 			console.log('this.salesValue：：：：', this.salesValue)
 		},
-		// 商家点击
+		// 商家列表点击
 		onClickShopList(data) {
-			console.log('商家：：：：：', data)
+			console.log('商家列表：：：：：', data)
+			uni.navigateTo({
+				url: `/subShop/shopDetail/shopDetail?shopType=${data.type}`
+			})
 		},
 		upCallback(page) {
 			//联网加载数据

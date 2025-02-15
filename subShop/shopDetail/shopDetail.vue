@@ -29,7 +29,7 @@
 					lineScale="0.3"
 				></my-tabs>
 			</view>
-			<view v-if="currentTab == 0">
+			<view v-if="currentTab == 0 && shopType === 'normal'">
 				<!-- 菜品区域 -->
 				<view class="cate_content">
 					<scroll-view
@@ -70,7 +70,16 @@
 					</view>
 				</view>
 			</view>
-
+			<view v-if="currentTab == 0 && shopType !== 'normal'">
+				<!-- 菜品区域 -->
+				<view class="cate_content">
+					<view class="right">
+						<view class="item">
+							<mescroll-item ref="mescrollItem" :i="0" :index="0" :height="'100vh'"></mescroll-item>
+						</view>
+					</view>
+				</view>
+			</view>
 			<!-- 评论 -->
 			<view class="" v-if="currentTab == 1">
 				<detail-comment-vue :list="commentList"></detail-comment-vue>
@@ -96,6 +105,7 @@ export default {
 	components: { DetailHeadVue, DetailMechantVue, DetailCommentVue, MescrollItem },
 	data() {
 		return {
+			shopType: 'normal',
 			opacity: '',
 			currentTab: 0,
 			shopCarCount: 0,
@@ -161,34 +171,37 @@ export default {
 		// 	}
 		// }
 	},
-	onLoad() {
+	onLoad(option) {
 		this.$nextTick(() => {
+			console.log('option:::::', option)
+			this.shopType = option.shopType
 			const midAreaTop = 212 // 距离顶部距离
 			const midAreaHeight = 378 // 自身高度
 			const midAreaHeightMarginBottom = 24 // 下外边距
 			this.topHeight = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 			this.topHeight2 = uni.rpx2px(midAreaTop + midAreaHeight + midAreaHeightMarginBottom) + 'px'
 			const query = uni.createSelectorQuery().in(this)
-			query
-				.selectAll('.area_height')
-				.boundingClientRect((data) => {
-					if (data) {
-						this.allAreaHeight = 0 //需要减去的区域高度
-						let addHeight = 0 //不需要减去的总高度
-						for (var i = 0; i < data.length; i++) {
-							if (data[i].dataset.type == '1') {
-								// type = 1 是需要减去的区域  type = 2 是不需要减去的区域
-								this.allAreaHeight += data[i].height //计算顶部总区域高度
-							} else {
-								addHeight += data[i].height
+			if (this.shopType === 'normal') {
+				query
+					.selectAll('.area_height')
+					.boundingClientRect((data) => {
+						if (data) {
+							this.allAreaHeight = 0 //需要减去的区域高度
+							let addHeight = 0 //不需要减去的总高度
+							for (var i = 0; i < data.length; i++) {
+								if (data[i].dataset.type == '1') {
+									// type = 1 是需要减去的区域  type = 2 是不需要减去的区域
+									this.allAreaHeight += data[i].height //计算顶部总区域高度
+								} else {
+									addHeight += data[i].height
+								}
 							}
+							//左侧菜单可滚动的高度 = 屏幕窗口总高度 - 需要减去的区域高度 + 不需要减去的区域高度 + 18;
+							this.scrollHeight = this.windowHeight - this.navBarHeight - 88
 						}
-						//左侧菜单可滚动的高度 = 屏幕窗口总高度 - 需要减去的区域高度 + 不需要减去的区域高度 + 18;
-						this.scrollHeight = this.windowHeight - this.navBarHeight - 88
-					}
-				})
-				.exec()
-
+					})
+					.exec()
+			}
 			//自定义顶部导航的时候 计算吸顶的距离
 			query
 				.select('.tabs')
@@ -199,10 +212,11 @@ export default {
 					}
 				})
 				.exec()
-
-			setTimeout(() => {
-				this.getTop()
-			}, 300)
+			if (option.shopType === 'normal') {
+				setTimeout(() => {
+					this.getTop()
+				}, 300)
+			}
 		})
 	},
 	methods: {
@@ -221,7 +235,7 @@ export default {
 		 */
 		getTop() {
 			// console.log(this.$refs.myAsideBar)
-			const query = uni.createSelectorQuery().in(this)
+			// const query = uni.createSelectorQuery().in(this)
 			const query2 = uni.createSelectorQuery().in(this.$refs.myAsideBar)
 			query2
 				.select('.menu_name')

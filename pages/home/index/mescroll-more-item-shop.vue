@@ -40,7 +40,7 @@ export default {
 		onClickShopList(data) {
 			console.log('商家列表：：：：：', data)
 			uni.navigateTo({
-				url: '/subShop/shopDetail/shopDetail'
+				url: `/subShop/shopDetail/shopDetail?shopType=${data.type}`
 			})
 		},
 		upCallback(page) {
