@@ -23,6 +23,7 @@ export default {
 		return {
 			// 上拉加载的配置(可选, 绝大部分情况无需配置)
 			upOption: {
+				toTop: { src: '', width: 0 },
 				page: {
 					size: 10 // 每页数据的数量,默认10
 				},

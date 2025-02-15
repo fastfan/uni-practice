@@ -67,7 +67,7 @@ export function apiGoods(pageNum, pageSize, keyword) {
 
 				// 符合关键词的记录
 				let keywordList = [];
-				if (!keyword || keyword == "全部") {
+				if (!keyword || keyword == "推荐") {
 					// 搜索全部商品
 					keywordList = goods;
 				} else {

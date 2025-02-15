@@ -156,6 +156,9 @@ export default {
 				height: 334rpx !important;
 				width: 100%;
 				margin-bottom: 12rpx;
+				border-radius: 20rpx;
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
 			}
 		}
 		.content-top {
@@ -216,6 +219,9 @@ export default {
 					width: 164rpx;
 					height: 164rpx;
 					margin: 0 18rpx 0 0;
+					border-radius: 20rpx;
+					border-bottom-left-radius: 0;
+					border-bottom-right-radius: 0;
 				}
 				.lefttop {
 					padding-top: 0;

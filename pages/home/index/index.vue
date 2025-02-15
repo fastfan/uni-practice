@@ -112,25 +112,22 @@
 					<uni-icons type="right" size="16"></uni-icons>
 				</view>
 			</view>
-			<view class="bottom_box_panelmid2 flex_box" :style="{ padding: '0 20rpx' }">
-				<view class="item" v-for="item in 4" :key="item">
-					<view class="flex_box flex_direction" v-if="item === 0">
-						<view class="texts">精选</view>
-						<view class="texts2">为您精选</view>
-					</view>
-					<view class="" v-else>
-						<view class="text">果蔬</view>
-						<view class="text2">地方特产</view>
-					</view>
-				</view>
+			<view class="bottom_box_panelmid2">
+				<my-tabs
+					:tabs="list2"
+					field="name"
+					v-model="currentTab2"
+					@change="tabClick2"
+					height="112rpx"
+					lineColor="#F3483C"
+					activeColor="#F3483C"
+					activeFontSize="36rpx"
+					fontSize="30rpx"
+				></my-tabs>
 			</view>
-			<!-- 
-							 mescroll-body写在一层子组件时, 需引入mescroll-comp.js, 给子组件添加ref="mescrollItem",
-							 当mescroll-body写在子子..子组件时, 需每层子组件都引入mescroll-comp.js, 添加ref="mescrollItem",
-							 嵌套太多层,建议直接使用mescroll-uni最简单 
-							 -->
-			<!-- 第一步: 给mescroll-body的组件添加: ref="mescrollItem" (固定的,不可改,与mescroll-comp.js对应)-->
-			<MescrollMoreItemGoods ref="mescrollItem"></MescrollMoreItemGoods>
+			<view class="bottom_box_panellist bottom_box2_panellist">
+				<MescrollMoreItemGoods ref="mescrollItem" :index="currentTab2" :tabs="list2"></MescrollMoreItemGoods>
+			</view>
 		</view>
 	</view>
 </template>
@@ -138,11 +135,11 @@
 <script>
 import MescrollMoreItemShop from './mescroll-more-item-shop.vue'
 import MescrollMoreItemGoods from './mescroll-more-item-goods.vue'
-// 第二步: 引入mescroll-comp.js
-import MescrollCompMixin from '@/components/mescroll-uni/mixins/mescroll-comp.js'
+import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
+import MescrollMoreItemMixin from '@/components/mescroll-uni/mixins/mescroll-more-item.js'
 import { gridData } from '@/api/mock/data.js'
 export default {
-	mixins: [MescrollCompMixin],
+	mixins: [MescrollMixin, MescrollMoreItemMixin], // 注意此处还需使用MescrollMoreItemMixin (必须写在MescrollMixin后面)
 	components: {
 		MescrollMoreItemShop,
 		MescrollMoreItemGoods
@@ -177,9 +174,37 @@ export default {
 			statusBarHeight: getApp().globalData.statusBarHeight,
 			navBarHeight: getApp().globalData.navBarHeight,
 			currentTab: 0,
+			currentTab2: 0,
 			titleStyle: { fontWeight: 500, fontSize: '36rpx', color: '#333333' },
 			bgColor: '#FEC0BC',
 			list: [
+				{
+					id: 1,
+					name: '商超购物'
+					// disabled: true
+				},
+				{
+					id: 2,
+					name: '美食餐饮'
+					// disabled: true
+				},
+				{
+					id: 3,
+					name: '家政服务'
+					// disabled: true
+				},
+				{
+					id: 4,
+					name: '出租车服务'
+					// disabled: true
+				}
+			],
+			list2: [
+				{
+					id: 1,
+					name: '推荐'
+					// disabled: true
+				},
 				{
 					id: 1,
 					name: '商超购物'
@@ -283,6 +308,14 @@ export default {
 			console.log(index)
 			this.currentTab = index
 		},
+		tabClick2(index) {
+			// console.log(index)
+			this.currentTab2 = index
+			this.$nextTick(() => {
+				this.$refs.mescrollItem.dataList = [] // 先置空列表,显示加载进度
+				this.$refs.mescrollItem.mescroll.resetUpScroll() // 再刷新列表数据
+			})
+		},
 		itemTap(item) {
 			console.log(item)
 		},
@@ -338,64 +371,24 @@ export default {
 				}
 			}
 		},
-		/*上拉加载的回调: 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10 */
-		upCallback(page) {
-			// 此处可以继续请求其他接口
-			// if(page.num == 1){
-			// 	// 请求其他接口...
-			// }
-
-			// 如果希望先请求其他接口,再触发upCallback,可参考以下写法
-			// if(!this.isInitxx){
-			// 	apiGetxx().then(res=>{
-			// 		this.isInitxx = true
-			// 		this.mescroll.resetUpScroll() // 重新触发upCallback
-			// 	}).catch(()=>{
-			// 		this.mescroll.endErr()
-			// 	})
-			// 	return // 此处return,先获取xx
-			// }
-
-			//联网加载数据
-			apiGoods(page.num, page.size)
-				.then((res) => {
-					console.log(page)
-					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
-					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
-
-					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
-					//this.mescroll.endByPage(res.list.length, totalPage); //必传参数(当前页的数据个数, 总页数)
-
-					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-					//this.mescroll.endBySize(res.list.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
-
-					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-					//this.mescroll.endSuccess(res.list.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
-
-					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据
-					this.mescroll.endSuccess(res.list.length)
-
-					//设置列表数据
-					if (page.num == 1) {
-						this.dataList = [] //如果是第一页需手动制空列表
-					}
-
-					this.dataList = this.dataList.concat(res.list) //追加新数据
-					if (page.num == 1) {
-						this.dataList.splice(1, 0, {
-							id: '',
-							goodImg: '/static/images/home/ruzhu_banner@2x.png',
-							goodName: '',
-							goodPrice: '',
-							goodSold: '',
-							type: 'insert'
-						})
+		jumpToLogin() {
+			if (!this.$tui.isLogin()) {
+				uni.showModal({
+					title: '提示',
+					content: '为了您更好的体验，请先前往登录！',
+					cancelText: '稍后登录',
+					confirmText: '立即登录',
+					success: (res) => {
+						if (res.confirm) {
+							uni.navigateTo({
+								url: '/pages/login/login'
+							})
+						}
 					}
 				})
-				.catch(() => {
-					//联网失败, 结束加载
-					this.mescroll.endErr()
-				})
+				return false
+			}
+			return true
 		},
 		requestData() {}
 	},
