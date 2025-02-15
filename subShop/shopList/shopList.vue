@@ -14,21 +14,21 @@
 			<my-dropdown-item v-model="salesValue" dropdownKey="sales" :options="salesOptions" type="radioBlock"></my-dropdown-item>
 		</my-dropdown>
 		<view class="sub-shop-list-item">
-			<mescroll-body @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
+			<mescroll-uni top="213px" @init="mescrollInit" @down="downCallback" @up="upCallback" :up="upOption">
 				<my-shop-list :dataList="shopList" @onClickEvent="onClickShopList"></my-shop-list>
-			</mescroll-body>
+			</mescroll-uni>
 		</view>
 	</view>
 </template>
 
 <script>
 import MescrollMixin from '@/components/mescroll-uni/mescroll-mixins.js'
-import MescrollBody from '@/components/mescroll-uni/mescroll-body.vue'
+import MescrollUni from '@/components/mescroll-uni/mescroll-uni.vue'
 import { apiShopsList } from '@/api/mock/mock.js'
 export default {
 	mixins: [MescrollMixin],
 	components: {
-		MescrollBody
+		MescrollUni
 	},
 	data() {
 		return {
