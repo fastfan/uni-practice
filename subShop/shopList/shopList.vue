@@ -3,7 +3,7 @@
 		<uni-nav-bar title="商家列表" left-icon="left" @clickLeft="leftClick" :statusBar="true" :fixed="true" :border="false" />
 		<view class="search-con">
 			<view class="search">
-				<image class="img" src="/static/images/home/ic_search@2x.png" mode=""></image>
+				<image class="img" src="https://oss.ruikedz.com/51life/static/images/home/ic_search@2x.png" mode=""></image>
 				<input type="text" class="search-input" placeholder="请输入商品名称" v-model="searchKeyValue" />
 				<!-- <view class="search-btn" @click="onClickSearchValue">搜索</view> -->
 			</view>
@@ -228,15 +228,6 @@ export default {
 		},
 		change(e) {
 			console.log('change：：：：', e)
-			// if (e.dropdownKey === 'synthesis') {
-			// 	this.synthesisValue = e.value
-			// }
-			// if (e.dropdownKey === 'price') {
-			// 	this.priceValue = e.data.secondKey.value
-			// }
-			// if (e.dropdownKey === 'sales') {
-			// 	this.salesValue = e.data.firstKey.value
-			// }
 			console.log('this.synthesisValue：：：：', this.synthesisValue)
 			console.log('this.priceValue：：：：', this.priceValue)
 			console.log('this.salesValue：：：：', this.salesValue)
@@ -273,10 +264,15 @@ export default {
 <style lang="scss" scoped>
 .sub-shop-list {
 	background: #f2f2f2;
+	::v-deep .uni-nav-bar-text {
+		font-weight: 500 !important;
+		font-size: 36rpx !important;
+	}
+	::v-deep .uniui-left {
+		font-size: 46rpx !important;
+	}
 	&-item {
 		padding: 24rpx;
-		// height: calc(100vh - 420rpx);
-		// overflow-y: scroll;
 	}
 	.search-con {
 		margin: 22rpx 0 34rpx 0;
@@ -327,5 +323,14 @@ export default {
 			margin-left: 20rpx;
 		}
 	}
+}
+// ::v-deep .my-shop-list {
+// 	margin: 0 24rpx;
+// }
+.sticky-item {
+	z-index: 990;
+	position: sticky;
+	top: 0;
+	// background-color: #fff;
 }
 </style>

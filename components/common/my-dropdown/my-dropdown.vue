@@ -22,11 +22,7 @@
 								class="my_dropdown__menu__item__text"
 								v-if="item.title"
 								:style="{
-									color: item.disabled
-										? '#c0c4cc'
-										: index === current || highlightIndex == index
-										? activeColor
-										: inactiveColor,
+									color: item.disabled ? '#c0c4cc' : index === current || highlightIndex == index ? activeColor : inactiveColor,
 									fontSize: `${titleSize}rpx`
 								}"
 							>
@@ -197,18 +193,16 @@ export default {
 			this.titleHeight = uni.upx2px(this.height)
 		})
 		this.$on('change', (data) => {
-			// console.log(111111111111, data)
-			// console.log(222222, this.$parent)
 			if (data.cancel) return
 			const menuList = this.$parent.menuList
 			menuList.forEach((item) => {
 				if (item.dropdownKey === data.dropdownKey) {
 					if (data.label) {
 						item.title = data.label
-					} else if (data.data.secondKey) {
-						item.title = data.data.secondKey.label
+					} else if (data.secondKey) {
+						item.title = data.secondKey.label
 					} else {
-						item.title = data.data.firstKey.label
+						item.title = data.firstKey.label
 					}
 				}
 			})
@@ -223,7 +217,6 @@ export default {
 			if (index == this.current && this.closeOnClickSelf) {
 				return this.close()
 			}
-
 			clearTimeout(this.timers)
 			this.timers = setTimeout(() => {
 				this.open(index, dropdownKey)
@@ -239,11 +232,8 @@ export default {
 			this.active = true
 			this.current = index
 			this.currentKey = dropdownKey
-
 			this.getContentHeight()
-
 			this.childList.forEach((item) => item.init())
-
 			this.$emit('open', this.current)
 		},
 		// 设置下拉菜单处于收起状态
@@ -253,7 +243,6 @@ export default {
 			this.active = false
 			this.current = 99999
 			this.currentKey = ''
-
 			// #ifndef MP
 			this.childList = []
 			// #endif
@@ -271,7 +260,8 @@ export default {
 		// 获取下拉菜单内容的高度
 		getContentHeight() {
 			// #ifdef APP-NVUE
-			uni.createSelectorQuery()
+			uni
+				.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -284,7 +274,8 @@ export default {
 			// #endif
 
 			// #ifdef H5
-			uni.createSelectorQuery()
+			uni
+				.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -297,7 +288,8 @@ export default {
 			// #endif
 
 			// #ifndef APP-NVUE || H5
-			uni.createSelectorQuery()
+			uni
+				.createSelectorQuery()
 				.in(this)
 				.select('.my_dropdown__menu')
 				.boundingClientRect((rect) => {
