@@ -88,6 +88,14 @@
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
 					}
+				},
+				{
+					"path": "shopSettled/shopSettled",
+					"style": {
+						"navigationBarTitleText": "商家入驻",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
 				}
 			]
 		},

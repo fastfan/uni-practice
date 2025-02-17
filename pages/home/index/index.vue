@@ -60,7 +60,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="top_banner flex_box flex_row_between padding_24">
+		<view class="top_banner flex_box flex_row_between padding_24" @click="jump('shopSettled')">
 			<image class="img" src="/static/images/home/banner_ruzhu@2x.png" mode="widthFix"></image>
 		</view>
 		<view class="mid_box">
@@ -295,6 +295,10 @@ export default {
 			} else if (type === 'searchHistory') {
 				uni.navigateTo({
 					url: `/subHome/${type}/${type}`
+				})
+			} else if (type === 'shopSettled') {
+				uni.navigateTo({
+					url: `/subShop/${type}/${type}`
 				})
 			}
 		},
