@@ -24,11 +24,7 @@
 								@click="clickDelete(cell)"
 							></image>
 							<text v-if="cell.count && cell.count > 0" class="num">{{ cell.count }}</text>
-							<image
-								class="img"
-								src="https://oss.ruikedz.com/51life/static/images/shop/btn_add@2x.png"
-								@click="clickAdd(cell)"
-							></image>
+							<image class="img" src="https://oss.ruikedz.com/51life/static/images/shop/btn_add@2x.png" @click="clickAdd(cell)"></image>
 						</view>
 					</view>
 				</view>
@@ -48,8 +44,6 @@
 </template>
 
 <script>
-import { computed } from 'vue'
-
 export default {
 	props: {
 		list: {

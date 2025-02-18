@@ -4,7 +4,7 @@ import getters from './getters'
 import user from './modules/user.js'
 import base from './modules/base.js'
 import share from './modules/share.js'
-import shopCar from './modules/shopCar.js'
+import shopDetail from './modules/shopDetail.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,7 +12,7 @@ export default new Vuex.Store({
 		user,
 		base,
 		share,
-		shopCar
+		shopDetail
 	},
 	state: {
 
