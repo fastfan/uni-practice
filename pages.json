@@ -110,6 +110,30 @@
 							"time-range": "/subComponents/components/common/time-range/time-range"
 						}
 					}
+				},
+				{
+					"path": "addressSelect/addressSelect",
+					"style": {
+						"navigationBarTitleText": "选择收货地址",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "addressManage/addressManage",
+					"style": {
+						"navigationBarTitleText": "收货地址管理",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "addressEdit/addressEdit",
+					"style": {
+						"navigationBarTitleText": "编辑收货地",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
 				}
 			]
 		},

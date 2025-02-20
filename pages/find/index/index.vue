@@ -4,6 +4,8 @@
 		<uni-nav-bar title="发现" left-icon=" " :statusBar="true" :fixed="true" :border="false" />
 		<city-vue></city-vue>
 		<map style="width: 100%; height: 300px" :latitude="latitude" :longitude="longitude" :markers="covers"></map>
+		<view @click="clickAddress('addressSelect')">选择收货地址</view>
+		<view @click="clickAddress('addressManage')">收货地址管理</view>
 	</view>
 	<!-- <PosterModel :painterProps="posterList[currentIndex]" /> -->
 </template>
@@ -93,6 +95,11 @@ export default {
 		aaa() {
 			console.log(22222)
 			this.show = true
+		},
+		clickAddress(type) {
+			uni.navigateTo({
+				url: `/subShop/${type}/${type}`
+			})
 		}
 	}
 }
