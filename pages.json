@@ -96,6 +96,20 @@
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
 					}
+				}, {
+					"path": "shopSettledApplication/shopSettledApplication",
+					"style": {
+						"navigationBarTitleText": "商家入驻申请",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom",
+						"componentPlaceholder": {
+							//view在这里起到一个占位符的作用，这样可以解决找不到引入文件的问题。
+							"time-range": "view"
+						},
+						"usingComponents": {
+							"time-range": "/subComponents/components/common/time-range/time-range"
+						}
+					}
 				}
 			]
 		},
@@ -110,6 +124,12 @@
 		{
 			"root": "subMy",
 			"pages": []
+		},
+		{
+			"root": "subComponents/components",
+			"pages": [{
+				"path": "common/time-range/time-range"
+			}]
 		}
 	],
 	// "preloadRule": {
