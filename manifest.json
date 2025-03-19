@@ -75,6 +75,7 @@
 	"mp-toutiao": {
 		"usingComponents": true
 	},
+	"sassImplementationName": "node-sass",
 	"uniStatistics": {
 		"enable": false
 	},

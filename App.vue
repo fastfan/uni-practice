@@ -43,7 +43,7 @@ export default {
 <style lang="scss">
 /*每个页面公共css */
 @import '@/uni_modules/uview-ui/index.scss';
-@import '@/common/public.css';
+@import '@/common/public.scss';
 
 * {
 	user-select: none;

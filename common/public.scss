@@ -16,13 +16,13 @@ radio {
 }
 
 body {
-	background-color: $u-bg-color;
+	background-color: #f2f2f2;
 	font-size: 28rpx;
-	color: $u-text-main;
+	color: #333;
 }
 
 page {
-	background-color: #F8F6F5;
+	background-color: #f8f6f5;
 	font-size: 32rpx;
 	font-weight: 350;
 	width: 100%;
@@ -77,7 +77,7 @@ button::after {
 
 /* 全局改变picker自定义picker的确定按钮样式 */
 .uni-picker-action-confirm {
-	color: #FF7E7B !important;
+	color: #ff7e7b !important;
 }
 
 /* 防止ios用户修改微信字体大小导致界面错乱 */
@@ -179,7 +179,6 @@ img {
 	overflow-y: scroll;
 }
 
-
 /* 分列式弹性盒子，以X轴从左到右排列 */
 .h-flex-x {
 	width: 100%;
@@ -233,14 +232,14 @@ img {
 	/* 等比分列，2-6列 */
 	@for $i from 2 through 6 {
 		&.h-flex-#{$i} {
-			&>view {
+			& > view {
 				width: (100% / $i);
 			}
 		}
 	}
 
 	/* 弹性元素 */
-	&>.h-flex-item-grow {
+	& > .h-flex-item-grow {
 		flex-grow: 1;
 		width: 0;
 	}
@@ -292,14 +291,14 @@ img {
 	/* 等比分行，2-6行 */
 	@for $i from 2 through 6 {
 		&.h-flex-#{$i} {
-			&>view {
+			& > view {
 				height: (100% / $i);
 			}
 		}
 	}
 
 	/* 弹性元素 */
-	&>.h-flex-item-grow {
+	& > .h-flex-item-grow {
 		flex-grow: 1;
 		height: 0;
 	}
