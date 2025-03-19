@@ -182,21 +182,6 @@ export default {
 					id: 1,
 					name: '商超购物'
 					// disabled: true
-				},
-				{
-					id: 2,
-					name: '美食餐饮'
-					// disabled: true
-				},
-				{
-					id: 3,
-					name: '家政服务'
-					// disabled: true
-				},
-				{
-					id: 4,
-					name: '出租车服务'
-					// disabled: true
 				}
 			],
 			list2: [
