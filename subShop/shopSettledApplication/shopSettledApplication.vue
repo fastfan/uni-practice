@@ -63,7 +63,14 @@
 			</uni-group>
 			<uni-group top="14" class="myform-group" title="基础信息填写">
 				<uni-forms-item label="营业时间：" name="time" required label-position="left" labelWidth="90" labelClass="custom-label">
-					<input type="text" disabled="" class="common-input" v-model="formData.time" placeholder="请选择营业时间" @click="show('time')" />
+					<input
+						type="text"
+						disabled=""
+						class="common-input"
+						v-model="formData.time"
+						placeholder="请选择营业时间"
+						@click="show('time')"
+					/>
 				</uni-forms-item>
 				<uni-forms-item label="人均消费：" name="cash" required label-position="left" labelWidth="90" labelClass="custom-label">
 					<input type="tel" class="common-input" v-model="formData.cash" placeholder="请输入人均消费" />
@@ -177,7 +184,7 @@
 </template>
 
 <script>
-import chinaAddress from '@/api/mock/citydata'
+import { chinaAddress } from '@/static/city.json'
 export default {
 	data() {
 		return {

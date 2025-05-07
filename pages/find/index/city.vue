@@ -15,7 +15,7 @@
 	<!-- </view> -->
 </template>
 <script>
-import chinaAddress from '@/api/mock/citydata'
+import { chinaAddress } from '@/static/city.json'
 export default {
 	name: 'selectAddress',
 	data() {

@@ -22,7 +22,11 @@
 								class="my_dropdown__menu__item__text"
 								v-if="item.title"
 								:style="{
-									color: item.disabled ? '#c0c4cc' : index === current || highlightIndex == index ? activeColor : inactiveColor,
+									color: item.disabled
+										? '#c0c4cc'
+										: index === current || highlightIndex == index
+										? activeColor
+										: inactiveColor,
 									fontSize: `${titleSize}rpx`
 								}"
 							>
@@ -32,11 +36,11 @@
 								class="my_dropdown__menu__item__arrow"
 								:style="{ transform: index === current ? 'scale(1) rotate(180deg)' : 'scale(1) rotate(0deg)' }"
 							>
-								<u-icon
+								<!-- 	<u-icon
 									:name="menuIcon"
 									:size="menuIconSize"
 									:color="index === current || highlightIndex == index ? activeColor : '#c0c4cc'"
-								/>
+								/> -->
 							</view>
 						</view>
 					</view>
@@ -260,8 +264,7 @@ export default {
 		// 获取下拉菜单内容的高度
 		getContentHeight() {
 			// #ifdef APP-NVUE
-			uni
-				.createSelectorQuery()
+			uni.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -274,8 +277,7 @@ export default {
 			// #endif
 
 			// #ifdef H5
-			uni
-				.createSelectorQuery()
+			uni.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -288,8 +290,7 @@ export default {
 			// #endif
 
 			// #ifndef APP-NVUE || H5
-			uni
-				.createSelectorQuery()
+			uni.createSelectorQuery()
 				.in(this)
 				.select('.my_dropdown__menu')
 				.boundingClientRect((rect) => {

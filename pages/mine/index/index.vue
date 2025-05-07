@@ -1,12 +1,9 @@
 <template>
 	<view class="user_center">
-		<u-navbar title="个人中心" :left-icon="' '" :is-back="false" :placeholder="true"></u-navbar>
 		<!-- 		<u-modal :show="show" :title="title" :content='content' showCancelButton="true" confirm-text="立即登录"
 			cancel-text="稍后登录" @cancel="cancel" @confirm="confirm"></u-modal> -->
 		<view class="user_center_top">
-			<view class="lt user_center_top_left">
-				<u-avatar :src="userInfo.headImgUrl" class="lt" :size="66"></u-avatar>
-			</view>
+			<view class="lt user_center_top_left"></view>
 			<view class="lt user_center_top_right" @click="savePageAsImage">
 				<view>{{ userInfo.nickname }}</view>
 				<view style="margin-top: 10rpx">{{ userInfo.phoneNumber }}</view>
@@ -24,7 +21,7 @@
 		</view>
 		<view class="user_center_mid">
 			<!-- <u--image src="/static/fenxiangzhuan@2x.png" width="100%" height="272rpx" @click="clickToShare"></u--image> -->
-			<u-button type="primary" class="user_center_mid_text" :plain="true" text="我的邀请弹窗" @click="clickInvite"></u-button>
+			<!-- 	<u-button type="primary" class="user_center_mid_text" :plain="true" text="我的邀请弹窗" @click="clickInvite"></u-button> -->
 		</view>
 		<view class="user_center_btm">
 			<my-shares></my-shares>

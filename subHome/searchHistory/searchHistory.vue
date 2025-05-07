@@ -13,7 +13,7 @@
 			<view class="search-con">
 				<view class="search">
 					<text class="search-text" @click="clickSelect">{{ selectVal }}</text>
-					<u-icon name="arrow-down-fill" size="12" style="margin-top: 16rpx" @click="clickSelect" />
+					<!-- <u-icon name="arrow-down-fill" size="12" style="margin-top: 16rpx" @click="clickSelect" /> -->
 					<text class="text2">|</text>
 					<input type="text" class="search-input" placeholder="请输入搜索内容" v-model="searchKeyValue" />
 					<view class="search-btn" @click="onClickSearchValue">搜索</view>

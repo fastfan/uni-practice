@@ -49,33 +49,18 @@
 					</scroll-view>
 					<view class="right">
 						<view class="item">
-							<swiper :style="{ height: '100vh' }" :current="currentIndex" @change="swiperChange">
-								<swiper-item v-for="(tab, i) in productList" :key="i">
-									<mescroll-item :ref="'mescrollItem' + i" :i="i" :index="currentIndex" :height="'100vh'"></mescroll-item>
-								</swiper-item>
-							</swiper>
 							<!-- 	<view class="title sticky_title" :style="{ top: stickyTop + 'px', zIndex: 999 }">
 														{{ item.name }}
 													</view> -->
 							<!-- <my-shop-list-item :list="item.list" :type="'product'"></my-shop-list-item> -->
 							<!-- 如果每个子组件布局一样, 则可使用v-for (注意v-for的ref="mescrollItem"必须是固定值)-->
-							<!-- <mescroll-item
+							<mescroll-item
 								ref="mescrollItem"
 								:key="index"
 								:i="index"
 								:type="'product'"
 								:index="currentIndex"
-							></mescroll-item> -->
-						</view>
-					</view>
-				</view>
-			</view>
-			<view v-if="currentTab == 0 && shopType !== 'normal'">
-				<!-- 菜品区域 -->
-				<view class="cate_content">
-					<view class="right">
-						<view class="item">
-							<mescroll-item ref="mescrollItem" :i="0" :index="0" :height="'100vh'"></mescroll-item>
+							></mescroll-item>
 						</view>
 					</view>
 				</view>
