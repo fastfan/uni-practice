@@ -35,26 +35,6 @@
 			}
 		},
 		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "登录",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/login/agreement",
-			"style": {
-				"navigationBarTitleText": "用户隐私协议",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/driving/driving",
-			"style": {
-				"navigationBarTitleText": "司机认证"
-			}
-		},
-		{
 			"path": "pages/benefit/slide/slide",
 			"style": {
 				"navigationBarTitleText": ""
@@ -63,14 +43,7 @@
 	],
 	"subPackages": [{
 			"root": "subHome",
-			"pages": [{
-				"path": "searchHistory/searchHistory",
-				"style": {
-					"navigationBarTitleText": "搜索聚合",
-					"enablePullDownRefresh": false,
-					"navigationStyle": "custom"
-				}
-			}]
+			"pages": []
 		},
 		{
 			"root": "subShop",
@@ -109,30 +82,6 @@
 						"usingComponents": {
 							"time-range": "/subComponents/components/common/time-range/time-range"
 						}
-					}
-				},
-				{
-					"path": "addressSelect/addressSelect",
-					"style": {
-						"navigationBarTitleText": "选择收货地址",
-						"enablePullDownRefresh": false,
-						"navigationStyle": "custom"
-					}
-				},
-				{
-					"path": "addressManage/addressManage",
-					"style": {
-						"navigationBarTitleText": "收货地址管理",
-						"enablePullDownRefresh": false,
-						"navigationStyle": "custom"
-					}
-				},
-				{
-					"path": "addressEdit/addressEdit",
-					"style": {
-						"navigationBarTitleText": "编辑收货地",
-						"enablePullDownRefresh": false,
-						"navigationStyle": "custom"
 					}
 				}
 			]

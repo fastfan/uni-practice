@@ -1,34 +1,6 @@
 <template>
 	<view class="user_center">
-		<!-- 		<u-modal :show="show" :title="title" :content='content' showCancelButton="true" confirm-text="立即登录"
-			cancel-text="稍后登录" @cancel="cancel" @confirm="confirm"></u-modal> -->
-		<view class="user_center_top">
-			<view class="lt user_center_top_left"></view>
-			<view class="lt user_center_top_right" @click="savePageAsImage">
-				<view>{{ userInfo.nickname }}</view>
-				<view style="margin-top: 10rpx">{{ userInfo.phoneNumber }}</view>
-			</view>
-			<!-- 	<view class="user_center_top_bot">
-				<view class="bot_text">
-					<view>{{ userInfo.integral || 0 }}</view>
-					<view>积分</view>
-				</view>
-				<view class="bot_text">
-					<view>1000</view>
-					<view>激励分</view>
-				</view>
-			</view> -->
-		</view>
-		<view class="user_center_mid">
-			<!-- <u--image src="/static/fenxiangzhuan@2x.png" width="100%" height="272rpx" @click="clickToShare"></u--image> -->
-			<!-- 	<u-button type="primary" class="user_center_mid_text" :plain="true" text="我的邀请弹窗" @click="clickInvite"></u-button> -->
-		</view>
-		<view class="user_center_btm">
-			<my-shares></my-shares>
-		</view>
-		<my-invite ref="myInvite" @close="closeEvent" @ensure="ensureEvent"></my-invite>
-		<!-- 	<u-button text="获取当前用户的司机信息" :plain="true" type="primary" @click="getDriverInfo">
-		</u-button> -->
+		<my-shares></my-shares>
 	</view>
 </template>
 
