@@ -19,14 +19,17 @@
 					</view>
 				</view>
 				<view class="car-right">
-					<button type="default" :class="[carLength > 0 ? '' : 'active', 'car-btn']">立即下单</button>
+					<button type="default" :class="[carLength > 0 ? '' : 'active', 'car-btn']" @click="onClickOrder" v-if="openingStatus == 0">
+						立即下单
+					</button>
+					<button type="default" class="active car-btn" v-else>歇业中</button>
 				</view>
 			</view>
 		</view>
 		<!-- 普通弹窗 -->
 		<uni-popup ref="popup" background-color="#fff" @change="change" borderRadius="24rpx 24rpx 0 0">
 			<view class="popup-content">
-				<carProductList :list="carList" />
+				<carProductList :list="carList" @add="addToShopCar" @reduce="reduceToShopCar" />
 			</view>
 		</uni-popup>
 	</view>
@@ -38,8 +41,21 @@ export default {
 	props: {
 		list: {
 			type: Array,
-			default: () => {
+			default() {
 				return []
+			}
+		},
+		totalAmount: {
+			type: String | Number,
+			default() {
+				return 0
+			}
+		},
+		openingStatus: {
+			type: String | Number,
+			default() {
+				//营业状态,0正常,1暂停
+				return 0
 			}
 		}
 	},
@@ -64,7 +80,8 @@ export default {
 		},
 		totalPrice() {
 			const carList = this.$store.getters.shopCarList
-			return carList.reduce((a, c) => a + c.count * c.price, 0)
+			const price = carList.reduce((a, c) => a + c.count * c.currentPrice, 0)
+			return parseFloat(price).toFixed(2)
 		}
 	},
 	methods: {
@@ -78,10 +95,21 @@ export default {
 		change(e) {
 			// console.log(e)
 			this.$emit('change', e)
+		},
+		onClickOrder() {
+			this.$emit('goToOrder')
+		},
+		async addToShopCar(item) {
+			console.log('item::::', item)
+			this.$parent.addToShopCar(item)
+		},
+		async reduceToShopCar(item) {
+			console.log('item::::', item)
+			this.$parent.reduceToShopCar(item)
 		}
 	},
 	mounted() {
-		console.log(this.carLength)
+		// console.log(this.carLength)
 	}
 }
 </script>
@@ -93,7 +121,7 @@ export default {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		z-index: 1000;
+		z-index: 999;
 		min-height: 136rpx;
 		// padding-bottom: constant(safe-area-inset-bottom);
 		// padding-bottom: env(safe-area-inset-bottom);
@@ -180,8 +208,9 @@ export default {
 		}
 	}
 	.popup-content {
-		margin-bottom: 136rpx;
-		height: 748rpx;
+		margin-bottom: 134rpx;
+		max-height: 906rpx;
+		overflow-y: scroll;
 	}
 }
 

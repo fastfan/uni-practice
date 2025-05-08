@@ -24,7 +24,7 @@
 					:style="{
 						color: current == i ? activeColor : color,
 						fontSize: current == i ? activeFontSize : fontSize,
-						fontWeight: bold && current == i ? 'bold' : '',
+						fontWeight: bold && current == i ? '500' : '400',
 						justifyContent: !scroll ? 'center' : '',
 						flex: scroll ? '' : 1,
 						padding: paddingItem
@@ -169,6 +169,7 @@ export default {
       startMicroTask(() => {
         // 没有列表的时候，不执行
         if (!this.tabs.length) return
+				// console.log(111111111)
         _this
           .createQueryHandler()
           .select(`#${this.getDomId}`)

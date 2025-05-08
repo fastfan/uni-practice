@@ -124,7 +124,7 @@ export default {
 		},
 		clickAddress(type) {
 			uni.navigateTo({
-				url: `/subShop/${type}/${type}`
+				url: `/subHome/${type}/${type}`
 			})
 		},
 		clickBack() {

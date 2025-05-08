@@ -1,14 +1,18 @@
 const shopDetail = {
 	state: {
 		shopCarList: [], // 购物车列表
-		shopType: 'normal' // 商家类型
+		storeType: 'normal', // 商家类型
+		shopFirstCategoryList: [], // 商家一级分类列表
 	},
 	mutations: {
 		SET_SHOP_CAR_LIST(state, shopCarList) {
 			state.shopCarList = shopCarList || []
 		},
-		SET_SHOP_TYPE(state, shopType) {
-			state.shopType = shopType || []
+		SET_SHOP_TYPE(state, storeType) {
+			state.storeType = storeType || []
+		},
+		SET_SHOP_FIRST_CATEGORY_LIST(state, shopFirstCategoryList) {
+			state.shopFirstCategoryList = shopFirstCategoryList || []
 		}
 	},
 	actions: {
@@ -17,10 +21,15 @@ const shopDetail = {
 		}, data) {
 			commit('SET_SHOP_CAR_LIST', data);
 		},
-		updateShopType({
+		updatestoreType({
 			commit
 		}, data) {
 			commit('SET_SHOP_TYPE', data);
+		},
+		updateShopFirstCategoryList({
+			commit
+		}, data) {
+			commit('SET_SHOP_FIRST_CATEGORY_LIST', data);
 		}
 	}
 }

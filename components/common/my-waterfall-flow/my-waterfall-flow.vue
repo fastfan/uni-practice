@@ -2,21 +2,21 @@
 	<view class="wf-page">
 		<!--    left    -->
 		<view>
-			<view id="left" v-if="leftList.length">
-				<slot name="left" :leftList="leftList"></slot>
-				<!-- <view v-for="(item, index) in leftList" :key="index" class="wf-item" @tap="itemTap(item)">
-					<slot :item="item" />
-				</view> -->
+			<view id="left" v-if="leftList.length > 0">
+				<!-- <slot name="left" :leftList="leftList"></slot> -->
+				<view v-for="(item, index) in leftList" :key="index" class="wf-item">
+					<my-goods-list :listItem="item" @click.native="itemTap(item)"></my-goods-list>
+				</view>
 			</view>
 		</view>
 
 		<!--    right    -->
 		<view>
-			<view id="right" v-if="rightList.length">
-				<slot name="right" :rightList="rightList" />
-				<!-- <view v-for="(item, index) in rightList" :key="index" class="wf-item" @tap="itemTap(item)">
-					<slot :item="item" />
-				</view> -->
+			<view id="right" v-if="rightList.length > 0">
+				<!-- <slot name="right" :rightList="rightList" /> -->
+				<view v-for="(item, index) in rightList" :key="index" class="wf-item">
+					<my-goods-list :listItem="item" @click.native="itemTap(item)"></my-goods-list>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -46,21 +46,25 @@ export default {
 	},
 	watch: {
 		// 监听列表数据变化
-		wfList() {
-			// 如果数据为空或新的列表数据少于旧的列表数据（通常为下拉刷新或切换排序或使用筛选器），初始化变量
-			if (!this.wfList.length || (this.wfList.length === this.updateNum && this.wfList.length <= this.allList.length)) {
-				this.allList = []
-				this.leftList = []
-				this.rightList = []
-				this.boxHeight = []
-				this.mark = 0
-			}
-
-			// 如果列表有值，调用waterfall方法
-			if (this.wfList.length) {
-				this.allList = this.wfList
-				this.waterFall()
-			}
+		wfList: {
+			handler: function (val) {
+				// console.log('val::::::', val)
+				// 如果数据为空或新的列表数据少于旧的列表数据（通常为下拉刷新或切换排序或使用筛选器），初始化变量
+				if (!val || val.length <= this.allList.length) {
+					this.allList = []
+					this.leftList = []
+					this.rightList = []
+					this.boxHeight = []
+					this.mark = 0
+				}
+				// 如果列表有值，调用waterfall方法
+				if (val.length > 0) {
+					this.allList = val
+					this.waterFall()
+				}
+			},
+			deep: true,
+			immediate: true
 		},
 
 		// 监听标记，当标记发生变化，则执行下一个item排序
@@ -96,6 +100,8 @@ export default {
 				// 更新插入列表高度
 				this.getViewHeight(leftOrRight)
 			}
+			// console.log('this.rightList::::::::', this.rightList)
+			// console.log('this.leftList::::::::', this.leftList)
 		},
 		// 获取列表高度
 		getViewHeight(leftOrRight) {

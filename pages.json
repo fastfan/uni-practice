@@ -39,14 +39,23 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/systemProtocol",
+			"style": {
+				"navigationBarTitleText": ""
+			}
 		}
 	],
 	"subPackages": [{
 			"root": "subHome",
-			"pages": []
-		},
-		{
-			"root": "subShop",
 			"pages": [{
 					"path": "shopList/shopList",
 					"style": {
@@ -82,6 +91,14 @@
 						"usingComponents": {
 							"time-range": "/subComponents/components/common/time-range/time-range"
 						}
+					}
+				},
+				{
+					"path": "searchHistory/searchHistory",
+					"style": {
+						"navigationBarTitleText": "搜索聚合",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
 					}
 				}
 			]

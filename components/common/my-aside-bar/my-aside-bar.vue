@@ -8,7 +8,16 @@
 			@click="onChangeItem(item, index)"
 			:key="index"
 		>
-			{{ item.name }}
+			<uni-badge
+				class="uni-badge-left-margin"
+				:text="item.count"
+				absolute="rightTop"
+				:offset="[0, 18]"
+				size="small"
+				:customStyle="{ background: 'linear-gradient(135deg, #ff7f2b 0%, #fa4f0b 100%)' }"
+			>
+				{{ item.categoryName }}
+			</uni-badge>
 			<view class="line" v-if="current == index"></view>
 		</view>
 	</view>
@@ -34,8 +43,13 @@ export default {
 		}
 	},
 	watch: {
-		currentIndex(index) {
-			this.current = index
+		currentIndex: {
+			handler: function (index) {
+				// console.log(index)
+				this.current = index
+			},
+			immediate: true,
+			deep: true
 		}
 	},
 	methods: {

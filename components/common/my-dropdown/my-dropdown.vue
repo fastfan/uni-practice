@@ -22,11 +22,7 @@
 								class="my_dropdown__menu__item__text"
 								v-if="item.title"
 								:style="{
-									color: item.disabled
-										? '#c0c4cc'
-										: index === current || highlightIndex == index
-										? activeColor
-										: inactiveColor,
+									color: item.disabled ? '#c0c4cc' : index === current || highlightIndex == index ? activeColor : inactiveColor,
 									fontSize: `${titleSize}rpx`
 								}"
 							>
@@ -36,11 +32,11 @@
 								class="my_dropdown__menu__item__arrow"
 								:style="{ transform: index === current ? 'scale(1) rotate(180deg)' : 'scale(1) rotate(0deg)' }"
 							>
-								<!-- 	<u-icon
+								<tui-icon
 									:name="menuIcon"
 									:size="menuIconSize"
 									:color="index === current || highlightIndex == index ? activeColor : '#c0c4cc'"
-								/> -->
+								/>
 							</view>
 						</view>
 					</view>
@@ -123,12 +119,12 @@ export default {
 		// 菜单右侧的icon图标
 		menuIcon: {
 			type: String,
-			default: 'arrow-down-fill'
+			default: 'turningdown'
 		},
 		// 菜单右侧图标的大小
 		menuIconSize: {
 			type: [Number, String],
-			default: 12
+			default: 26
 		},
 		// 背景色
 		backgroundColor: {
@@ -198,7 +194,8 @@ export default {
 		})
 		this.$on('change', (data) => {
 			if (data.cancel) return
-			const menuList = this.$parent.menuList
+			console.log(this.$parent)
+			const menuList = this.$parent.menuList ? this.$parent.menuList : this.$parent.$parent.menuList
 			menuList.forEach((item) => {
 				if (item.dropdownKey === data.dropdownKey) {
 					if (data.label) {
@@ -264,7 +261,8 @@ export default {
 		// 获取下拉菜单内容的高度
 		getContentHeight() {
 			// #ifdef APP-NVUE
-			uni.createSelectorQuery()
+			uni
+				.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -277,7 +275,8 @@ export default {
 			// #endif
 
 			// #ifdef H5
-			uni.createSelectorQuery()
+			uni
+				.createSelectorQuery()
 				.in(this)
 				.select('#my_dropdown__menu')
 				.boundingClientRect()
@@ -290,7 +289,8 @@ export default {
 			// #endif
 
 			// #ifndef APP-NVUE || H5
-			uni.createSelectorQuery()
+			uni
+				.createSelectorQuery()
 				.in(this)
 				.select('.my_dropdown__menu')
 				.boundingClientRect((rect) => {

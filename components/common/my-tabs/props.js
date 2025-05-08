@@ -39,7 +39,7 @@ export default {
 	},
 	bold: {
 		type: Boolean,
-		default: false
+		default: true
 	},
 	scroll: {
 		type: Boolean,

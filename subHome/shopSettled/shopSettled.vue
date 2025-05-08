@@ -108,7 +108,7 @@ export default {
 		},
 		goShopSettledApplication() {
 			uni.navigateTo({
-				url: `/subShop/shopSettledApplication/shopSettledApplication?id=${1}`
+				url: `/subHome/shopSettledApplication/shopSettledApplication?id=${1}`
 			})
 		},
 		close() {

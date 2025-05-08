@@ -40,7 +40,7 @@
 					<view class="my-dropdown-button-list">
 						<view class="my-dropdown-button-view" style="margin-top: 38rpx; border-top: 1px solid #ccc">
 							<button class="my-dropdown-button-item" @click.stop.prevent="handlerCancel">
-								<text class="my-dropdown-button-text" :style="{ color: inactiveBtnColor, backgroundColor: inactiveBtnBgColor }">取消</text>
+								<text class="my-dropdown-button-text" :style="{ color: inactiveBtnColor, backgroundColor: inactiveBtnBgColor }">重置</text>
 							</button>
 							<!-- <text class="my-dropdown-button-border-left"></text> -->
 							<button class="my-dropdown-button-item" @click.stop.prevent="handlerConfirm">
@@ -189,20 +189,23 @@ export default {
 			immediate: true,
 			deep: true,
 			handler: function (val) {
-				const $parent = this.$parent.$parent
-				const arr = this.funRecursion(this.options, val)
-				if (arr) {
-					arr.pop()
-					$parent.menuList.forEach((item) => {
-						if (item.dropdownKey === this.dropdownKey) item.title = arr[0].label
-					})
-					if (this.type === 'radioBlock') {
-						if (arr.length === 1) {
-							this.$set(this.selected, 'firstKey', arr[0])
-						} else if (arr.length === 2) {
-							this.secondList = arr[1].children
-							this.$set(this.selected, 'firstKey', arr[1])
-							this.$set(this.secondSelected, 'secondKey', arr[0])
+				const $parent = this.$parent.$parent.menuList ? this.$parent.$parent : this.$parent.$parent.$parent
+				if (val) {
+					const arr = this.funRecursion(this.options, val)
+					// console.log('arr:::::::', arr)
+					if (arr) {
+						arr.pop()
+						$parent.menuList.forEach((item) => {
+							if (item.dropdownKey === this.dropdownKey) item.title = arr[0].label
+						})
+						if (this.type === 'radioBlock') {
+							if (arr.length === 1) {
+								this.$set(this.selected, 'firstKey', arr[0])
+							} else if (arr.length === 2) {
+								this.secondList = arr[1].children
+								this.$set(this.selected, 'firstKey', arr[1])
+								this.$set(this.secondSelected, 'secondKey', arr[0])
+							}
 						}
 					}
 				}
@@ -211,7 +214,7 @@ export default {
 	},
 	computed: {
 		getScrollHeight() {
-			let height = this.options.length * this.itemHeight
+			let height = this.options.length === 1 ? this.options[0].children.length * this.itemHeight : 0
 			if (height === 0) {
 				return 300
 			} else if (height > this.maxHeight) {
@@ -237,11 +240,15 @@ export default {
 	},
 	methods: {
 		funRecursion(list, value) {
+			let values = value
+			if (!value) {
+				// console.log(this.selected)
+				values = this.selected.firstKey.value
+			}
 			for (let i in list) {
-				// console.log(list[i])
-				if (list[i].value == value) return [{ ...list[i] }]
+				if (list[i].value == values) return [{ ...list[i] }]
 				if (list[i].children && list[i].children.length > 0) {
-					let node = this.funRecursion(list[i].children, value)
+					let node = this.funRecursion(list[i].children, values)
 					if (node !== undefined) return node.concat({ ...list[i] })
 				}
 			}
@@ -316,28 +323,31 @@ export default {
 		handlerCellClick(key, data, item) {
 			console.log(item)
 			if (item.hasOwnProperty('children')) {
-				this.secondList = item.children
+				if (item.children.length > 0) this.secondList = item.children
 			}
-			if (item.level === 1) {
+			if (item.level === '1') {
 				this.$set(this.selected, 'firstKey', { label: item.label, value: data })
 				this.$set(this.secondSelected, 'secondKey', '')
-			} else if (item.level === 2) {
+			} else if (item.level === '2') {
 				this.$set(this.secondSelected, 'secondKey', { label: item.label, value: data })
 			}
 		},
 		handlerCancel() {
 			this.parent.close()
+			console.log(this.value)
 			const arr = this.funRecursion(this.options, this.value)
+			console.log(arr)
 			if (arr) {
 				arr.pop()
 				if (this.type === 'radioBlock') {
 					if (arr.length === 1) {
-						this.$set(this.selected, 'firstKey', arr[0])
+						this.$set(this.selected, 'firstKey', '')
 					} else if (arr.length === 2) {
-						this.secondList = arr[1].children
-						this.$set(this.selected, 'firstKey', arr[1])
-						this.$set(this.secondSelected, 'secondKey', arr[0])
+						this.secondList = []
+						this.$set(this.selected, 'firstKey', '')
+						this.$set(this.secondSelected, 'secondKey', '')
 					}
+					this.parent.$emit('cancel', { dropdownKey: this.dropdownKey })
 				}
 			}
 		},
