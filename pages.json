@@ -132,6 +132,7 @@
 		"backgroundColor": "#FFFFFF",
 		"color": "#333333",
 		"selectedColor": "#FF242F",
+		"custom": true,
 		"list": [{
 				"iconPath": "static/tab/tab1.png",
 				"selectedIconPath": "static/tab/tab1-active.png",

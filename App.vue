@@ -77,7 +77,8 @@ export default {
 		aid: '',
 		mealStoreNo: '',
 		userAgreement: '',
-		payMentAgreement: ''
+		payMentAgreement: '',
+		selected: 0
 	}
 }
 </script>
