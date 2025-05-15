@@ -231,6 +231,7 @@ import { ShopServer } from '@/viewModel/shop/shop.js'
 const userServer = new UserServer()
 const dataServer = new DataServer()
 const shopServer = new ShopServer()
+const app = getApp()
 export default {
 	mixins: [MescrollMixin],
 	components: {
@@ -375,7 +376,7 @@ export default {
 				}
 			],
 			gridData: [],
-			tabIndex: 0
+			_currentPage: false
 		}
 	},
 	computed: {
@@ -418,7 +419,9 @@ export default {
 			this.isShowSticky = false // 隐藏悬浮菜单
 		}
 	},
-	onHide() {},
+	onHide() {
+		this._currentPage = false
+	},
 	onShareAppMessage(res) {
 		return {
 			title: '诚邀请您加入51积分本地生活',
@@ -438,6 +441,8 @@ export default {
 			if (userInfos) this.userInfos = userInfos
 		}
 		this.requestData()
+		this._currentPage = true
+		app.watch(this.tabIndexChange)
 	},
 	onLoad(options) {
 		const height = uni.rpx2px(80 + 10 + 32) // 搜索栏高度加搜索栏上下margin
@@ -455,6 +460,13 @@ export default {
 		})
 	},
 	methods: {
+		tabIndexChange(value) {
+			console.log('value::::::', value)
+			// tabbar中间的加号操作
+			if (value.tabindex == 2 && this._currentPage) {
+				console.log('中间加号被动了')
+			}
+		},
 		chooseAvatar(e) {
 			console.log('e:::::::', e)
 			// e.detail.avatarUrl

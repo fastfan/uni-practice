@@ -78,7 +78,25 @@ export default {
 		mealStoreNo: '',
 		userAgreement: '',
 		payMentAgreement: '',
-		selected: 0
+		tabIndex: 0 // tabbar对应下标
+	},
+	methods: {
+		watch(method) {
+			let obj = this.globalData
+			// 监听globalData数据变化
+			Object.defineProperty(this, 'globalData', {
+				configurable: true,
+				enumerable: true,
+				set: function (value) {
+					obj.tabIndex = value.tabIndex
+					method && method(value)
+				},
+				get: function () {
+					console.log(8888888888)
+					return obj
+				}
+			})
+		}
 	}
 }
 </script>

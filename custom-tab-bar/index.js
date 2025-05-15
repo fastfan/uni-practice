@@ -43,30 +43,25 @@ Component({
 
 	ready: function() {
 		this.setData({
-			selected: app.globalData.selected
+			selected: app.globalData.tabIndex
 		})
 	},
 
 	methods: {
 		switchTab(e) {
 			const data = e.currentTarget.dataset
-			const url = data.path
-			const index = data.index
-			app.globalData.selected = index
+			const {
+				index,
+				path
+			} = e.currentTarget.dataset
 			// console.log(e)
-			if (index == 2) {
-				// 调起条码扫描
-				wx.scanCode({
-					success: function(res) {
-						console.log('条码类型：' + res.scanType)
-						console.log('条码内容：' + res.result)
-					}
-				})
-			} else {
-				wx.switchTab({
-					url
-				})
+			app.globalData = {
+				tabIndex: index
 			}
+			if (index == 2) return
+			wx.switchTab({
+				url: path
+			})
 		},
 	}
 })
